@@ -4,7 +4,9 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "heroku-logs": "heroku logs --tail",
+    "heroku-deploy": "git push heroku main"
   },
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
