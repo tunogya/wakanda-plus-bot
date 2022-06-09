@@ -1,10 +1,19 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageActionRow, MessageButton } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
 		.setDescription('Replies with Pong!'),
 	async execute(interaction) {
-		return interaction.reply('Pong!');
+		const row = new MessageActionRow()
+			.addComponents(
+				new MessageButton()
+					.setCustomId('primary')
+					.setLabel('Primary')
+					.setStyle('PRIMARY'),
+			);
+
+		return interaction.reply({ content: 'Pong!', components: row });
 	},
 };
