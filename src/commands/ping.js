@@ -14,6 +14,6 @@ module.exports = {
 					.setStyle('PRIMARY'),
 			);
 
-		return interaction.reply({ content: 'Pong!', components: row });
+		await interaction.reply({ content: 'Pong!', components: [row] });
 	},
 };
