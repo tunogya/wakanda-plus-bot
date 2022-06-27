@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Intents } = require('discord.js');
+const { Client, Collection, Intents, MessageEmbed } = require('discord.js');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -40,7 +40,21 @@ client.on('interactionCreate', async interaction => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isButton()) return;
-	await interaction.reply({ content: `${interaction.channelId}, ${interaction.user.id}, ${interaction.guild.id}, ${interaction.customId}`, ephemeral: true });
+	if (interaction.customId === 'verify') {
+		// const channelId = interaction.channelId;
+		const member = interaction.user.id;
+		const guild = interaction.guild.id;
+		const embed = new MessageEmbed()
+			.setTitle('Please read instructions carefully before connecting')
+			.setDescription('You should expect to sign the following message when prompted by a non-custodial wallet such as MetaMask:')
+			.setFooter('Make sure you sign the EXACT message (some wallets may use \\n for new lines) and NEVER share your seed phrase or private key.')
+		;
+		await interaction.reply({ content: `Use this custom link to connect (valid for 5 minutes)
+Guild: ${guild} Member: ${member}`, embed: [embed], ephemeral: true });
+	}
+	else {
+		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 });
 
 client.login(token);
