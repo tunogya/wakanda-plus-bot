@@ -12,6 +12,8 @@ module.exports = {
 					.setCustomId('verify')
 					.setLabel('Let\'s go')
 					.setStyle('PRIMARY'),
+			)
+			.addComponents(
 				new MessageButton()
 					.setCustomId('doc')
 					.setLabel('Doc')
