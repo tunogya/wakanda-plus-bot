@@ -6,13 +6,14 @@ module.exports = {
 		.setName('verify')
 		.setDescription('Verify your crypto assets'),
 	async execute(interaction) {
-		const row = new MessageActionRow()
+		const verifyBtn = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
 					.setCustomId('verify')
 					.setLabel('Let\'s go')
 					.setStyle('PRIMARY'),
-			)
+			);
+		const docBtn = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
 					.setCustomId('doc')
@@ -25,6 +26,6 @@ module.exports = {
 			.setURL('https://discord.js.org')
 			.setDescription('This is a read-only connection. Do not share your private keys. We will never ask for your seed phrase. We will never DM you.');
 
-		await interaction.reply({ components: [row], embeds: [embed] });
+		await interaction.reply({ components: [verifyBtn, docBtn], embeds: [embed] });
 	},
 };
