@@ -24,15 +24,14 @@ client.once('ready', () => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
-
+	
 	const command = client.commands.get(interaction.commandName);
-
+	
 	if (!command) return;
-
+	
 	try {
 		await command.execute(interaction);
-	}
-	catch (error) {
+	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
@@ -44,6 +43,7 @@ client.on('interactionCreate', async interaction => {
 		// const channelId = interaction.channelId;
 		const member = interaction.user.id;
 		const guild = interaction.guild.id;
+		
 		const row = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
@@ -53,9 +53,13 @@ client.on('interactionCreate', async interaction => {
 			);
 		const embed = new MessageEmbed()
 			.setTitle('Please read instructions carefully before connecting')
-			.setDescription('You should expect to sign the following message when prompted by a non-custodial wallet such as MetaMask:');
-		await interaction.reply({ content: `Use this custom link to connect (valid for 5 minutes)\nGuild: ${guild} Member: ${member}`,
-			components: [row], embed: [embed], ephemeral: true });
+			.setDescription('You should expect to sign the following message when prompted by a non-custodial wallet such as MetaMask:')
+			.setFooter('Make sure you sign the EXACT message (some wallets may use \\n for new lines) and NEVER share your seed phrase or private key.');
+		
+		await interaction.reply({
+			content: `Use this custom link to connect (valid for 5 minutes)\nGuild: ${guild} Member: ${member}`,
+			components: [row], embeds: [embed], ephemeral: true,
+		});
 	}
 	else {
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
