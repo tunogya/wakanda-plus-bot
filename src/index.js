@@ -49,7 +49,7 @@ client.on('interactionCreate', async interaction => {
 				new MessageButton()
 					.setCustomId('connect wallet')
 					.setLabel('Connect Wallet')
-					.setURL('')
+					.setURL('https://api.wakanda-labs.com')
 					.setStyle('LINK'),
 			);
 		const embed = new MessageEmbed()
