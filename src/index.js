@@ -38,4 +38,9 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
+client.on('interactionCreate', async interaction => {
+	if (!interaction.isButton()) return;
+	console.log(interaction);
+});
+
 client.login(token);
