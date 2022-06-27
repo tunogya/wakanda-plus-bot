@@ -47,7 +47,6 @@ client.on('interactionCreate', async interaction => {
 		const row = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
-					.setCustomId('connect wallet')
 					.setLabel('Connect Wallet')
 					.setURL('https://api.wakanda-labs.com')
 					.setStyle('LINK'),
