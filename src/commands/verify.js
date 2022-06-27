@@ -7,19 +7,11 @@ module.exports = {
 		.setDescription('Verify your crypto assets'),
 	async execute(interaction) {
 		const row = new MessageActionRow()
-			.addComponents([
+			.addComponents(
 				new MessageButton()
 					.setCustomId('verify')
 					.setLabel('Let\'s go')
-					.setStyle('PRIMARY'),
-				new MessageButton()
-					.addComponents(
-						new MessageButton()
-							.setCustomId('doc')
-							.setLabel('Doc')
-							.setStyle('LINK'),
-					),
-			]);
+					.setStyle('PRIMARY'));
 		const embed = new MessageEmbed()
 			.setAuthor('Wakanda+')
 			.setTitle('Verify your assets')
