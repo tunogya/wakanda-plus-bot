@@ -9,12 +9,16 @@ module.exports = {
 		const row = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('Primary')
+					.setCustomId('verify')
+					.setLabel('Let\'s go')
 					.setStyle('PRIMARY'),
+				new MessageButton()
+					.setCustomId('doc')
+					.setLabel('Doc')
+					.setStyle('LINK'),
 			);
 		const embed = new MessageEmbed()
-			.setColor('#0099ff')
+			.setAuthor('Wakanda+')
 			.setTitle('Verify your assets')
 			.setURL('https://discord.js.org')
 			.setDescription('This is a read-only connection. Do not share your private keys. We will never ask for your seed phrase. We will never DM you.');
