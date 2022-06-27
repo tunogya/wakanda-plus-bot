@@ -40,7 +40,7 @@ client.on('interactionCreate', async interaction => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isButton()) return;
-	console.log(interaction);
+	await interaction.reply({ content: `${interaction.channelId}, ${interaction.user.id}, ${interaction.guild.id}, ${interaction.customId}`, ephemeral: true });
 });
 
 client.login(token);
