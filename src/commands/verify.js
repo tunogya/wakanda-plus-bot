@@ -13,12 +13,9 @@ module.exports = {
 					.setLabel('Let\'s go')
 					.setStyle('PRIMARY'),
 				new MessageButton()
-					.addComponents(
-						new MessageButton()
-							.setCustomId('doc')
-							.setLabel('Doc')
-							.setStyle('LINK'),
-					),
+					.setCustomId('verify')
+					.setLabel('Let\'s go')
+					.setStyle('PRIMARY'),
 			]);
 		const embed = new MessageEmbed()
 			.setTitle('Verify your assets')
