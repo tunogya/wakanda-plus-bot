@@ -6,7 +6,7 @@ module.exports = {
 		if (interaction.customId === 'getConnectLink') {
 			// const channelId = interaction.channelId;
 			const member = interaction.user.id;
-			const guild = interaction.guild.id;
+			const guild = interaction.guild?.id ?? null;
 			
 			const row = new MessageActionRow()
 				.addComponents(
