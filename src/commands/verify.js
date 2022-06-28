@@ -9,7 +9,7 @@ module.exports = {
 		const row = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
-					.setCustomId('verify')
+					.setCustomId('getConnectLink')
 					.setLabel('Let\'s go')
 					.setStyle('PRIMARY'),
 			);

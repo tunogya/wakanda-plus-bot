@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Intents, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { Client, Collection, Intents } = require('discord.js');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -18,9 +18,17 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
-client.once('ready', () => {
-	console.log('Ready!');
-});
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+for (const file of eventFiles) {
+	const filePath = path.join(eventsPath, file);
+	const event = require(filePath);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
@@ -33,35 +41,6 @@ client.on('interactionCreate', async interaction => {
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-	}
-});
-
-client.on('interactionCreate', async interaction => {
-	if (!interaction.isButton()) return;
-	if (interaction.customId === 'verify') {
-		// const channelId = interaction.channelId;
-		const member = interaction.user.id;
-		const guild = interaction.guild.id;
-		
-		const row = new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setLabel('Connect Wallet')
-					.setURL('https://api.wakanda-labs.com')
-					.setStyle('LINK'),
-			);
-		const embed = new MessageEmbed()
-			.setTitle('Please read instructions carefully before connecting')
-			.setDescription('You should expect to sign the following message when prompted by a non-custodial wallet such as MetaMask:')
-			.setFooter('Make sure you sign the EXACT message (some wallets may use \\n for new lines) and NEVER share your seed phrase or private key.');
-		
-		await interaction.reply({
-			content: `Use this custom link to connect (valid for 5 minutes)\nGuild: ${guild} Member: ${member}`,
-			components: [row], embeds: [embed], ephemeral: true,
-		});
-	}
-	else {
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
