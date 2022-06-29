@@ -1,8 +1,8 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-const dotenv = require('dotenv');
+import fs from 'node:fs';
+import path from 'node:path';
+import { REST } from '@discordjs/rest';
+import { Routes } from 'discord-api-types/v9';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const clientId = process.env.clientId;

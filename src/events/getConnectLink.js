@@ -1,7 +1,7 @@
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
-const client = require('../redis')
+import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import client from '../redis'
 
-module.exports = {
+export const interactionCreate = {
 	name: 'interactionCreate',
 	async execute(interaction) {
 		if (!interaction.isButton()) return;

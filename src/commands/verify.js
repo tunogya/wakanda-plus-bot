@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 
-module.exports = {
+export const verify = {
 	data: new SlashCommandBuilder()
 		.setName('verify')
 		.setDescription('Verify your crypto assets'),
