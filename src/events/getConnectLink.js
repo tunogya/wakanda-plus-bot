@@ -2,7 +2,7 @@ const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const client = require('../redis')
 
 module.exports = {
-	name: 'interactionCreate',
+	name: 'getConnectLink',
 	async execute(interaction) {
 		if (!interaction.isButton()) return;
 		if (interaction.customId === 'getConnectLink') {
