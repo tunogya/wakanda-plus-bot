@@ -1,4 +1,6 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const client = require('../redis.js');
+const randomString = require('../utils/randomString.js');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -8,12 +10,19 @@ module.exports = {
 			// const channelId = interaction.channelId;
 			const member = interaction.user.id;
 			const guild = interaction.guild?.id ?? null;
+			const state = randomString(12);
+			await client.set(state, JSON.stringify({
+				guild: guild,
+				member: member,
+			}), {
+				EX: 300,
+			});
 			
 			const row = new MessageActionRow()
 				.addComponents(
 					new MessageButton()
 						.setLabel('Connect Wallet')
-						.setURL('https://api.wakanda-labs.com/discord?state=123456')
+						.setURL(`https://api.wakanda-labs.com/discord?state=${state}`)
 						.setStyle('LINK'),
 				);
 			const embed = new MessageEmbed()
