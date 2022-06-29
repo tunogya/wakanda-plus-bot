@@ -13,7 +13,7 @@ module.exports = {
 				.addComponents(
 					new MessageButton()
 						.setLabel('Connect Wallet')
-						.setURL(`https://api.wakanda-labs.com/discord?state=${123456}`)
+						.setURL('https://api.wakanda-labs.com/discord?state=123456')
 						.setStyle('LINK'),
 				);
 			const embed = new MessageEmbed()
