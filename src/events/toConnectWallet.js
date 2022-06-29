@@ -1,7 +1,7 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 
 module.exports = {
-	name: 'toConnectWallet',
+	name: 'interactionCreate',
 	async execute(interaction) {
 		if (!interaction.isButton()) return;
 		if (interaction.customId === 'toConnectWallet') {
