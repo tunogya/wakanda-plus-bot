@@ -9,7 +9,7 @@ module.exports = {
 		const row = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
-					.setCustomId('getConnectLink')
+					.setCustomId('toConnectWallet')
 					.setLabel('Let\'s go')
 					.setStyle('PRIMARY'),
 			);

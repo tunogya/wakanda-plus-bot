@@ -1,18 +1,13 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
-const client = require('../redis')
 
 module.exports = {
-	name: 'getConnectLink',
+	name: 'toConnectWallet',
 	async execute(interaction) {
 		if (!interaction.isButton()) return;
-		if (interaction.customId === 'getConnectLink') {
+		if (interaction.customId === 'toConnectWallet') {
 			// const channelId = interaction.channelId;
 			const member = interaction.user.id;
 			const guild = interaction.guild?.id ?? null;
-			
-			await client.set('123456', 'wakanda', {
-				EX: 300,
-			})
 			
 			const row = new MessageActionRow()
 				.addComponents(
