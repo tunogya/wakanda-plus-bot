@@ -22,7 +22,7 @@ module.exports = {
 				.addComponents(
 					new MessageButton()
 						.setLabel('Connect Wallet')
-						.setURL(`https://api.wakanda-labs.com/discord?state=${state}`)
+						.setURL(`https://plus.wakanda.cn/verify?state=${state}`)
 						.setStyle('LINK'),
 				);
 			const embed = new MessageEmbed()
