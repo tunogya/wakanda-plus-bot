@@ -1,7 +1,7 @@
-import fs from 'node:fs'
-import path from 'node:path';
-import { Client, Collection, Intents } from 'discord.js';
-import dotenv from 'dotenv';
+const fs = require('node:fs');
+const path = require('node:path');
+const { Client, Collection, Intents } = require('discord.js');
+const dotenv = require('dotenv');
 dotenv.config();
 
 const token = process.env.token;
