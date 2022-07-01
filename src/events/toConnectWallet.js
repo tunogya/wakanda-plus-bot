@@ -7,13 +7,16 @@ module.exports = {
 	async execute(interaction) {
 		if (!interaction.isButton()) return;
 		if (interaction.customId === 'toConnectWallet') {
-			// const channelId = interaction.channelId;
 			const member = interaction.user.id;
 			const guild = interaction.guild?.id ?? null;
+			const member_tag = interaction.user.tag;
+			const guild_name = interaction.guild?.name ?? null;
 			const state = randomString(12);
 			await client.set(state, JSON.stringify({
 				guild: guild,
 				member: member,
+				guild_name: guild_name,
+				member_tag: member_tag,
 			}), {
 				EX: 300,
 			});
@@ -27,11 +30,10 @@ module.exports = {
 				);
 			const embed = new MessageEmbed()
 				.setTitle('Please read instructions carefully before connecting')
-				.setDescription('You should expect to sign the following message when prompted by a non-custodial wallet such as MetaMask:')
-				.setFooter('Make sure you sign the EXACT message (some wallets may use \\n for new lines) and NEVER share your seed phrase or private key.');
+				.setDescription('You should expect to sign the following message when prompted by a non-custodial wallet such as MetaMask.\nMake sure you sign the EXACT message and NEVER share your seed phrase or private key.')
 			
 			await interaction.reply({
-				content: `Use this custom link to connect (valid for 5 minutes)\nGuild: ${guild} Member: ${member}`,
+				content: `Use this custom link to connect (valid for 5 minutes)\nGuild: ${guild_name} Member: ${member_tag}`,
 				components: [row], embeds: [embed], ephemeral: true,
 			});
 		}

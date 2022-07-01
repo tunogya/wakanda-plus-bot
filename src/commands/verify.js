@@ -15,7 +15,7 @@ module.exports = {
 			);
 		const embed = new MessageEmbed()
 			.setTitle('Verify your assets')
-			.setDescription('This is a read-only connection. Do not share your private keys. We will never ask for your seed phrase. We will never DM you.');
+			.setDescription('This is a read-only connection. Do not share your private keys. We will never ask for your seed phrase.');
 		
 		await interaction.reply({ components: [row], embeds: [embed], ephemeral: true });
 	},
