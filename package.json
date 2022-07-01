@@ -17,6 +17,7 @@
     "redis": "^4.1.0"
   },
   "devDependencies": {
+    "aws-sdk": "^2.1166.0",
     "eslint": "^8.17.0"
   }
 }
