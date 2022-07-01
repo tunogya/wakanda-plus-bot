@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
-const { dynamo } = require('../lib/dynamodb.js');
+// const { dynamo } = require('../lib/dynamodb.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -13,11 +13,11 @@ module.exports = {
 			'user_id': user.id,
 			'guild_id': interaction.guild?.id ?? null,
 		};
-		
-		await dynamo.get(params, function(err, data) {
-			if (err) console.log(err, err.stack)
-			else console.log(data)
-		});
+		console.log(params);
+		// await dynamo.get(params, function(err, data) {
+		// 	if (err) console.log(err, err.stack)
+		// 	else console.log(data)
+		// });
 		
 		const embed = new MessageEmbed()
 			.setTitle('Privacy Policy')
