@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
-const { dynamo } = require('../dynamodb.js');
+const { dynamo } = require('../lib/dynamodb.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
