@@ -1,5 +1,5 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
-const client = require('../lib/redis.js');
+const client = require('../libs/redis.js');
 const randomString = require('../utils/randomString.js');
 
 module.exports = {
