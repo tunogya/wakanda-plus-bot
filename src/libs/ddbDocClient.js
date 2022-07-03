@@ -2,8 +2,8 @@ const { DynamoDBDocumentClient } = require('@aws-sdk/lib-dynamodb');
 const ddbClient = require('./ddbClient.js');
 
 const marshallOptions = {
-	convertEmptyValues: true,
-	removeUndefinedValues: true,
+	convertEmptyValues: false,
+	removeUndefinedValues: false,
 	convertClassInstanceToMap: true,
 };
 

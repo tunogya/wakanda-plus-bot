@@ -1,4 +1,4 @@
-const sfClient = require('../libs/sfClient')
+const sfClient = require('../libs/sfClient.js')
 
 const id = sfClient.nextId();
 
