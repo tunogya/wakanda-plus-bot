@@ -11,7 +11,7 @@ module.exports = {
 	async execute(interaction) {
 		const embed = new MessageEmbed()
 			.setTitle('Privacy Policy')
-			.setDescription('You can query the coinbase of any members, and so can others.\nYou can update your coinbase with the /verify command. We can only bind one of your Ethereum address, however, you can bind one Flow address at the same time.')
+			.setDescription('You can query the coinbase of any members, and so can others.\nYou can update your coinbase with the /verify command.')
 		
 		const user = interaction.options.getUser('target');
 		const id = await redisClient.get(`${user.id}-${interaction.guild?.id ?? 0}`)
