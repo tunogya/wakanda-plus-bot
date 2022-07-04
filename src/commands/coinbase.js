@@ -16,8 +16,11 @@ module.exports = {
 		const user = interaction.options.getUser('target');
 		const id = await redisClient.get(`${user.id}-${interaction.guild?.id ?? 0}`)
 		if (id) {
-			const userInfo = (await getUser(id)).Item
-			await interaction.reply({ content: `${userInfo?.user.toString() ?? 'user'}, ${userInfo.guild.toString() ?? 'guild'}`, embeds: [embed], ephemeral: true });
+			const q = await getUser(id)
+			const info = q.Item
+			if (info) {
+				await interaction.reply({ content: `${info?.user}, ${info?.guild}`, embeds: [embed], ephemeral: true });
+			}
 		} else {
 			await interaction.reply({ content: `${user.username} has no coinbase.`, embeds: [embed], ephemeral: true });
 		}
