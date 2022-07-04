@@ -20,12 +20,12 @@ module.exports = {
 			const info = q.Item
 			if (info) {
 				const coinbaseEvm = Array.from(info['coinbase-evm'])
-				await interaction.reply({ content: `${user.username}'s coinbase:
+				await interaction.reply({ content: `${user.username}'s coinbase is here. We support Ethereum and Flow network wallet.
 
-* Ethereum:
+Ethereum:
 ${coinbaseEvm.join('\n')}
 
-* Flow:
+Flow:
 `, embeds: [embed], ephemeral: true });
 			}
 		} else {
