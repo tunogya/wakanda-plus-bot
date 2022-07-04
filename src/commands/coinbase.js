@@ -20,7 +20,7 @@ module.exports = {
 			const info = q.Item
 			if (info) {
 				const coinbaseEvm = Array.from(info['coinbase-evm'])
-				await interaction.reply({ content: `${user.username}'s coinbase:\nEthereum: ${coinbaseEvm.join(';\n')}`, embeds: [embed], ephemeral: true });
+				await interaction.reply({ content: `${user.username}'s coinbase\n\nEthereum: ${coinbaseEvm.join(';\n')}`, embeds: [embed], ephemeral: true });
 			}
 		} else {
 			await interaction.reply({ content: `${user.username} has no coinbase.`, embeds: [embed], ephemeral: true });
