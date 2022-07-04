@@ -14,13 +14,11 @@ module.exports = {
 			.setDescription('You can query the coinbase of any members, and so can others.\nYou can update your coinbase with the /verify command. We can only bind one of your Ethereum address, however, you can bind one Flow address at the same time.')
 		
 		const user = interaction.options.getUser('target');
-		try {
-			const id = await redisClient.get(`${user.id}-${interaction.guild?.id ?? null}`)
-			console.log(id)
-			await interaction.reply({ content: `${id}` })
-			// const userInfo = (await getUser(id)).Item
-			// await interaction.reply({ content: `${userInfo.user}, ${userInfo.guild}`, embeds: [embed], ephemeral: true });
-		} catch (e) {
+		const id = await redisClient.get(`${user.id}-${interaction.guild?.id ?? 0}`)
+		if (id) {
+			const userInfo = (await getUser(id)).Item
+			await interaction.reply({ content: `${userInfo.user}, ${userInfo.guild}`, embeds: [embed], ephemeral: true });
+		} else {
 			await interaction.reply({ content: `${user.username} has no coinbase.`, embeds: [embed], ephemeral: true });
 		}
 	},
