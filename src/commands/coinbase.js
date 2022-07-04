@@ -20,9 +20,12 @@ module.exports = {
 			const info = q.Item
 			if (info) {
 				const coinbaseEvm = Array.from(info['coinbase-evm'])
-				await interaction.reply({ content: `### ${user.username}'s coinbase:
-Ethereum:
-- ${coinbaseEvm.join(' - ')}
+				await interaction.reply({ content: `${user.username}'s coinbase:
+
+* Ethereum:
+${coinbaseEvm.join('\n')}
+
+* Flow:
 `, embeds: [embed], ephemeral: true });
 			}
 		} else {
