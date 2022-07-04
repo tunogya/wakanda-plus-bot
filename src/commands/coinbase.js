@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
-const ddbDocClient = require('../libs/ddbDocClient.js');
-const { GetCommand } = require('@aws-sdk/lib-dynamodb');
+const redisClient = require('../libs/redis.js');
+const { getUser } = require('../apis/user');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -14,18 +14,12 @@ module.exports = {
 			.setDescription('You can query the coinbase of any members, and so can others.\nYou can update your coinbase with the /verify command. We can only bind one of your Ethereum address, however, you can bind one Flow address at the same time.')
 		
 		const user = interaction.options.getUser('target');
-		const params = {
-			TableName: 'wakandaplus-users',
-			Key: {
-				user: user,
-				guild: interaction.guild?.id ?? null,
-			},
-		};
 		try {
-			const data = await ddbDocClient.send(new GetCommand(params));
-			console.log('Success :', data.Item);
-		} catch (err) {
-			console.log('Error', err);
+			const id = await redisClient.get(`${user.id}-${interaction.guild?.id ?? null}`)
+			const userInfo = (await getUser(id)).Item
+			await interaction.reply({ content: `${userInfo.user}, ${userInfo.guild}`, embeds: [embed], ephemeral: true });
+		} catch (e) {
+			await interaction.reply({ content: `${user.username} has no coinbase.`, embeds: [embed], ephemeral: true });
 		}
 	},
 };

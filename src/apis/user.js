@@ -23,12 +23,11 @@ const putUser = async (id, user_id, guild_id) => {
 };
 
 // 查询用户信息
-const getUser = async (user_id, guild_id) => {
+const getUser = async (id) => {
 	const params = {
 		TableName: 'wakandaplus',
 		Key: {
-			user: BigInt(user_id),
-			guild: BigInt(guild_id),
+			id: BigInt(id),
 		},
 	};
 	
@@ -83,7 +82,6 @@ const addEvmCoinbaseToUser = async (id, address) => {
 		return false;
 	}
 };
-
 
 const queryUser = async (user_id, guild_id) => {
 	const params = {
