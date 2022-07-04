@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
-dotenv.config();
 const { createClient } = require('redis');
+dotenv.config();
 
 const client = new createClient({
 	url: process.env.REDIS_URL,

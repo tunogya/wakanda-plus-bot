@@ -19,7 +19,8 @@ module.exports = {
 			const q = await getUser(id)
 			const info = q.Item
 			if (info) {
-				await interaction.reply({ content: `${info?.user}, ${info?.guild}`, embeds: [embed], ephemeral: true });
+				const coinbaseEvm = Array.from(info['coinbase-evm'])
+				await interaction.reply({ content: `${user.username}'s coinbase:\nEthereum: ${coinbaseEvm.toString()}`, embeds: [embed], ephemeral: true });
 			}
 		} else {
 			await interaction.reply({ content: `${user.username} has no coinbase.`, embeds: [embed], ephemeral: true });
