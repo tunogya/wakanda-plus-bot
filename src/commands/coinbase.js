@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 const redisClient = require('../libs/redis.js');
-const { getUser } = require('../apis/user');
+const { getUser } = require('../apis/user.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
