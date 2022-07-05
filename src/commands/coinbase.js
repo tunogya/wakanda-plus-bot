@@ -23,11 +23,9 @@ module.exports = {
 				const coinbaseFlow = info['coinbase-flow'] ? Array.from(info['coinbase-flow']) : []
 				await interaction.reply({ content: `${user.username[0].toUpperCase() + user.username.slice(1) }'s coinbase are here.
 
-Ethereum:
-${coinbaseEvm.join('\n')}
+${coinbaseEvm.length > 0 && (`Ethereum:\n${coinbaseEvm.join('\n')}`)}
 
-Flow:
-${coinbaseFlow.join('\n')}
+${coinbaseFlow.length > 0 && (`Flow:\n${coinbaseFlow.join('\n')}`)}
 `, embeds: [embed], ephemeral: true });
 			}
 		} else {
