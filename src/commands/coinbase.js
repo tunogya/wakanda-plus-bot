@@ -19,8 +19,8 @@ module.exports = {
 			const q = await getUser(id)
 			const info = q.Item
 			if (info) {
-				const coinbaseEvm = Array.from(info['coinbase-evm'])
-				const coinbaseFlow = Array.from(info['coinbase-flow']) ?? []
+				const coinbaseEvm = info['coinbase-evm'] ? Array.from(info['coinbase-evm']) : []
+				const coinbaseFlow = info['coinbase-flow'] ? Array.from(info['coinbase-flow']) : []
 				await interaction.reply({ content: `${user.username[0].toUpperCase() + user.username.slice(1) }'s coinbase are here.
 
 Ethereum:
