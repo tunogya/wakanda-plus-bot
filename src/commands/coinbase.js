@@ -13,7 +13,7 @@ module.exports = {
 			.setTitle('Privacy Policy')
 			.setDescription('You can query the coinbase of any members, and so can others.\nYou can update your coinbase with the /verify command.')
 		
-		const user = interaction.options.getUser('target');
+		const user = interaction.options.getUser('target') ?? interaction.user;
 		const id = await redisClient.get(`${user.id}-${interaction.guild?.id ?? 0}`)
 		if (id) {
 			const q = await getUser(id)
