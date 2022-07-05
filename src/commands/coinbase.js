@@ -21,7 +21,7 @@ module.exports = {
 			if (info) {
 				const coinbaseEvm = info['coinbase-evm'] ? Array.from(info['coinbase-evm']) : []
 				const coinbaseFlow = info['coinbase-flow'] ? Array.from(info['coinbase-flow']) : []
-				await interaction.reply({ content: `${user.username[0].toUpperCase() + user.username.slice(1) }'s coinbase are here.
+				await interaction.reply({ content: `${user.username}'s coinbase are here.
 
 ${coinbaseEvm.length > 0 ? (`Ethereum:\n${coinbaseEvm.join('\n')}`) : 'None ethereum address'}
 
