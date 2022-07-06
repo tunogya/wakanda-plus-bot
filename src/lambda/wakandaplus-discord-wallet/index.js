@@ -37,26 +37,24 @@ exports.handler = async (event) => {
 
 	if (event.requestContext.http.method === 'GET') {
 		const state = event.queryStringParameters?.state ?? null;
-		const user = await redisClient.get(state);
-		if (state && user) {
-			body = user;
+		const content = await redisClient.get(state);
+		if (state && content) {
+			body = content;
 		} else {
-			statusCode = 400;
+			statusCode = 404;
 			body = JSON.stringify('No state or state is expired');
 		}
 	} else if (event.requestContext.http.method === 'POST') {
 		const data = JSON.parse(event.body);
 		const state = data.state ?? null;
-		const message = data.message ?? null;
 		const signature = data.signature ?? null;
 		const type = data.type ?? null;
+		
+		const content = JSON.parse(await redisClient.get(state));
+		const message = content['message'] ?? ''
 		let address;
-
-		console.log('message:', message);
-		console.log('signature:', signature);
-
-		const user = JSON.parse(await redisClient.get(state));
-		if (user['member']) {
+		
+		if (content['member']) {
 			if (signature && type === 'EVM') {
 				const r = signature.slice(0, 66);
 				const s = '0x' + signature.slice(66, 130);
@@ -71,7 +69,7 @@ exports.handler = async (event) => {
 						address: address,
 					});
 					try {
-						const id = await redisClient.get(user['member']);
+						const id = await redisClient.get(content['member']);
 						
 						const params = {
 							TableName: 'wakandaplus',
@@ -92,15 +90,15 @@ exports.handler = async (event) => {
 						}
 					} catch (e) {
 						const id = uid.getUniqueID();
-						redisClient.set(
-							`${user['member']}-${user['guild'] ?? 0}`,
+						await redisClient.set(
+							content['member'],
 							id.toString()
 						);
 						const params = {
 							TableName: 'wakandaplus',
 							Item: {
 								id: BigInt(id),
-								user: BigInt(user['member']),
+								user: BigInt(content['member']),
 								wallets: new Set([address])
 							},
 						};
