@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "heroku-logs": "heroku logs --tail",
-    "heroku-deploy": "git push heroku main"
+    "heroku-deploy": "git push heroku main",
+    "deploy-commands": "node src/deploy-commands.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.121.0",
