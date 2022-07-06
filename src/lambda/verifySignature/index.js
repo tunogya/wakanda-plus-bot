@@ -66,10 +66,10 @@ exports.handler = async (event) => {
 						Key: {
 							id: BigInt(id),
 						},
-						ExpressionAttributeNames: { '#wallet': 'wallet' },
-						UpdateExpression: 'ADD #wallet :w',
+						ExpressionAttributeNames: { '#wallets': 'wallets' },
+						UpdateExpression: 'ADD #wallets :wallets',
 						ExpressionAttributeValues: {
-							':w': new Set([address]),
+							':wallets': new Set([address]),
 						},
 					};
 					try {
