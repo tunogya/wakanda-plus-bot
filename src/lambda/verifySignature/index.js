@@ -74,7 +74,6 @@ exports.handler = async (event) => {
 					};
 					try {
 						await ddbDocClient.send(new UpdateCommand(params));
-						console.log('Success - item added or updated:\n');
 					} catch (err) {
 						console.log('Error:', err);
 					}
@@ -95,7 +94,6 @@ exports.handler = async (event) => {
 					
 					try {
 						await ddbDocClient.send(new PutCommand(params));
-						console.log('Success - item added or updated:\n');
 					} catch (err) {
 						console.log('Error', err.stack);
 					}
