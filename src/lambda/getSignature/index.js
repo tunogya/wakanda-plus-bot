@@ -13,7 +13,6 @@ exports.handler = async (event) => {
 	} catch (e) {
 		console.log(e);
 	}
-	console.log(event);
 	
 	let body;
 	let statusCode = 200;
@@ -21,7 +20,7 @@ exports.handler = async (event) => {
 		'Content-Type': 'application/json',
 	};
 	
-	const state = event.queryStringParameters?.state ?? undefined;
+	const state = event?.queryStringParameters?.state ?? undefined;
 	if (state) {
 		body = await redisClient.get(state);
 	} else {
