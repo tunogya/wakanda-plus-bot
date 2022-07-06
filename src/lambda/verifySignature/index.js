@@ -36,16 +36,16 @@ exports.handler = async (event) => {
 	};
 	
 	const data = JSON.parse(event.body);
-	const state = data.state ?? null;
-	const signature = data.signature ?? null;
-	const type = data.type ?? null;
+	const state = data.state ?? undefined;
+	const signature = data.signature ?? undefined;
+	const type = data.type ?? undefined;
 	
 	const content = JSON.parse(await redisClient.get(state));
 	const message = content['message'] ?? '';
 	let address;
 	
-	if (content['user']) {
-		if (signature && type === 'EVM') {
+	if (content['user'] && signature && type) {
+		if (type === 'EVM') {
 			const r = signature.slice(0, 66);
 			const s = '0x' + signature.slice(66, 130);
 			const v = parseInt('0x' + signature.slice(130, 132), 16);
@@ -111,7 +111,7 @@ exports.handler = async (event) => {
 	else {
 		statusCode = 400;
 		body = JSON.stringify({
-			msg: 'This state is expired, please try again in bot.',
+			msg: 'Need: state, signature, type. And state only can be live in 5 min.',
 		});
 	}
 	
