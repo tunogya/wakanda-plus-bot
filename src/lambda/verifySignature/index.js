@@ -34,17 +34,17 @@ exports.handler = async (event) => {
 	const headers = {
 		'Content-Type': 'application/json',
 	};
-	
 	const data = JSON.parse(event.body);
+	
 	const state = data.state ?? undefined;
 	const signature = data.signature ?? undefined;
 	const type = data.type ?? undefined;
 	
 	const content = JSON.parse(await redisClient.get(state));
-	const message = content['message'] ?? '';
+	const message = content['message'] ?? undefined;
 	let address;
 	
-	if (content['user'] && signature && type) {
+	if (content['user'] && signature && type && message) {
 		if (type === 'EVM') {
 			const r = signature.slice(0, 66);
 			const s = '0x' + signature.slice(66, 130);
