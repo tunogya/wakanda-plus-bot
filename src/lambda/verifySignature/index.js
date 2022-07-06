@@ -44,7 +44,7 @@ exports.handler = async (event) => {
 	const message = content['message'] ?? '';
 	let address;
 	
-	if (content['member']) {
+	if (content['user']) {
 		if (signature && type === 'EVM') {
 			const r = signature.slice(0, 66);
 			const s = '0x' + signature.slice(66, 130);
@@ -59,7 +59,7 @@ exports.handler = async (event) => {
 					address: address,
 				});
 				try {
-					const id = await redisClient.get(content['member']);
+					const id = await redisClient.get(content['user']);
 					
 					const params = {
 						TableName: 'wakandaplus',
@@ -81,14 +81,14 @@ exports.handler = async (event) => {
 				} catch (e) {
 					const id = uid.getUniqueID();
 					await redisClient.set(
-						content['member'],
+						content['user'],
 						id.toString(),
 					);
 					const params = {
 						TableName: 'wakandaplus',
 						Item: {
 							id: BigInt(id),
-							user: BigInt(content['member']),
+							user: BigInt(content['user']),
 							wallets: new Set([address]),
 						},
 					};
