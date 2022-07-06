@@ -66,17 +66,17 @@ const deleteUserById = async (user_id, guild_id) => {
 	}
 };
 
-const addEvmCoinbaseToUser = async (id, address) => {
+const addWalletToUser = async (id, address) => {
 	// Set the parameters.
 	const params = {
 		TableName: 'wakandaplus',
 		Key: {
 			id: BigInt(id),
 		},
-		ExpressionAttributeNames: { '#evm': 'coinbase-evm' },
-		UpdateExpression: 'ADD #evm :c',
+		ExpressionAttributeNames: { '#wallet': 'wallet' },
+		UpdateExpression: 'ADD #wallet :w',
 		ExpressionAttributeValues: {
-			':c': address,
+			':w': address,
 		},
 	};
 	try {
@@ -117,5 +117,5 @@ module.exports = {
 	getUser,
 	deleteUserById,
 	queryUser,
-	addEvmCoinbaseToUser,
+	addEvmCoinbaseToUser: addWalletToUser,
 };

@@ -1,3 +1,5 @@
 node_modules
 .env
 /.idea/
+/src/lambda/wakandaplus-discord-wallet/dynamodb/
+/src/lambda/wakandaplus-discord-wallet/libs/

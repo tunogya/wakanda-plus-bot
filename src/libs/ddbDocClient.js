@@ -1,18 +1,17 @@
 const { DynamoDBDocumentClient } = require('@aws-sdk/lib-dynamodb');
-const ddbClient = require('./ddbClient.js');
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 
-const marshallOptions = {
-	convertEmptyValues: false,
-	removeUndefinedValues: false,
-	convertClassInstanceToMap: true,
-};
+const dotenv = require('dotenv');
+dotenv.config();
 
-const unmarshallOptions = {
-	wrapNumbers: false,
-};
+const ddbClient = new DynamoDBClient({
+	region: 'ap-northeast-1',
+	credentials: {
+		accessKeyId: process.env.AWS_ACCESS_KEY,
+		secretAccessKey: process.env.AWS_ACCESS_SECRET,
+	},
+});
 
-const translateConfig = { marshallOptions, unmarshallOptions };
-
-const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, translateConfig);
+const ddbDocClient = DynamoDBDocumentClient.from(ddbClient);
 
 module.exports = ddbDocClient;

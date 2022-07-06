@@ -1,15 +1,26 @@
 const { ethers } = require('ethers');
-const { addEvmCoinbaseToUser, putUser } = require('./apis/user.js');
 const { createClient } = require('redis');
-const Snowflake = require('./libs/snowflake');
+const { Snowflake } = require('nodejs-snowflake');
+const { UpdateCommand, PutCommand, DynamoDBDocumentClient } = require('@aws-sdk/lib-dynamodb');
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+
+const ddbClient = new DynamoDBClient({
+	region: 'ap-northeast-1'
+});
+
+const ddbDocClient = DynamoDBDocumentClient.from(ddbClient);
+
+const uid = new Snowflake({
+	custom_epoch: 1656604800000,
+	instance_id: 1,
+});
 
 const redisClient = new createClient({
 	url: process.env.REDIS_URL,
 });
 
-redisClient.on('error', (err) => console.log('Redis Client Error', err));
-
-const sfClient = new Snowflake(1, 0);
+redisClient
+	.on('error', (err) => console.log('Redis Client Error', err));
 
 exports.handler = async (event) => {
 	try {
@@ -60,18 +71,46 @@ exports.handler = async (event) => {
 						address: address,
 					});
 					try {
-						const id = await redisClient.get(
-							`${user['member']}-${user['guild'] ?? 0}`
-						);
-						await addEvmCoinbaseToUser(id, new Set([address]));
+						const id = await redisClient.get(user['member']);
+						
+						const params = {
+							TableName: 'wakandaplus',
+							Key: {
+								id: BigInt(id),
+							},
+							ExpressionAttributeNames: { '#wallet': 'wallet' },
+							UpdateExpression: 'ADD #wallet :w',
+							ExpressionAttributeValues: {
+								':w': new Set([address]),
+							},
+						};
+						try {
+							await ddbDocClient.send(new UpdateCommand(params));
+							console.log('Success - item added or updated:\n');
+						} catch (err) {
+							console.log('Error:', err);
+						}
 					} catch (e) {
-						const id = sfClient.nextId();
+						const id = uid.getUniqueID();
 						redisClient.set(
 							`${user['member']}-${user['guild'] ?? 0}`,
 							id.toString()
 						);
-						await putUser(id, user['member'], user['guild'] ?? 0);
-						await addEvmCoinbaseToUser(id, new Set([address]));
+						const params = {
+							TableName: 'wakandaplus',
+							Item: {
+								id: BigInt(id),
+								user: BigInt(user['member']),
+								wallets: new Set([address])
+							},
+						};
+						
+						try {
+							await ddbDocClient.send(new PutCommand(params));
+							console.log('Success - item added or updated:\n');
+						} catch (err) {
+							console.log('Error', err.stack);
+						}
 					}
 				} catch (e) {
 					statusCode = 400;

@@ -1,8 +1,15 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Intents } = require('discord.js');
+const redisClient = require("./libs/redis.js");
 const dotenv = require('dotenv');
 dotenv.config();
+
+try {
+	redisClient.connect();
+} catch (e) {
+	console.log('Redis Client Connect Error')
+}
 
 const token = process.env.token;
 
