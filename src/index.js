@@ -10,7 +10,9 @@ const bot = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 bot.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+const commandFiles = fs
+	.readdirSync(commandsPath)
+	.filter((file) => file.endsWith('.js'));
 
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
@@ -19,7 +21,9 @@ for (const file of commandFiles) {
 }
 
 const eventsPath = path.join(__dirname, 'events');
-const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+const eventFiles = fs
+	.readdirSync(eventsPath)
+	.filter((file) => file.endsWith('.js'));
 for (const file of eventFiles) {
 	const filePath = path.join(eventsPath, file);
 	const event = require(filePath);
@@ -30,20 +34,22 @@ for (const file of eventFiles) {
 	}
 }
 
-bot.on('interactionCreate', async interaction => {
+bot.on('interactionCreate', async (interaction) => {
 	if (!interaction.isCommand()) return;
-	
+
 	const command = bot.commands.get(interaction.commandName);
-	
+
 	if (!command) return;
-	
+
 	try {
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		await interaction.reply({
+			content: 'There was an error while executing this command!',
+			ephemeral: true,
+		});
 	}
 });
 
 bot.login(token);
-

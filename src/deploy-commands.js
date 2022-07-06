@@ -12,8 +12,12 @@ const token = process.env.token;
 const commands = [];
 const guildCommands = [];
 const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-const guildCommandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.guild.js'));
+const commandFiles = fs
+	.readdirSync(commandsPath)
+	.filter((file) => file.endsWith('.js'));
+const guildCommandFiles = fs
+	.readdirSync(commandsPath)
+	.filter((file) => file.endsWith('.guild.js'));
 
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
@@ -29,10 +33,16 @@ for (const file of guildCommandFiles) {
 
 const rest = new REST({ version: '9' }).setToken(token);
 
-rest.put(Routes.applicationCommands(clientId), { body: commands })
+rest
+	.put(Routes.applicationCommands(clientId), { body: commands })
 	.then(() => console.log('Successfully registered application commands.'))
 	.catch(console.error);
 
-rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: guildCommands })
-	.then(() => console.log('Successfully registered application guild commands.'))
+rest
+	.put(Routes.applicationGuildCommands(clientId, guildId), {
+		body: guildCommands,
+	})
+	.then(() =>
+		console.log('Successfully registered application guild commands.')
+	)
 	.catch(console.error);
