@@ -1,4 +1,4 @@
-const { getUser } = require('../apis/user');
+const { getUser } = require('../dynamodb/wakandaplus');
 
 
 const test = async () => {

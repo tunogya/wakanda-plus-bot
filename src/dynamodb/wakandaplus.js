@@ -14,7 +14,7 @@ const putUser = async (id, user_id, guild_id) => {
 	
 	try {
 		const data = await ddbDocClient.send(new PutCommand(params));
-		console.log('Success - item added or updated', data);
+		console.log('Success - item added or updated:\n', data);
 		return data
 	} catch (err) {
 		console.log('Error', err.stack);
@@ -33,10 +33,10 @@ const getUser = async (id) => {
 	
 	try {
 		const data = await ddbDocClient.send(new GetCommand(params));
-		console.log('Success :', data.Item);
+		console.log('Success:\n', data.Item);
 		return data;
 	} catch (err) {
-		console.log('Error', err);
+		console.log('Error:', err);
 		return false;
 	}
 }
@@ -55,7 +55,7 @@ const deleteUserById = async (user_id, guild_id) => {
 		console.log('Success - item deleted');
 		return true;
 	} catch (err) {
-		console.log('Error', err);
+		console.log('Error:', err);
 		return false;
 	}
 };
@@ -75,10 +75,10 @@ const addEvmCoinbaseToUser = async (id, address) => {
 	};
 	try {
 		const data = await ddbDocClient.send(new UpdateCommand(params));
-		console.log('Success - item added or updated', data);
+		console.log('Success - item added or updated:\n', data);
 		return data;
 	} catch (err) {
-		console.log('Error', err);
+		console.log('Error:', err);
 		return false;
 	}
 };
@@ -101,7 +101,7 @@ const queryUser = async (user_id, guild_id) => {
 		console.log(data)
 		return data
 	} catch (err) {
-		console.log('Error', err);
+		console.log('Error:', err);
 		return false;
 	}
 };

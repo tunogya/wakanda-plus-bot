@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const redisClient = require('../libs/redis.js');
-const { getUser } = require('../apis/user.js');
+const { getUser } = require('../dynamodb/wakandaplus.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
