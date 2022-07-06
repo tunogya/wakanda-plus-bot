@@ -21,7 +21,7 @@ exports.handler = async (event) => {
 		'Content-Type': 'application/json',
 	};
 	
-	const state = event.queryStringParameters?.state ?? null;
+	const state = event.queryStringParameters?.state ?? undefined;
 	if (state) {
 		body = await redisClient.get(state);
 	} else {
