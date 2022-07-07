@@ -40,5 +40,10 @@ module.exports = {
 				ephemeral: true,
 			});
 		}
+		else {
+			await interaction.reply({
+				content: `You select ${interaction.customId}`
+			})
+		}
 	},
 };
