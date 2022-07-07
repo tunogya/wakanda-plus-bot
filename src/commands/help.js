@@ -7,7 +7,7 @@ module.exports = {
 		.setDescription(`Get effective help from bot`),
 	async execute(interaction) {
 		const embed = new MessageEmbed()
-			.setTitle('You can control me by sending these commands:')
+			.setTitle('I can help you connect and manage wallets. You can control me by sending these commands:')
 			.setDescription(
 				`Wallets
 /connectwallet - connect a new wallet
