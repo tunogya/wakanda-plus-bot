@@ -17,7 +17,7 @@ module.exports = {
 				const wallets = info['wallets'] ? Array.from(info['wallets']) : [];
 				const row = new MessageActionRow()
 					.addComponents(
-						wallets.map((item) => new MessageButton().setLabel(item).setStyle('SECONDARY'))
+						[new MessageButton().setLabel('Wallet').setStyle('SECONDARY')]
 					);
 				await interaction.reply({
 					content: `${user.username}'s wallets are here. \n${wallets.length > 0 ? `${wallets.join('\n')}` : 'None address here.'}`,
