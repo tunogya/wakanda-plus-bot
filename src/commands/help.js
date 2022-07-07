@@ -23,7 +23,7 @@ Other
 			);
 		
 		await interaction.reply({
-			content: `I can help you connect and manage crypto wallets.`,
+			content: `I can help you connect and manage wallets.`,
 			embeds: [embed],
 			ephemeral: true,
 		});
