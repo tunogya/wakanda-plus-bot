@@ -19,7 +19,9 @@ module.exports = {
 					wallets.slice(0, 4).map((item) => new MessageButton()
 						.setCustomId(item)
 						.setLabel(item)
-						.setStyle('SECONDARY')).concat(wallets.length > 4 ?
+						.setStyle('SECONDARY')
+						.setEmoji('994530120557658173')
+					).concat(wallets.length > 4 ?
 						[new MessageButton()
 							.setCustomId('next')
 							.setLabel('»')] : []
