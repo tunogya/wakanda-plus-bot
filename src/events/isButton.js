@@ -7,6 +7,7 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction) {
 		if (!interaction.isButton()) return;
+		// /connectwallet -> Let's go
 		if (interaction.customId === 'toConnectWallet') {
 			const user = interaction.user.id;
 			const state = randomString(12);

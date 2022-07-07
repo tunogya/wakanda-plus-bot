@@ -3,5 +3,6 @@ module.exports = {
 	once: true,
 	execute(interaction) {
 		console.log(`Ready! Logged in as ${interaction.user.tag}`);
+		
 	},
 };
