@@ -16,13 +16,17 @@ module.exports = {
 			if (info) {
 				const wallets = info['wallets'] ? Array.from(info['wallets']) : [];
 				const row = new MessageActionRow().addComponents(
-					wallets.map((item) => new MessageButton()
+					wallets.slice(0, 4).map((item) => new MessageButton()
 						.setCustomId(item)
 						.setLabel(item)
-						.setStyle('SECONDARY'))
+						.setStyle('SECONDARY')).concat(wallets.length > 4 ?
+						[new MessageButton()
+							.setCustomId('next')
+							.setLabel('»')] : []
+					)
 				);
 				await interaction.reply({
-					content: `${user.username}'s wallets are here.`,
+					content: 'Choose a wallet from the list below:',
 					components: [row],
 					ephemeral: true,
 				});
