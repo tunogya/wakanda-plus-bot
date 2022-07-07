@@ -1,7 +1,7 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const client = require('../libs/redis.js');
 const randomString = require('../utils/randomString.js');
-const { isAddress } = require('../utils/address');
+const { isAddress, shortenAddress } = require('../utils/address');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -41,9 +41,10 @@ module.exports = {
 				ephemeral: true,
 			});
 		}
-		else {
+		else if (isAddress(interaction.customId)) {
 			await interaction.reply({
-				content: `You select ${isAddress(interaction.customId)}`
+				content: `You select ${shortenAddress(interaction.customId)}`,
+				ephemeral: true
 			})
 		}
 	},
