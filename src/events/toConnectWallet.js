@@ -1,10 +1,10 @@
-const { isAddress, shortenAddress } = require('../utils/address');
+const { shortenAddress } = require('../utils/address');
 
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction) {
 		if (!interaction.isButton()) return;
-		if (isAddress(interaction.customId)) {
+		if (interaction.customId) {
 			// const user = interaction.user.id;
 			await interaction.editReply({
 				content: `You select ${shortenAddress(interaction.customId)}`,
