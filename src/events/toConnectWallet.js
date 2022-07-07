@@ -7,14 +7,14 @@ module.exports = {
 	async execute(interaction) {
 		if (!interaction.isButton()) return;
 		if (interaction.customId === 'toConnectWallet') {
-			const member = interaction.user.id;
-			const guild = interaction.guild?.id ?? null;
+			const user = interaction.user.id;
 			const state = randomString(12);
+			const message = `My discord is ${interaction.user.tag}. And i want to connect my wallet in Wakanda Metaverse.`
 			await client.set(
 				state,
 				JSON.stringify({
-					guild: guild,
-					member: member,
+					user: user,
+					message: message
 				}),
 				{
 					EX: 300,
@@ -24,7 +24,7 @@ module.exports = {
 			const row = new MessageActionRow().addComponents(
 				new MessageButton()
 					.setLabel('Connect Wallet')
-					.setURL(`https://wakandaplus.wakanda.cn/#/sign/${state}`)
+					.setURL(`https://wakandaplus.wakanda.cn/${state}`)
 					.setStyle('LINK')
 			);
 			const embed = new MessageEmbed()
@@ -34,7 +34,7 @@ module.exports = {
 				);
 
 			await interaction.reply({
-				content: `Use this custom link to connect (valid for 5 minutes)\nGuild: ${guild} Member: ${member}`,
+				content: message,
 				components: [row],
 				embeds: [embed],
 				ephemeral: true,
