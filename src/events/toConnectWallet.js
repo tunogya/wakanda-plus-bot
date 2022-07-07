@@ -4,9 +4,8 @@ module.exports = {
 		if (!interaction.isButton()) return;
 		if (interaction.customId) {
 			// const user = interaction.user.id;
-			await interaction.editReply({
+			await interaction.reply({
 				content: `You select ${interaction.customId}`,
-				components: []
 			})
 		}
 	},
