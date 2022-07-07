@@ -20,7 +20,7 @@ module.exports = {
 						.setCustomId(item)
 						.setLabel(item)
 						.setStyle('SECONDARY')
-						.setEmoji('994530120557658173')
+						.setEmoji(':ethereum:')
 					).concat(wallets.length > 4 ?
 						[new MessageButton()
 							.setCustomId('next')
