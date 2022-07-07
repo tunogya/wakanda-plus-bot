@@ -1,5 +1,3 @@
-const { shortenAddress } = require('../utils/address');
-
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction) {
@@ -7,7 +5,7 @@ module.exports = {
 		if (interaction.customId) {
 			// const user = interaction.user.id;
 			await interaction.editReply({
-				content: `You select ${shortenAddress(interaction.customId)}`,
+				content: `You select ${interaction.customId}`,
 				components: []
 			})
 		}
