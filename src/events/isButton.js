@@ -1,6 +1,7 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const client = require('../libs/redis.js');
 const randomString = require('../utils/randomString.js');
+const { isAddress } = require('../utils/address');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -42,7 +43,7 @@ module.exports = {
 		}
 		else {
 			await interaction.reply({
-				content: `You select ${interaction.customId}`
+				content: `You select ${isAddress(interaction.customId)}`
 			})
 		}
 	},
