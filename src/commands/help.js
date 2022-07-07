@@ -23,7 +23,7 @@ Other
 			);
 		
 		await interaction.reply({
-			content: `I can help you connect and manage crypto wallets. When you add every verified wallet and you have some special tokens, you will be granted special privileges.`,
+			content: `I can help you connect and manage crypto wallets.`,
 			embeds: [embed],
 			ephemeral: true,
 		});
