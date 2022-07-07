@@ -15,14 +15,14 @@ module.exports = {
 			const info = q.Item;
 			if (info) {
 				const wallets = info['wallets'] ? Array.from(info['wallets']) : [];
-				const row = new MessageActionRow()
-					.addComponents(
-						new MessageButton()
-							.setLabel('Wallet')
-							.setStyle('SECONDARY')
-					);
+				const row = new MessageActionRow().addComponents(
+					wallets.map((item) => new MessageButton()
+						.setCustomId(item)
+						.setLabel(item)
+						.setStyle('SECONDARY'))
+				);
 				await interaction.reply({
-					content: `${user.username}'s wallets are here. \n${wallets.length > 0 ? `${wallets.join('\n')}` : 'None address here.'}`,
+					content: `${user.username}'s wallets are here.`,
 					components: [row],
 					ephemeral: true,
 				});
