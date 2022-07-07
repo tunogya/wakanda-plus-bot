@@ -1,29 +1,29 @@
 {
-	"name": "wakanda-plus-bot",
-	"version": "1.0.0",
-	"main": "src/index.js",
-	"license": "MIT",
-	"scripts": {
-		"start": "node src/index.js",
-		"heroku-logs": "heroku logs --tail",
-		"heroku-deploy": "git push heroku main",
-		"deploy-commands": "node src/deploy-commands.js"
-	},
-	"dependencies": {
-		"@aws-sdk/client-dynamodb": "^3.121.0",
-		"@aws-sdk/lib-dynamodb": "^3.121.0",
-		"@discordjs/builders": "^0.15.0",
-		"@discordjs/rest": "^0.5.0",
-		"aws-sdk": "^2.1166.0",
-		"discord-api-types": "^0.33.5",
-		"discord.js": "^13.8.0",
-		"dotenv": "^16.0.1",
-		"ethers": "^5.6.9",
-		"nodejs-snowflake": "^2.0.1",
-		"redis": "^4.1.0"
-	},
-	"devDependencies": {
-		"eslint": "^8.17.0",
-		"prettier": "2.7.1"
-	}
+  "name": "wakanda-plus-bot",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js",
+    "heroku-logs": "heroku logs --tail",
+    "heroku-deploy": "git push heroku main",
+    "deploy-commands": "node src/deploy-commands.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.121.0",
+    "@aws-sdk/lib-dynamodb": "^3.121.0",
+    "@discordjs/builders": "^0.15.0",
+    "@discordjs/rest": "^0.5.0",
+    "aws-sdk": "^2.1166.0",
+    "discord-api-types": "^0.33.5",
+    "discord.js": "^13.8.0",
+    "dotenv": "^16.0.1",
+    "ethers": "^5.6.9",
+    "nodejs-snowflake": "^2.0.1",
+    "redis": "^4.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.17.0",
+    "prettier": "2.7.1"
+  }
 }

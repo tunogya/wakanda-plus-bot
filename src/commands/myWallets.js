@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const redisClient = require('../libs/redis.js');
 const { getUser } = require('../dynamodb/wakandaplus.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
+const { shortenAddress } = require('../utils/address');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -16,9 +17,9 @@ module.exports = {
 			if (info) {
 				const wallets = info['wallets'] ? Array.from(info['wallets']) : [];
 				const row = new MessageActionRow().addComponents(
-					wallets.slice(0, 4).map((item) => new MessageButton()
-						.setCustomId(item)
-						.setLabel(item)
+					wallets.slice(0, 4).map((address) => new MessageButton()
+						.setCustomId(address)
+						.setLabel(shortenAddress(address))
 						.setStyle('SECONDARY')
 					).concat(wallets.length > 4 ?
 						[new MessageButton()

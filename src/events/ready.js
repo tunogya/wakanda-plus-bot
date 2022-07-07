@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'ready',
 	once: true,
-	execute(client) {
-		console.log(`Ready! Logged in as ${client.user.tag}`);
+	execute(interaction) {
+		console.log(`Ready! Logged in as ${interaction.user.tag}`);
 	},
 };
