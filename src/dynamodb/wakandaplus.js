@@ -38,9 +38,7 @@ const getUser = async (id) => {
 	};
 
 	try {
-		const data = await ddbDocClient.send(new GetCommand(params));
-		console.log('Success:\n', data.Item);
-		return data;
+		return await ddbDocClient.send(new GetCommand(params));
 	} catch (err) {
 		console.log('Error:', err);
 		return false;

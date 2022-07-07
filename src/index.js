@@ -66,7 +66,7 @@ bot.on('interactionCreate', async (interaction) => {
 	const filter = i => i.customId === '0x3B0D70a7e46390a066DB559cD17a455D68602cDC';
 	const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
 	collector.on('collect', async i => {
-		if (i.customId === 'primary') {
+		if (i.customId === '0x3B0D70a7e46390a066DB559cD17a455D68602cDC') {
 			await i.deferUpdate();
 			await wait(4000);
 			await i.editReply({ content: 'A button was clicked!', components: [] });
