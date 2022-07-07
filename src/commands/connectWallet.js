@@ -2,12 +2,14 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const randomString = require('../utils/randomString.js');
 const client = require('../libs/redis.js');
+const { setTimeout: wait } = require('node:timers/promises');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('connectwallet')
 		.setDescription('Connect a new wallet'),
 	async execute(interaction) {
+		await interaction.deferUpdate();
 		const user = interaction.user.id;
 		const state = randomString(12);
 		const message = `My discord is ${interaction.user.tag} and i want to connect my wallet in Wakanda Metaverse. ${new Date().toISOString()}`
@@ -40,5 +42,7 @@ module.exports = {
 			embeds: [embed],
 			ephemeral: true,
 		});
+		await wait(4000);
+		await interaction.editReply({ content: 'This link has expired. Please try again with /connectwallet and verify within 5 min.', components: [] });
 	}
 };
