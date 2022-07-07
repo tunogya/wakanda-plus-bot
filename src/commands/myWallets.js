@@ -18,7 +18,7 @@ module.exports = {
 				const row = new MessageActionRow().addComponents(
 					wallets.slice(0, 4).map((item) => new MessageButton()
 						.setCustomId(item)
-						.setLabel(`:ethereum: ${item}`)
+						.setLabel(item)
 						.setStyle('SECONDARY')
 					).concat(wallets.length > 4 ?
 						[new MessageButton()

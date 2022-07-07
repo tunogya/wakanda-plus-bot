@@ -5,6 +5,8 @@ const redisClient = require("./libs/redis.js");
 const dotenv = require('dotenv');
 dotenv.config();
 
+const wait = require('node:timers/promises').setTimeout;
+
 try {
 	redisClient.connect();
 } catch (e) {
@@ -58,5 +60,20 @@ bot.on('interactionCreate', async (interaction) => {
 		});
 	}
 });
+
+bot.on('interactionCreate', async (interaction) => {
+	if (!interaction.isButton()) return;
+	const filter = i => i.customId === '0x3B0D70a7e46390a066DB559cD17a455D68602cDC';
+	const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+	collector.on('collect', async i => {
+		if (i.customId === 'primary') {
+			await i.deferUpdate();
+			await wait(4000);
+			await i.editReply({ content: 'A button was clicked!', components: [] });
+		}
+	});
+	
+	collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+})
 
 bot.login(token);
