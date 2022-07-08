@@ -9,17 +9,17 @@ module.exports = {
 		const embed = new MessageEmbed()
 			.setTitle('I can help you connect and manage wallets. You can control me by sending these commands:')
 			.setDescription(
-				`Wallets
-/connectwallet - connect a new wallet
-/mywallets - manage your wallets
-/deletewallet - delete a wallet
+				`**Wallets**
+*/connectwallet* - connect a new wallet
+*/mywallets* - manage your wallets
+*/deletewallet* - delete a wallet
 
-Role Settings
-/claimrole - claim role manually
-/revokerole - revoke a role
+**Role**
+*/claimrole* - claim role manually
+*/revokerole* - revoke a role
 
-Other
-/cancel - cancel the current operation`
+**Other**
+*/cancel* - cancel the current operation`
 			);
 		
 		await interaction.reply({
