@@ -6,9 +6,12 @@ const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const fcl = require('@onflow/fcl');
 
 fcl.config({
-	'accessNode.api': 'https://flow-mainnet.g.alchemy.com',
-	'grpc.metadata': { 'api_key': process.env.ALCHEMY_KEY },
-	'flow.network': 'mainnet',
+	'accessNode.api': 'https://rest-testnet.onflow.org',
+	"app.detail.title": "Wakanda+",
+	"app.detail.icon": "https://wakandaplus.wakanda.cn/logo512.png",
+	'flow.network': 'testnet',
+	"discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
+	"discovery.authn.endpoint": "https://fcl-discovery.onflow.org/api/testnet/authn",
 });
 
 const ddbClient = new DynamoDBClient({
@@ -42,7 +45,6 @@ exports.handler = async (event) => {
 		'Content-Type': 'application/json',
 	};
 	const data = JSON.parse(event.body);
-	
 	const state = data.state ?? undefined;
 	const signature = data.signature ?? undefined;
 	const type = data.type ?? undefined;
@@ -73,8 +75,7 @@ exports.handler = async (event) => {
 			}
 		}
 		else if (type === 'FLOW') {
-			// const isValid = await fcl.AppUtils.verifyUserSignatures(Buffer.from(message).toString('hex'), signature);
-			const isValid = true
+			const isValid = await fcl.AppUtils.verifyUserSignatures(Buffer.from(message).toString('hex'), signature);
 			if (isValid) {
 				address = signature[0].addr;
 				body = JSON.stringify({
@@ -82,7 +83,7 @@ exports.handler = async (event) => {
 				});
 			}
 			else {
-				statusCode = 400;
+				// statusCode = 400;
 				body = JSON.stringify({
 					msg: 'Invalid signature',
 				});
