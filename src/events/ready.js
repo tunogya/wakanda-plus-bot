@@ -3,7 +3,7 @@ module.exports = {
 	once: true,
 	execute(client) {
 		console.log(`Ready! Logged in as ${client.user.tag}`);
-		const channel = client.channels.cache.get('id');
+		const channel = client.channels.cache.get('989759769621434418');
 		channel.send(`I can help you connect and manage wallets.
 
 You can control me by sending these commands:
