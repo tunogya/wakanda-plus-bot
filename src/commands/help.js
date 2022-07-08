@@ -11,22 +11,15 @@ module.exports = {
 You can control me by sending these commands:
 
 **Wallets**
-\`\`\`
 */connectwallet* - connect a new wallet
 */mywallets* - manage your wallets
 */deletewallet* - delete a wallet
-\`\`\`
 
 **Role**
-\`\`\`
 */claimrole* - claim role manually
-*/revokerole* - revoke a role
-\`\`\`
 
 **Other**
-\`\`\`
 */cancel* - cancel the current operation
-\`\`\`
 `,
 			ephemeral: true,
 		});
