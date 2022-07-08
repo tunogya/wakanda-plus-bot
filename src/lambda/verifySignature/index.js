@@ -3,6 +3,13 @@ const { createClient } = require('redis');
 const { Snowflake } = require('nodejs-snowflake');
 const { UpdateCommand, PutCommand, DynamoDBDocumentClient } = require('@aws-sdk/lib-dynamodb');
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const fcl = require('@onflow/fcl');
+
+fcl.config({
+	'accessNode.api': 'https://flow-mainnet.g.alchemy.com',
+	'grpc.metadata': { 'api_key': process.env.ALCHEMY_KEY },
+	'flow.network': 'mainnet',
+});
 
 const ddbClient = new DynamoDBClient({
 	region: 'ap-northeast-1',
@@ -58,51 +65,70 @@ exports.handler = async (event) => {
 				body = JSON.stringify({
 					address: address,
 				});
-				try {
-					const id = await redisClient.get(content['user']);
-					
-					const params = {
-						TableName: 'wakandaplus',
-						Key: {
-							id: BigInt(id),
-						},
-						ExpressionAttributeNames: { '#wallets': 'wallets' },
-						UpdateExpression: 'ADD #wallets :wallets',
-						ExpressionAttributeValues: {
-							':wallets': new Set([address]),
-						},
-					};
-					try {
-						await ddbDocClient.send(new UpdateCommand(params));
-					} catch (err) {
-						console.log('Error:', err);
-					}
-				} catch (e) {
-					const id = uid.getUniqueID();
-					await redisClient.set(
-						content['user'],
-						id.toString(),
-					);
-					const params = {
-						TableName: 'wakandaplus',
-						Item: {
-							id: BigInt(id),
-							user: BigInt(content['user']),
-							wallets: new Set([address]),
-						},
-					};
-					
-					try {
-						await ddbDocClient.send(new PutCommand(params));
-					} catch (err) {
-						console.log('Error', err.stack);
-					}
-				}
 			} catch (e) {
 				statusCode = 400;
 				body = JSON.stringify({
 					msg: e.message,
 				});
+			}
+		}
+		else if (type === 'FLOW') {
+			// const isValid = await fcl.AppUtils.verifyUserSignatures(Buffer.from(message).toString('hex'), signature);
+			const isValid = true
+			if (isValid) {
+				address = signature[0].addr;
+				body = JSON.stringify({
+					address: address,
+				});
+			}
+			else {
+				statusCode = 400;
+				body = JSON.stringify({
+					msg: 'Invalid signature',
+				});
+			}
+		}
+		
+		if (address) {
+			try {
+				const id = await redisClient.get(content['user']);
+				
+				const params = {
+					TableName: 'wakandaplus',
+					Key: {
+						id: BigInt(id),
+					},
+					ExpressionAttributeNames: { '#wallets': 'wallets' },
+					UpdateExpression: 'ADD #wallets :wallets',
+					ExpressionAttributeValues: {
+						':wallets': new Set([address]),
+					},
+				};
+				try {
+					await ddbDocClient.send(new UpdateCommand(params));
+				} catch (err) {
+					console.log('Error:', err);
+				}
+			} catch (e) {
+				const id = uid.getUniqueID();
+				await redisClient.set(
+					content['user'],
+					id.toString(),
+				);
+				const params = {
+					TableName: 'wakandaplus',
+					Item: {
+						id: BigInt(id),
+						user: BigInt(content['user']),
+						wallets: new Set([address]),
+					},
+				};
+				
+				try {
+					await ddbDocClient.send(new PutCommand(params));
+				} catch (err) {
+					console.log('Error', err.stack);
+				}
 			}
 		}
 	}
