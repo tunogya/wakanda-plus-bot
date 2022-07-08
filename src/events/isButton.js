@@ -47,6 +47,7 @@ module.exports = {
 			else if (isAddress(i.customId)) {
 				await i.update({
 					content: `You select ${shortenAddress(i.customId)}`,
+					components: [],
 					ephemeral: true
 				})
 			}
