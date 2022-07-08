@@ -37,7 +37,7 @@ module.exports = {
 				);
 			
 			await interaction.update({
-				content: `**Please sign the message below in 5 min:**\n> ${message}`,
+				content: `**Please sign the message below in 5 min:**\n \`\`\`${message}\`\`\``,
 				components: [row],
 				embeds: [embed],
 				ephemeral: true,
