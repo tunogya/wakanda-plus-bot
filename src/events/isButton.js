@@ -12,7 +12,7 @@ module.exports = {
 		if (interaction.customId === 'toConnectWallet') {
 			const user = interaction.user.id;
 			const state = randomString(12);
-			const message = `My discord is ${interaction.user.tag} and i want to connect my wallet in Wakanda Metaverse. ${new Date().toISOString()}`
+			const message = `Please sign the message in 5 min:\nMy account is ${interaction.user.tag}. I want to connect my wallet in Wakanda Metaverse. ${new Date().toLocaleString()}`
 			await client.set(
 				state,
 				JSON.stringify({
