@@ -2,6 +2,8 @@ const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const client = require('../libs/redis.js');
 const randomString = require('../utils/randomString.js');
 const { isAddress, shortenAddress } = require('../utils/address');
+const redisClient = require('../libs/redis.js');
+const { getUser } = require('../dynamodb/wakandaplus.js');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -42,11 +44,53 @@ module.exports = {
 			});
 		}
 		else if (isAddress(interaction.customId)) {
+			const row = new MessageActionRow().addComponents(
+				new MessageButton()
+					.setCustomId('mywallets')
+					.setLabel('« Back to Wallet List')
+					.setStyle('SECONDARY')
+			);
+			
 			await interaction.update({
 				content: `You select ${shortenAddress(interaction.customId)}`,
-				components: [],
+				components: [row],
 				ephemeral: true
 			})
+		}
+		else if (interaction.customId === 'mywallets') {
+			const user = interaction.user;
+			const id = await redisClient.get(user.id);
+			if (id) {
+				const q = await getUser(id);
+				const info = q.Item;
+				if (info) {
+					const wallets = info['wallets'] ? Array.from(info['wallets']) : [];
+					const row = new MessageActionRow().addComponents(
+						wallets.slice(0, 4).map((address) => new MessageButton()
+							.setCustomId(address)
+							.setLabel(shortenAddress(address))
+							.setStyle('SECONDARY')
+						).concat(wallets.length > 4 ?
+							[new MessageButton()
+								.setCustomId('next')
+								.setLabel('»')] : []
+						)
+					);
+					await interaction.reply({
+						content: 'Choose a wallet from the list below:',
+						components: [row],
+						ephemeral: true,
+					});
+				}
+			}
+			else {
+				// 通过数据库查询是否真的没有用户数据
+				// 如果没有，则创建新的用户记录
+				await interaction.reply({
+					content: 'None address here.',
+					ephemeral: true,
+				});
+			}
 		}
 	},
 };
