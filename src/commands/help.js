@@ -7,7 +7,6 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.reply({
 			content: `I can help you connect and manage wallets.
-
 You can control me by sending these commands:
 
 */connectwallet* - connect a new wallet
