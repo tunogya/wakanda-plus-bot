@@ -3,3 +3,4 @@ node_modules
 /.idea/
 /src/lambda/wakandaplus-discord-wallet/dynamodb/
 /src/lambda/wakandaplus-discord-wallet/libs/
+/log.json

@@ -6,6 +6,7 @@ const {
 	UpdateCommand,
 } = require('@aws-sdk/lib-dynamodb');
 const ddbDocClient = require('../libs/ddbDocClient.js');
+const log = require("../libs/log.js")
 
 // 用于创建用户存档，危险！会覆盖其他字段，更新使用 Update
 const putUser = async (id, user_id, guild_id) => {
@@ -20,10 +21,10 @@ const putUser = async (id, user_id, guild_id) => {
 
 	try {
 		const data = await ddbDocClient.send(new PutCommand(params));
-		console.log('Success - item added or updated:\n', data);
+		log.info('Success - item added or updated:\n', data)
 		return data;
 	} catch (err) {
-		console.log('Error', err.stack);
+		log.error('Error', err.stack)
 		return false;
 	}
 };
@@ -40,7 +41,7 @@ const getUser = async (id) => {
 	try {
 		return await ddbDocClient.send(new GetCommand(params));
 	} catch (err) {
-		console.log('Error:', err);
+		log.error('Error', err.stack)
 		return false;
 	}
 };
@@ -56,10 +57,10 @@ const deleteUserById = async (user_id, guild_id) => {
 
 	try {
 		await ddbDocClient.send(new DeleteCommand(params));
-		console.log('Success - item deleted');
+		log.info('Success - item deleted')
 		return true;
 	} catch (err) {
-		console.log('Error:', err);
+		log.error('Error:', err)
 		return false;
 	}
 };
@@ -79,10 +80,10 @@ const addWalletToUser = async (id, address) => {
 	};
 	try {
 		const data = await ddbDocClient.send(new UpdateCommand(params));
-		console.log('Success - item added or updated:\n', data);
+		log.info('Success - item added or updated:\n', data);
 		return data;
 	} catch (err) {
-		console.log('Error:', err);
+		log.error('Error:', err);
 		return false;
 	}
 };
@@ -102,10 +103,10 @@ const queryUser = async (user_id, guild_id) => {
 
 	try {
 		const data = await ddbDocClient.send(new QueryCommand(params));
-		console.log(data);
+		log.info(data);
 		return data;
 	} catch (err) {
-		console.log('Error:', err);
+		log.info('Error:', err);
 		return false;
 	}
 };
