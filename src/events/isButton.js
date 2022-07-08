@@ -36,7 +36,7 @@ module.exports = {
 					'You should expect to sign the following message when prompted by a non-custodial wallet such as MetaMask.\nMake sure you sign the EXACT message and NEVER share your seed phrase or private key.'
 				);
 			
-			await interaction.reply({
+			await interaction.update({
 				content: message,
 				components: [row],
 				embeds: [embed],
@@ -76,7 +76,7 @@ module.exports = {
 								.setLabel('»')] : []
 						)
 					);
-					await interaction.reply({
+					await interaction.update({
 						content: 'Choose a wallet from the list below:',
 						components: [row],
 						ephemeral: true,
@@ -86,7 +86,7 @@ module.exports = {
 			else {
 				// 通过数据库查询是否真的没有用户数据
 				// 如果没有，则创建新的用户记录
-				await interaction.reply({
+				await interaction.update({
 					content: 'None address here.',
 					ephemeral: true,
 				});
