@@ -12,7 +12,8 @@ module.exports = {
 		if (interaction.customId === 'toConnectWallet') {
 			const user = interaction.user.id;
 			const state = randomString(12);
-			const message = `**Please sign the message below in 5 min**
+			const message = `**Please sign the message below in 5 min:**
+
 > My account is ${interaction.user.tag}. I want to connect my wallet in Wakanda Metaverse. ${new Date().toLocaleString()}
 
 [https://wakandaplus.wakanda.cn/#/${state}](https://wakandaplus.wakanda.cn/#/${state})`
