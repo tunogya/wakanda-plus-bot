@@ -10,9 +10,10 @@ module.exports = {
 
 You can control me by sending these commands:
 
-**Wallets**
 */connectwallet* - connect a new wallet
 */mywallets* - manage your wallets
+
+**Edit Wallets**
 */deletewallet* - delete a wallet
 
 **Role**
