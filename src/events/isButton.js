@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const { MessageActionRow, MessageButton } = require('discord.js');
 const client = require('../libs/redis.js');
 const randomString = require('../utils/randomString.js');
 const { isAddress, shortenAddress } = require('../utils/address');
@@ -30,16 +30,10 @@ module.exports = {
 					.setURL(`https://wakandaplus.wakanda.cn/#/${state}`)
 					.setStyle('LINK')
 			);
-			const embed = new MessageEmbed()
-				.setTitle('Please read instructions carefully before connecting')
-				.setDescription(
-					'You should expect to sign the following message when prompted by a non-custodial wallet such as MetaMask.\nMake sure you sign the EXACT message and NEVER share your seed phrase or private key.'
-				);
 			
 			await interaction.update({
-				content: `**Please sign the message below in 5 min:**\`\`\`${message}\`\`\``,
+				content: `**Sign the message below in 5 min:**\`\`\`${message}\`\`\`Make sure you sign the EXACT message and NEVER share your seed phrase or private key.`,
 				components: [row],
-				embeds: [embed],
 				ephemeral: true,
 			});
 		}
