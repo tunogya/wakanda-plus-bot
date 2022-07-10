@@ -1,7 +1,7 @@
 const { ethers } = require('ethers');
 const { createClient } = require('redis');
 const { Snowflake } = require('nodejs-snowflake');
-const { UpdateCommand, PutCommand, DynamoDBDocumentClient } = require('@aws-sdk/lib-dynamodb');
+const { UpdateCommand, PutCommand, DynamoDBDocumentClient, QueryCommand } = require('@aws-sdk/lib-dynamodb');
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const fcl = require('@onflow/fcl');
 
@@ -91,9 +91,8 @@ exports.handler = async (event) => {
 		}
 		
 		if (address) {
-			try {
-				const id = await redisClient.get(content['user']);
-				
+			let id = await redisClient.get(content['user']);
+			if (id) {
 				const params = {
 					TableName: 'wakandaplus',
 					Key: {
@@ -110,25 +109,42 @@ exports.handler = async (event) => {
 				} catch (err) {
 					console.log('Error:', err);
 				}
-			} catch (e) {
-				const id = uid.getUniqueID();
-				await redisClient.set(
-					content['user'],
-					id.toString(),
-				);
-				const params = {
-					TableName: 'wakandaplus',
-					Item: {
-						id: BigInt(id),
-						user: BigInt(content['user']),
-						wallets: new Set([address]),
-					},
-				};
-				
+			} else {
+				// query by dynamodb
 				try {
-					await ddbDocClient.send(new PutCommand(params));
+					const res = await ddbDocClient.send(new QueryCommand({
+						ExpressionAttributeNames: { '#user': 'user' },
+						ProjectionExpression: 'id, #user',
+						TableName: 'wakandaplus',
+						IndexName: 'user-index',
+						KeyConditionExpression: '#user = :user',
+						ExpressionAttributeValues: {
+							':user': BigInt(content['user']),
+						},
+					}));
+					if (res.Count > 0) {
+						id = res.Items[0].id
+					} else {
+						id = uid.getUniqueID();
+					}
+					try {
+						await ddbDocClient.send(new PutCommand({
+							TableName: 'wakandaplus',
+							Item: {
+								id: BigInt(id),
+								user: BigInt(content['user']),
+								wallets: new Set([address]),
+							},
+						}));
+						await redisClient.set(
+							content['user'],
+							id.toString(),
+						);
+					} catch (err) {
+						console.log('Error', err.stack);
+					}
 				} catch (err) {
-					console.log('Error', err.stack);
+					console.log(err)
 				}
 			}
 		}

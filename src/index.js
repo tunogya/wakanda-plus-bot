@@ -2,14 +2,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Intents } = require('discord.js');
 const redisClient = require("./libs/redis.js");
-const log = require('./libs/log.js');
 const dotenv = require('dotenv');
 dotenv.config();
 
 try {
 	redisClient.connect();
 } catch (e) {
-	log.error('Redis Client Connect Error')
+	console.log('Redis Client Connect Error')
 }
 
 const token = process.env.token;
@@ -52,7 +51,7 @@ bot.on('interactionCreate', async (interaction) => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		log.error(error);
+		console.log(error);
 		await interaction.reply({
 			content: 'There was an error while executing this command!',
 			ephemeral: true,
