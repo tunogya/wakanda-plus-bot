@@ -72,8 +72,8 @@ const addWalletToUser = async (id, address) => {
 		Key: {
 			id: BigInt(id),
 		},
-		ExpressionAttributeNames: { '#wallet': 'wallet' },
-		UpdateExpression: 'ADD #wallet :w',
+		ExpressionAttributeNames: { '#wallets': 'wallets' },
+		UpdateExpression: 'ADD #wallets :w',
 		ExpressionAttributeValues: {
 			':w': new Set([address]),
 		},
@@ -94,8 +94,8 @@ const delWalletFromUser = async (id, address) => {
 		Key: {
 			id: BigInt(id),
 		},
-		ExpressionAttributeNames: { '#wallet': 'wallet' },
-		UpdateExpression: 'DELETE #wallet :w',
+		ExpressionAttributeNames: { '#wallets': 'wallets' },
+		UpdateExpression: 'DELETE #wallets :w',
 		ExpressionAttributeValues: {
 			':w': new Set([address]),
 		},
