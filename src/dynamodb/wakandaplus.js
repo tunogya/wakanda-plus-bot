@@ -95,14 +95,14 @@ const delWalletFromUser = async (id, address) => {
 			id: BigInt(id),
 		},
 		ExpressionAttributeNames: { '#wallets': 'wallets' },
-		UpdateExpression: 'DELETE #wallets :w',
+		UpdateExpression: 'DELETE #wallets :wallets',
 		ExpressionAttributeValues: {
-			':w': new Set([address]),
+			':wallets': new Set([address]),
 		},
 	};
 	try {
-		await ddbDocClient.send(new UpdateCommand(params));
-		console.log('Success - delete');
+		const res = await ddbDocClient.send(new UpdateCommand(params));
+		console.log('Success - delete', res);
 		return true;
 	} catch (err) {
 		console.log(err);
