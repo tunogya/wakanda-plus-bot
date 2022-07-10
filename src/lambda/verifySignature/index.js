@@ -7,11 +7,11 @@ const fcl = require('@onflow/fcl');
 
 fcl.config({
 	'accessNode.api': 'https://rest-testnet.onflow.org',
-	"app.detail.title": "Wakanda+",
-	"app.detail.icon": "https://wakandaplus.wakanda.cn/logo512.png",
+	'app.detail.title': 'Wakanda+',
+	'app.detail.icon': 'https://wakandaplus.wakanda.cn/logo512.png',
 	'flow.network': 'testnet',
-	"discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
-	"discovery.authn.endpoint": "https://fcl-discovery.onflow.org/api/testnet/authn",
+	'discovery.wallet': 'https://fcl-discovery.onflow.org/testnet/authn',
+	'discovery.authn.endpoint': 'https://fcl-discovery.onflow.org/api/testnet/authn',
 });
 
 const ddbClient = new DynamoDBClient({
@@ -93,24 +93,23 @@ exports.handler = async (event) => {
 		if (address) {
 			let id = await redisClient.get(content['user']);
 			if (id) {
-				const params = {
-					TableName: 'wakandaplus',
-					Key: {
-						id: BigInt(id),
-					},
-					ExpressionAttributeNames: { '#wallets': 'wallets' },
-					UpdateExpression: 'ADD #wallets :wallets',
-					ExpressionAttributeValues: {
-						':wallets': new Set([address]),
-					},
-				};
 				try {
-					await ddbDocClient.send(new UpdateCommand(params));
+					await ddbDocClient.send(new UpdateCommand({
+						TableName: 'wakandaplus',
+						Key: {
+							id: BigInt(id),
+						},
+						ExpressionAttributeNames: { '#wallets': 'wallets' },
+						UpdateExpression: 'ADD #wallets :wallets',
+						ExpressionAttributeValues: {
+							':wallets': new Set([address]),
+						},
+					}));
 				} catch (err) {
 					console.log('Error:', err);
 				}
-			} else {
-				// query by dynamodb
+			}
+			else {
 				try {
 					const res = await ddbDocClient.send(new QueryCommand({
 						ExpressionAttributeNames: { '#user': 'user' },
@@ -123,8 +122,9 @@ exports.handler = async (event) => {
 						},
 					}));
 					if (res.Count > 0) {
-						id = res.Items[0].id
-					} else {
+						id = res.Items[0].id;
+					}
+					else {
 						id = uid.getUniqueID();
 					}
 					try {
@@ -139,12 +139,15 @@ exports.handler = async (event) => {
 						await redisClient.set(
 							content['user'],
 							id.toString(),
+							{
+								EX: 86400,
+							},
 						);
 					} catch (err) {
 						console.log('Error', err.stack);
 					}
 				} catch (err) {
-					console.log(err)
+					console.log(err);
 				}
 			}
 		}
