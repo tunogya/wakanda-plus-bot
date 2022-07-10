@@ -73,9 +73,9 @@ const addWalletToUser = async (id, address) => {
 			id: BigInt(id),
 		},
 		ExpressionAttributeNames: { '#wallets': 'wallets' },
-		UpdateExpression: 'ADD #wallets :w',
+		UpdateExpression: 'ADD #wallets :wallets',
 		ExpressionAttributeValues: {
-			':w': new Set([address]),
+			':wallets': new Set([address]),
 		},
 	};
 	try {
