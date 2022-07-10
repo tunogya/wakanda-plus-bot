@@ -92,18 +92,27 @@ Make sure you sign the EXACT message and NEVER share your seed phrase or private
 		}
 		else if (interaction.customId.slice(0, 12) === 'deletewallet') {
 			const wallet = interaction.customId.slice(13)
-			await delWalletFromUser(interaction.user.id, wallet)
+			const id = await getIdByUserId(interaction.user.id)
 			const row = new MessageActionRow().addComponents([
 				new MessageButton()
 					.setCustomId('mywallets')
 					.setLabel('« Back to Wallet List')
 					.setStyle('SECONDARY'),
 			]);
-			await interaction.update({
-				content: `This address has been deleted.`,
-				components: [row],
-				ephemeral: true,
-			});
+			if (id && wallet) {
+				await delWalletFromUser(interaction.user.id, wallet)
+				await interaction.update({
+					content: `This address has been deleted.`,
+					components: [row],
+					ephemeral: true,
+				});
+			} else {
+				await interaction.update({
+					content: `Something was wrong.`,
+					components: [row],
+					ephemeral: true,
+				});
+			}
 		}
 	},
 };
