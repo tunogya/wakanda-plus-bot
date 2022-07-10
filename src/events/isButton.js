@@ -2,8 +2,8 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 const client = require('../libs/redis.js');
 const randomString = require('../utils/randomString.js');
 const { isAddress, shortenAddress } = require('../utils/address');
-const redisClient = require('../libs/redis.js');
 const { getUser } = require('../dynamodb/wakandaplus.js');
+const { getIdByUserId } = require('../dynamodb/wakandaplus');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -55,7 +55,7 @@ Make sure you sign the EXACT message and NEVER share your seed phrase or private
 		}
 		else if (interaction.customId === 'mywallets') {
 			const user = interaction.user;
-			const id = await redisClient.get(user.id);
+			const id = await getIdByUserId(user.id);
 			if (id) {
 				const q = await getUser(id);
 				const info = q.Item;
@@ -80,8 +80,6 @@ Make sure you sign the EXACT message and NEVER share your seed phrase or private
 				}
 			}
 			else {
-				// 通过数据库查询是否真的没有用户数据
-				// 如果没有，则创建新的用户记录
 				await interaction.update({
 					content: 'None address here.',
 					ephemeral: true,
