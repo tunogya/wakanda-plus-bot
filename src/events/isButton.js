@@ -100,7 +100,7 @@ Make sure you sign the EXACT message and NEVER share your seed phrase or private
 					.setStyle('SECONDARY'),
 			]);
 			if (id && wallet) {
-				await delWalletFromUser(interaction.user.id, wallet)
+				await delWalletFromUser(id, wallet)
 				await interaction.update({
 					content: `This address has been deleted.`,
 					components: [row],
