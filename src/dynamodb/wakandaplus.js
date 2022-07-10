@@ -75,7 +75,7 @@ const addWalletToUser = async (id, address) => {
 		ExpressionAttributeNames: { '#wallet': 'wallet' },
 		UpdateExpression: 'ADD #wallet :w',
 		ExpressionAttributeValues: {
-			':w': address,
+			':w': new Set(address),
 		},
 	};
 	try {
@@ -97,7 +97,7 @@ const delWalletFromUser = async (id, address) => {
 		ExpressionAttributeNames: { '#wallet': 'wallet' },
 		UpdateExpression: 'DELETE #wallet :w',
 		ExpressionAttributeValues: {
-			':w': address,
+			':w': new Set(address),
 		},
 	};
 	try {
