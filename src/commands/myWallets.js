@@ -14,7 +14,7 @@ module.exports = {
 			const q = await getUser(id);
 			const info = q.Item;
 			try {
-				const wallets = info['wallets'] ? Array.from(info['wallets']) : [];
+				const wallets = Array.from(info.wallets);
 				const row = new MessageActionRow().addComponents(
 					wallets.slice(0, 4).map((address) => new MessageButton()
 						.setCustomId(address)
