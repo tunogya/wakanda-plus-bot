@@ -3,7 +3,7 @@ const client = require('../libs/redis.js');
 const randomString = require('../utils/randomString.js');
 const { isAddress, shortenAddress } = require('../utils/address');
 const { getUser } = require('../dynamodb/wakandaplus.js');
-const { getIdByUserId } = require('../dynamodb/wakandaplus');
+const { getIdByUserId, delWalletFromUser } = require('../dynamodb/wakandaplus');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -12,23 +12,23 @@ module.exports = {
 		if (interaction.customId === 'toConnectWallet') {
 			const user = interaction.user.id;
 			const state = randomString(12);
-			const message = `My account is ${interaction.user.tag}. I want to connect my wallet in Wakanda Metaverse. ${new Date().toLocaleString()}`
+			const message = `My account is ${interaction.user.tag}. I want to connect my wallet in Wakanda Metaverse. ${new Date().toLocaleString()}`;
 			await client.set(
 				state,
 				JSON.stringify({
 					user: user,
-					message: message
+					message: message,
 				}),
 				{
 					EX: 300,
-				}
+				},
 			);
 			
 			const row = new MessageActionRow().addComponents(
 				new MessageButton()
 					.setLabel('Connect Wallet')
 					.setURL(`https://wakandaplus.wakanda.cn/#/${state}`)
-					.setStyle('LINK')
+					.setStyle('LINK'),
 			);
 			
 			await interaction.reply({
@@ -40,18 +40,22 @@ Make sure you sign the EXACT message and NEVER share your seed phrase or private
 			});
 		}
 		else if (isAddress(interaction.customId)) {
-			const row = new MessageActionRow().addComponents(
+			const row = new MessageActionRow().addComponents([
+				new MessageButton()
+					.setCustomId(`deletewallet-${interaction.customId}`)
+					.setLabel('Delete wallet')
+					.setStyle('SECONDARY'),
 				new MessageButton()
 					.setCustomId('mywallets')
 					.setLabel('« Back to Wallet List')
-					.setStyle('SECONDARY')
-			);
+					.setStyle('SECONDARY'),
+			]);
 			
 			await interaction.update({
 				content: `You select ${shortenAddress(interaction.customId)}`,
 				components: [row],
-				ephemeral: true
-			})
+				ephemeral: true,
+			});
 		}
 		else if (interaction.customId === 'mywallets') {
 			const user = interaction.user;
@@ -65,12 +69,12 @@ Make sure you sign the EXACT message and NEVER share your seed phrase or private
 						wallets.slice(0, 4).map((address) => new MessageButton()
 							.setCustomId(address)
 							.setLabel(shortenAddress(address))
-							.setStyle('SECONDARY')
+							.setStyle('SECONDARY'),
 						).concat(wallets.length > 4 ?
 							[new MessageButton()
 								.setCustomId('next')
-								.setLabel('»')] : []
-						)
+								.setLabel('»')] : [],
+						),
 					);
 					await interaction.update({
 						content: 'Choose a wallet from the list below:',
@@ -85,6 +89,21 @@ Make sure you sign the EXACT message and NEVER share your seed phrase or private
 					ephemeral: true,
 				});
 			}
+		}
+		else if (interaction.customId.slice(0, 12) === 'deletewallet') {
+			const wallet = interaction.customId.slice(13)
+			await delWalletFromUser(interaction.user.id, wallet)
+			const row = new MessageActionRow().addComponents([
+				new MessageButton()
+					.setCustomId('mywallets')
+					.setLabel('« Back to Wallet List')
+					.setStyle('SECONDARY'),
+			]);
+			await interaction.update({
+				content: `This address has been deleted.`,
+				components: [row],
+				ephemeral: true,
+			});
 		}
 	},
 };

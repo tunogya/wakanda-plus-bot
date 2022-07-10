@@ -88,6 +88,28 @@ const addWalletToUser = async (id, address) => {
 	}
 };
 
+const delWalletFromUser = async (id, address) => {
+	const params = {
+		TableName: 'wakandaplus',
+		Key: {
+			id: BigInt(id),
+		},
+		ExpressionAttributeNames: { '#wallet': 'wallet' },
+		UpdateExpression: 'DELETE #wallet :w',
+		ExpressionAttributeValues: {
+			':w': address,
+		},
+	};
+	try {
+		await ddbDocClient.send(new UpdateCommand(params));
+		console.log('Success - delete');
+		return true;
+	} catch (err) {
+		console.log(err);
+		return false;
+	}
+}
+
 const queryUser = async (user_id) => {
 	const params = {
 		ExpressionAttributeNames: { '#user': 'user' },
@@ -140,5 +162,6 @@ module.exports = {
 	deleteUserById,
 	queryUser,
 	addWalletToUser,
-	getIdByUserId
+	getIdByUserId,
+	delWalletFromUser
 };
