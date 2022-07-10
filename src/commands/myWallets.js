@@ -13,23 +13,32 @@ module.exports = {
 		if (id) {
 			const q = await getUser(id);
 			const info = q.Item;
-			const wallets = info['wallets'] ? Array.from(info['wallets']) : [];
-			const row = new MessageActionRow().addComponents(
-				wallets.slice(0, 4).map((address) => new MessageButton()
-					.setCustomId(address)
-					.setLabel(shortenAddress(address))
-					.setStyle('SECONDARY'),
-				).concat(wallets.length > 4 ?
-					[new MessageButton()
-						.setCustomId('next')
-						.setLabel('»')] : [],
-				),
-			);
-			await interaction.reply({
-				content: 'Choose a wallet from the list below:',
-				components: [row],
-				ephemeral: true,
-			});
+			try {
+				const wallets = info['wallets'] ? Array.from(info['wallets']) : [];
+				const row = new MessageActionRow().addComponents(
+					wallets.slice(0, 4).map((address) => new MessageButton()
+						.setCustomId(address)
+						.setLabel(shortenAddress(address))
+						.setStyle('SECONDARY'),
+					).concat(wallets.length > 4 ?
+						[new MessageButton()
+							.setCustomId('next')
+							.setLabel('»')] : [],
+					),
+				);
+				await interaction.reply({
+					content: 'Choose a wallet from the list below:',
+					components: [row],
+					ephemeral: true,
+				});
+			} catch (e) {
+				console.log(e)
+				await interaction.reply({
+					content: 'None address.',
+					ephemeral: true,
+				});
+			}
+
 		}
 		else {
 			await interaction.reply({
