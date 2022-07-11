@@ -8,7 +8,7 @@ module.exports = {
 		.setDescription(`Delete a wallet`)
 		.addUserOption(option => option.setName('target').setDescription('The wallet to delete')),
 	async execute(interaction) {
-		const wallet = interaction.options.getUser('target');
+		const wallet = interaction.options.getUser('target') ?? undefined;
 		const id = await getIdByUserId(interaction.user.id)
 		const row = new MessageActionRow().addComponents([
 			new MessageButton()
