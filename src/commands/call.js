@@ -14,12 +14,12 @@ module.exports = {
 		.addIntegerOption(option => option.setName('presence_penalty').setDescription('How much to penalize new tokens based on whether they appear in the text so far.'))
 		.addIntegerOption(option => option.setName('best_of').setDescription('Generate multiple texts and return the best one. This can eat into token quota very quickly.')),
 	async execute(interaction) {
-		const model = interaction.options.getString('model');
-		const temperature = interaction.options.getInteger('temperature') ?? Math.random();
-		const top_p = interaction.options.getInteger('top_p') ?? Math.random();
+		const model = interaction.options.getString('model') ?? 'davinci';
+		const temperature = interaction.options.getInteger('temperature') ?? Math.random().toFixed(2);
+		const top_p = interaction.options.getInteger('top_p') ?? Math.random().toFixed(2);
 		const max_tokens = interaction.options.getInteger('max_tokens') ?? 100;
-		const frequency_penalty = interaction.options.getInteger('frequency_penalty') ?? Math.random();
-		const presence_penalty = interaction.options.getInteger('presence_penalty') ?? Math.random();
+		const frequency_penalty = interaction.options.getInteger('frequency_penalty') ?? Math.random().toFixed(2);
+		const presence_penalty = interaction.options.getInteger('presence_penalty') ?? Math.random().toFixed(2);
 		const best_of = interaction.options.getInteger('best_of') ?? 1;
 		
 		if (model !== 'ada' && model !== 'babbage' && model !== 'curie' && model !== 'davinci') {
