@@ -59,12 +59,4 @@ client.on('interactionCreate', async (interaction) => {
 	}
 });
 
-client.on('messageCreate', async (message) => {
-	if (message.author.bot) return;
-	console.log(message.channelId);
-	console.log(message.guildId);
-	console.log(message.content);
-	console.log(message.author.id);
-})
-
 client.login(token);
