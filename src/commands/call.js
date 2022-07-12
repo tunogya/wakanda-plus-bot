@@ -4,8 +4,9 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('callada')
-		.setDescription(`Call Ada`)
+		.setName('call')
+		.setDescription(`Call an AI`)
+		.addStringOption(option => option.setName('model').setDescription('Name of the AI model'))
 		.addIntegerOption(option => option.setName('temperature').setDescription('Control randomness of the generated text. 0.0 to 1.0.'))
 		.addIntegerOption(option => option.setName('top_p').setDescription('Control diversity via nucleus sampling. 0.0 to 1.0.'))
 		.addIntegerOption(option => option.setName('max_tokens').setDescription('The maximum number of tokens to generate.'))
@@ -13,12 +14,17 @@ module.exports = {
 		.addIntegerOption(option => option.setName('presence_penalty').setDescription('How much to penalize new tokens based on whether they appear in the text so far.'))
 		.addIntegerOption(option => option.setName('best_of').setDescription('Generate multiple texts and return the best one. This can eat into token quota very quickly.')),
 	async execute(interaction) {
-		const temperature = interaction.getInteger('temperature') ?? Math.random();
-		const top_p = interaction.getInteger('top_p') ?? Math.random();
-		const max_tokens = interaction.getInteger('max_tokens') ?? 100;
-		const frequency_penalty = interaction.getInteger('frequency_penalty') ?? Math.random();
-		const presence_penalty = interaction.getInteger('presence_penalty') ?? Math.random();
-		const best_of = interaction.getInteger('best_of') ?? 1;
+		const model = interaction.options.getString('model');
+		const temperature = interaction.options.getInteger('temperature') ?? Math.random();
+		const top_p = interaction.options.getInteger('top_p') ?? Math.random();
+		const max_tokens = interaction.options.getInteger('max_tokens') ?? 100;
+		const frequency_penalty = interaction.options.getInteger('frequency_penalty') ?? Math.random();
+		const presence_penalty = interaction.options.getInteger('presence_penalty') ?? Math.random();
+		const best_of = interaction.options.getInteger('best_of') ?? 1;
+		
+		if (model !== 'ada' && model !== 'babbage' && model !== 'curie' && model !== 'davinci') {
+			return interaction.reply('Invalid model name. Only ada, babbage, curie, and davinci are supported.');
+		}
 		
 		if (temperature < 0 || temperature > 1) {
 			return interaction.reply({ content: 'You need to input a number between 0 and 1.', ephemeral: true });
@@ -41,7 +47,7 @@ module.exports = {
 		
 		// save the params to redis
 		await redisClient.set(`${interaction.user.channelId}-${interaction.user.id}-intent`, JSON.stringify({
-			model: 'ada',
+			model: model,
 			temperature: temperature,
 			top_p: top_p,
 			max_tokens: max_tokens,
@@ -55,7 +61,7 @@ module.exports = {
 		const embed = new MessageEmbed()
 			.setTitle('Payment Overview')
 			.setDescription(
-				`model: Ada\ntemperature: ${temperature}\ntop_p: ${top_p}\nmax_tokens: ${max_tokens}\nfrequency_penalty: ${frequency_penalty}\npresence_penalty: ${presence_penalty}\nbest_of: ${best_of}`
+				`model: ${model}\ntemperature: ${temperature}\ntop_p: ${top_p}\nmax_tokens: ${max_tokens}\nfrequency_penalty: ${frequency_penalty}\npresence_penalty: ${presence_penalty}\nbest_of: ${best_of}`
 			);
 		
 		await interaction.reply({
