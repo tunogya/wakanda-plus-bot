@@ -10,7 +10,7 @@ module.exports = {
 		if (message.channelId === '996278471422660688') {
 			const res = await openai.createCompletion({
 				model: 'text-davinci-002',
-				prompt: message.content,
+				prompt: '```' + message.content + '```',
 				temperature: 0.9,
 				top_p: 1,
 				max_tokens: 100,
@@ -26,10 +26,10 @@ module.exports = {
 		else if (message.channelId === '996280015379509288') {
 			const res = await openai.createCompletion({
 				model: 'text-curie-001',
-				prompt: message.content,
+				prompt: '```' + message.content + '```',
 				temperature: 0.9,
 				top_p: 1,
-				max_tokens: 100,
+				max_tokens: 150,
 				frequency_penalty: 0,
 				presence_penalty: 0.6,
 			})
@@ -42,10 +42,10 @@ module.exports = {
 		else if (message.channelId === '996280421283266733') {
 			const res = await openai.createCompletion({
 				model: 'text-babbage-001',
-				prompt: message.content,
+				prompt: '```' + message.content + '```',
 				temperature: 0.9,
 				top_p: 1,
-				max_tokens: 100,
+				max_tokens: 150,
 				frequency_penalty: 0,
 				presence_penalty: 0.6,
 			})
@@ -58,10 +58,10 @@ module.exports = {
 		else if (message.channelId === '996280490237632622') {
 			const res = await openai.createCompletion({
 				model: 'text-ada-001',
-				prompt: message.content,
+				prompt: '```' + message.content + '```',
 				temperature: 0.9,
 				top_p: 1,
-				max_tokens: 100,
+				max_tokens: 150,
 				frequency_penalty: 0,
 				presence_penalty: 0.6,
 			})
