@@ -10,7 +10,8 @@ const fetch = async () => {
 		frequency_penalty: 0,
 		presence_penalty: 0.6,
 	});
-	console.log(res.data.usage.prompt_tokens, res.data.usage.completion_tokens, res.data.usage.total_tokens)
+	// console.log(res)
+	console.log(res.config.headers['OpenAI-Organization'])
 }
 
 fetch()
