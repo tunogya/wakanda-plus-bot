@@ -44,7 +44,7 @@ module.exports = {
 		const embed = new MessageEmbed()
 			.setTitle('Payments Overview')
 			.setDescription(
-				`The cost of this request: $${res.data.usage.total_tokens * price}.`
+				`The cost of this request: $${(res.data.usage.total_tokens * price).toFixed(6)}.`
 			);
 		
 		await message.reply({
