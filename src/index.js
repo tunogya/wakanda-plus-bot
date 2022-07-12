@@ -13,7 +13,7 @@ try {
 
 const token = process.env.token;
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES] });
 
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
