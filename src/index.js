@@ -61,9 +61,9 @@ client.on('interactionCreate', async (interaction) => {
 
 
 client.on('messageCreate', (message) => {
+	console.log(message);
 	if (message.author?.bot) return;
 	if (message.guildId !== '980009405401677854') return;
-	console.log(message);
 	if (message.channelId === '996278471422660688') {
 		message.author.send({
 			content: 'davinci',
