@@ -6,7 +6,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('call')
 		.setDescription(`Call an AI`)
-		.addStringOption(option => option.setName('model').setDescription('Name of the AI model'))
+		.addStringOption(option => option.setName('model').setDescription('Name of the AI model, e.g. davinci, curie, babbage, ada'))
 		.addIntegerOption(option => option.setName('temperature').setDescription('Control randomness of the generated text. 0.0 to 1.0.'))
 		.addIntegerOption(option => option.setName('top_p').setDescription('Control diversity via nucleus sampling. 0.0 to 1.0.'))
 		.addIntegerOption(option => option.setName('max_tokens').setDescription('The maximum number of tokens to generate.'))
@@ -23,7 +23,7 @@ module.exports = {
 		const best_of = interaction.options.getInteger('best_of') ?? 1;
 		
 		if (model !== 'ada' && model !== 'babbage' && model !== 'curie' && model !== 'davinci') {
-			return interaction.reply('Invalid model name. Only ada, babbage, curie, and davinci are supported.');
+			return interaction.reply('Invalid model name. Only davinci, curie, babbage, ada are supported.');
 		}
 		
 		if (temperature < 0 || temperature > 1) {
