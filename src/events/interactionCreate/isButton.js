@@ -1,9 +1,9 @@
 const { MessageActionRow, MessageButton } = require('discord.js');
-const client = require('../libs/redis.js');
-const randomString = require('../utils/randomString.js');
-const { isAddress, shortenAddress } = require('../utils/address');
-const { getUser } = require('../dynamodb/wakandaplus.js');
-const { getIdByUserId, delWalletFromUser } = require('../dynamodb/wakandaplus');
+const client = require('../../libs/redis.js');
+const randomString = require('../../utils/randomString.js');
+const { isAddress, shortenAddress } = require('../../utils/address');
+const { getUser } = require('../../dynamodb/wakandaplus.js');
+const { getIdByUserId, delWalletFromUser } = require('../../dynamodb/wakandaplus');
 
 module.exports = {
 	name: 'interactionCreate',
