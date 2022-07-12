@@ -13,9 +13,9 @@ try {
 
 const token = process.env.token;
 
-const bot = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-bot.commands = new Collection();
+client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs
 	.readdirSync(commandsPath)
@@ -24,7 +24,7 @@ const commandFiles = fs
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
 	const command = require(filePath);
-	bot.commands.set(command.data.name, command);
+	client.commands.set(command.data.name, command);
 }
 
 const eventsPath = path.join(__dirname, 'events');
@@ -35,16 +35,16 @@ for (const file of eventFiles) {
 	const filePath = path.join(eventsPath, file);
 	const event = require(filePath);
 	if (event.once) {
-		bot.once(event.name, (...args) => event.execute(...args));
+		client.once(event.name, (...args) => event.execute(...args));
 	} else {
-		bot.on(event.name, (...args) => event.execute(...args));
+		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
 
-bot.on('interactionCreate', async (interaction) => {
+client.on('interactionCreate', async (interaction) => {
 	if (!interaction.isCommand()) return;
 
-	const command = bot.commands.get(interaction.commandName);
+	const command = client.commands.get(interaction.commandName);
 
 	if (!command) return;
 
@@ -59,4 +59,8 @@ bot.on('interactionCreate', async (interaction) => {
 	}
 });
 
-bot.login(token);
+client.on('messageCreate', async (message) => {
+	console.log(message);
+})
+
+client.login(token);
