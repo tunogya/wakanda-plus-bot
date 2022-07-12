@@ -3,8 +3,6 @@ const path = require('node:path');
 const { Client, Collection, Intents } = require('discord.js');
 const redisClient = require("./libs/redis.js");
 const dotenv = require('dotenv');
-require('discord-reply');
-
 dotenv.config();
 
 try {
@@ -67,19 +65,19 @@ client.on('messageCreate', (message) => {
 	if (message.author?.bot) return;
 	if (message.guildId !== '980009405401677854') return;
 	if (message.channelId === '996278471422660688') {
-		message.lineReplyNoMention({
-			content: 'davinci lineReplyNoMention',
+		message.channel.send({
+			content: 'davinci',
 		});
 	} else if (message.channelId === '996280015379509288') {
-		message.lineReply({
+		message.channel.send({
 			content: 'curie',
 		})
 	} else if (message.channelId === '996280421283266733') {
-		message.lineReply({
+		message.channel.send({
 			content: 'babbage',
 		})
 	} else if (message.channelId === '996280490237632622') {
-		message.lineReply({
+		message.channel.send({
 			content: 'ada',
 		})
 	}
