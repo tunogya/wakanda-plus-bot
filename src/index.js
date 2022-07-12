@@ -67,18 +67,34 @@ client.on('messageCreate', (message) => {
 	if (message.channelId === '996278471422660688') {
 		message.channel.send({
 			content: 'davinci',
+			
 		});
 	} else if (message.channelId === '996280015379509288') {
 		message.channel.send({
 			content: 'curie',
+			message_reference: {
+				message_id: message.id,
+				channelId: message.channelId,
+				guildId: message.guildId,
+			}
 		})
 	} else if (message.channelId === '996280421283266733') {
 		message.channel.send({
 			content: 'babbage',
+			message_reference: {
+				message_id: message.id,
+				channelId: message.channelId,
+				guildId: message.guildId,
+			}
 		})
 	} else if (message.channelId === '996280490237632622') {
 		message.channel.send({
 			content: 'ada',
+			message_reference: {
+				message_id: message.id,
+				channelId: message.channelId,
+				guildId: message.guildId,
+			}
 		})
 	}
 });
