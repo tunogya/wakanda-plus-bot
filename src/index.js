@@ -62,16 +62,24 @@ client.on('interactionCreate', async (interaction) => {
 
 client.on('messageCreate', (message) => {
 	if (message.author?.bot) return;
-	// if (message.guildId !== '980009405401677854') return;
+	if (message.guildId !== '980009405401677854') return;
 	console.log(message);
 	if (message.channelId === '996278471422660688') {
-		console.log('davinci');
+		message.author.send({
+			content: 'davinci',
+		});
 	} else if (message.channelId === '996280015379509288') {
-		console.log('curie');
+		message.author.send({
+			content: 'curie',
+		})
 	} else if (message.channelId === '996280421283266733') {
-		console.log('babbage');
+		message.author.send({
+			content: 'babbage',
+		})
 	} else if (message.channelId === '996280490237632622') {
-		console.log('ada');
+		message.author.send({
+			content: 'ada',
+		})
 	}
 });
 
