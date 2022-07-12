@@ -65,36 +65,20 @@ client.on('messageCreate', (message) => {
 	if (message.author?.bot) return;
 	if (message.guildId !== '980009405401677854') return;
 	if (message.channelId === '996278471422660688') {
-		message.channel.send({
+		message.reply({
 			content: 'davinci',
-			
 		});
 	} else if (message.channelId === '996280015379509288') {
-		message.channel.send({
+		message.reply({
 			content: 'curie',
-			message_reference: {
-				message_id: message.id,
-				channelId: message.channelId,
-				guildId: message.guildId,
-			}
 		})
 	} else if (message.channelId === '996280421283266733') {
-		message.channel.send({
+		message.reply({
 			content: 'babbage',
-			message_reference: {
-				message_id: message.id,
-				channelId: message.channelId,
-				guildId: message.guildId,
-			}
 		})
 	} else if (message.channelId === '996280490237632622') {
-		message.channel.send({
+		message.reply({
 			content: 'ada',
-			message_reference: {
-				message_id: message.id,
-				channelId: message.channelId,
-				guildId: message.guildId,
-			}
 		})
 	}
 });
