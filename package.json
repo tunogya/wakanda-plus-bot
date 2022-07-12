@@ -16,6 +16,7 @@
     "@discordjs/rest": "^0.5.0",
     "aws-sdk": "^2.1166.0",
     "discord-api-types": "^0.33.5",
+    "discord-reply": "^0.1.2",
     "discord.js": "^13.8.0",
     "dotenv": "^16.0.1",
     "ethers": "^5.6.9",
