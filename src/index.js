@@ -1,14 +1,14 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Intents } = require('discord.js');
-const redisClient = require("./libs/redis.js");
+const redisClient = require('./libs/redis.js');
 const dotenv = require('dotenv');
 dotenv.config();
 
 try {
 	redisClient.connect();
 } catch (e) {
-	console.log('Redis Client Connect Error')
+	console.log('Redis Client Connect Error');
 }
 
 const token = process.env.token;
@@ -36,18 +36,19 @@ for (const file of eventFiles) {
 	const event = require(filePath);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));
-	} else {
+	}
+	else {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
 
 client.on('interactionCreate', async (interaction) => {
 	if (!interaction.isCommand()) return;
-
+	
 	const command = client.commands.get(interaction.commandName);
-
+	
 	if (!command) return;
-
+	
 	try {
 		await command.execute(interaction);
 	} catch (error) {
@@ -60,26 +61,34 @@ client.on('interactionCreate', async (interaction) => {
 });
 
 
-client.on('messageCreate', (message) => {
+client.on('messageCreate', async (message) => {
 	console.log(message);
 	if (message.author?.bot) return;
+	// only support guild(Wakanda Metaverse) messages
 	if (message.guildId !== '980009405401677854') return;
+	// support messages from 'davinci' channel
 	if (message.channelId === '996278471422660688') {
-		message.reply({
+		await message.reply({
 			content: 'davinci',
 		});
-	} else if (message.channelId === '996280015379509288') {
-		message.reply({
+	}
+	// support messages from 'curie' channel
+	else if (message.channelId === '996280015379509288') {
+		await message.reply({
 			content: 'curie',
-		})
-	} else if (message.channelId === '996280421283266733') {
-		message.reply({
+		});
+	}
+	// support messages from 'babbage' channel
+	else if (message.channelId === '996280421283266733') {
+		await message.reply({
 			content: 'babbage',
-		})
-	} else if (message.channelId === '996280490237632622') {
-		message.reply({
+		});
+	}
+	// support messages from 'ada' channel
+	else if (message.channelId === '996280490237632622') {
+		await message.reply({
 			content: 'ada',
-		})
+		});
 	}
 });
 
