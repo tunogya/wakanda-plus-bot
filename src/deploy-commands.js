@@ -31,3 +31,8 @@ rest
 		console.log('Successfully registered application guild commands.')
 	)
 	.catch(console.log);
+
+rest
+	.put(Routes.applicationCommands(clientId), { body: [] })
+	.then(() => console.log('Successfully registered application commands.'))
+	.catch(console.log);
