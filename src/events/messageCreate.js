@@ -1,7 +1,7 @@
 module.exports = {
-	name: 'interactionCreate',
+	name: 'messageCreate',
 	async execute(message, interaction) {
-		if (message.author.bot) return;
+		if (message.author?.bot) return;
 		console.log(message.channelId);
 		console.log(message.guildId);
 		console.log(message.content);
