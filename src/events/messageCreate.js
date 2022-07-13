@@ -1,5 +1,6 @@
 const openai = require('../libs/openai');
 const redisClient = require('../libs/redis.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'messageCreate',
@@ -9,7 +10,7 @@ module.exports = {
 		const intention = await redisClient.get(`${message.guild.id}-${message.channelId}-${message.author.id}-intention`);
 		if (intention) {
 			const params = JSON.parse(intention);
-			const response = await openai.createCompletion({
+			const res = await openai.createCompletion({
 				prompt: message.content,
 				model: params.model,
 				temperature: params.temperature,
@@ -19,7 +20,14 @@ module.exports = {
 				presence_penalty: params.presence_penalty,
 				best_of: params.best_of,
 			});
-			message.channel.send(response);
+			const embed = new MessageEmbed()
+				.setTitle('Payment overview')
+				.setDescription(`Total tokens: ${res.data.usage.total_tokens}`)
+			
+			message.reply({
+				content: res.data.choices[0].text,
+				embeds: [embed],
+			});
 		}
 	},
 };
