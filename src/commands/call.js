@@ -59,9 +59,8 @@ module.exports = {
 		});
 		
 		const embed = new MessageEmbed()
-			.setTitle('Payment Overview')
-			.setDescription(
-				`model: ${model},temperature: ${temperature},top_p: ${top_p},max_tokens: ${max_tokens},frequency_penalty: ${frequency_penalty},presence_penalty: ${presence_penalty},best_of: ${best_of}`
+			.setTitle('Config Overview')
+			.setDescription(`model: ${model}, temperature: ${temperature}, top_p: ${top_p}, max_tokens: ${max_tokens}, frequency_penalty: ${frequency_penalty}, presence_penalty: ${presence_penalty}, best_of: ${best_of}`
 			);
 		
 		await interaction.reply({
