@@ -8,12 +8,12 @@ module.exports = {
 	async execute(interaction) {
 		const res = await redisClient.get(`${interaction.guild.id}-${interaction.channelId}-${interaction.user.id}-intention`);
 		if (res) {
-			await redisClient.del(`${interaction.guild.id}-${interaction.channelId}-${interaction.user.id}-intention`).then(() => {
+			try {
+				await redisClient.del(`${interaction.guild.id}-${interaction.channelId}-${interaction.user.id}-intention`);
 				interaction.reply({ content: 'Command cancelled.', ephemeral: true });
-			}).cache(error => {
-				console.error(error);
-				interaction.reply({ content: 'There was an error trying to cancel the command!', ephemeral: true });
-			});
+			} catch (e) {
+				interaction.reply({ content: 'There was an error trying to cancel the command.', ephemeral: true });
+			}
 		} else {
 			interaction.reply({ content: 'There is no command to cancel.', ephemeral: true });
 		}
