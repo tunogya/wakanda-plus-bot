@@ -6,9 +6,9 @@ module.exports = {
 		.setName('cancel')
 		.setDescription('Cancel a command.'),
 	async execute(interaction) {
-		const res = await redisClient.get(`${interaction.guild.id}-${interaction.channelId}-${interaction.author.id}-intention`);
+		const res = await redisClient.get(`${interaction.guild.id}-${interaction.channelId}-${interaction.user.id}-intention`);
 		if (res) {
-			await redisClient.del(`${interaction.guild.id}-${interaction.channelId}-${interaction.author.id}-intention`).then(() => {
+			await redisClient.del(`${interaction.guild.id}-${interaction.channelId}-${interaction.user.id}-intention`).then(() => {
 				interaction.reply({ content: 'Command cancelled.', ephemeral: true });
 			}).cache(error => {
 				console.error(error);
