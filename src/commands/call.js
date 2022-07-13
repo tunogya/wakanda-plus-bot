@@ -15,11 +15,11 @@ module.exports = {
 		.addIntegerOption(option => option.setName('best_of').setDescription('Generate multiple texts and return the best one. This can eat into token quota very quickly.')),
 	async execute(interaction) {
 		const model = interaction.options.getString('model') ?? 'text-davinci-002';
-		const temperature = interaction.options.getNumber('temperature') ?? Math.random().toFixed(2);
-		const top_p = interaction.options.getNumber('top_p') ?? Math.random().toFixed(2);
+		const temperature = interaction.options.getNumber('temperature') ?? 0.9;
+		const top_p = interaction.options.getNumber('top_p') ?? 1;
 		const max_tokens = interaction.options.getInteger('max_tokens') ?? 100;
-		const frequency_penalty = interaction.options.getNumber('frequency_penalty') ?? Math.random().toFixed(2);
-		const presence_penalty = interaction.options.getNumber('presence_penalty') ?? Math.random().toFixed(2);
+		const frequency_penalty = interaction.options.getNumber('frequency_penalty') ?? 0;
+		const presence_penalty = interaction.options.getNumber('presence_penalty') ?? 0;
 		const best_of = interaction.options.getInteger('best_of') ?? 1;
 		
 		if (model !== 'text-ada-001' && model !== 'text-babbage-001' && model !== 'text-curie-001' && model !== 'text-davinci-002') {
