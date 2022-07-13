@@ -14,7 +14,7 @@ module.exports = {
 		.addNumberOption(option => option.setName('presence_penalty').setDescription('How much to penalize new tokens based on whether they appear in the text so far. 0.0 to 1.0.'))
 		.addIntegerOption(option => option.setName('best_of').setDescription('Generate multiple texts and return the best one. This can eat into token quota very quickly.')),
 	async execute(interaction) {
-		const model = interaction.options.getString('model') ?? 'davinci';
+		const model = interaction.options.getString('model') ?? 'text-davinci-002';
 		const temperature = interaction.options.getNumber('temperature') ?? Math.random().toFixed(2);
 		const top_p = interaction.options.getNumber('top_p') ?? Math.random().toFixed(2);
 		const max_tokens = interaction.options.getInteger('max_tokens') ?? 100;
@@ -22,8 +22,8 @@ module.exports = {
 		const presence_penalty = interaction.options.getNumber('presence_penalty') ?? Math.random().toFixed(2);
 		const best_of = interaction.options.getInteger('best_of') ?? 1;
 		
-		if (model !== 'ada' && model !== 'babbage' && model !== 'curie' && model !== 'davinci') {
-			return interaction.reply('Invalid model name. Only davinci, curie, babbage, ada are supported.');
+		if (model !== 'text-ada-001' && model !== 'text-babbage-001' && model !== 'text-curie-001' && model !== 'text-davinci-002') {
+			return interaction.reply('Invalid model name. Only text-davinci-002, text-curie-001, text-babbage-001, text-ada-001 are supported.');
 		}
 		
 		if (temperature < 0 || temperature > 1) {
@@ -46,7 +46,7 @@ module.exports = {
 		}
 		
 		// save the params to redis
-		await redisClient.set(`${interaction.user.channelId}-${interaction.user.id}-intent`, JSON.stringify({
+		await redisClient.set(`${interaction.channelId}-${interaction.user.id}-intent`, JSON.stringify({
 			model: model,
 			temperature: temperature,
 			top_p: top_p,
@@ -61,7 +61,7 @@ module.exports = {
 		const embed = new MessageEmbed()
 			.setTitle('Payment Overview')
 			.setDescription(
-				`model: ${model}\ntemperature: ${temperature}\ntop_p: ${top_p}\nmax_tokens: ${max_tokens}\nfrequency_penalty: ${frequency_penalty}\npresence_penalty: ${presence_penalty}\nbest_of: ${best_of}`
+				`model: ${model},temperature: ${temperature},top_p: ${top_p},max_tokens: ${max_tokens},frequency_penalty: ${frequency_penalty},presence_penalty: ${presence_penalty},best_of: ${best_of}`
 			);
 		
 		await interaction.reply({
