@@ -18,8 +18,12 @@ You can control me by sending these commands:
 **Role**
 */claimrole* - claim role manually
 
+**AI**
+*/openai* - call a OpenAI, default use 'text-davinci-002' model
+
 **Other**
-*/cancel* - cancel the current operation
+*/cancel* - cancel a command
+*/prune* - prune up to 99 messages
 `,
 			ephemeral: true,
 		});
