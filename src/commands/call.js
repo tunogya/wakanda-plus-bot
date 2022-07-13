@@ -10,8 +10,8 @@ module.exports = {
 		.addNumberOption(option => option.setName('temperature').setDescription('Control randomness of the generated text. 0.0 to 1.0.'))
 		.addNumberOption(option => option.setName('top_p').setDescription('Control diversity via nucleus sampling. 0.0 to 1.0.'))
 		.addIntegerOption(option => option.setName('max_tokens').setDescription('The maximum number of tokens to generate.'))
-		.addNumberOption(option => option.setName('frequency_penalty').setDescription('How much to penalize new tokens based on their existing frequency in the text so far.'))
-		.addNumberOption(option => option.setName('presence_penalty').setDescription('How much to penalize new tokens based on whether they appear in the text so far.'))
+		.addNumberOption(option => option.setName('frequency_penalty').setDescription('How much to penalize new tokens based on their existing frequency in the text so far. 0.0 to 1.0.'))
+		.addNumberOption(option => option.setName('presence_penalty').setDescription('How much to penalize new tokens based on whether they appear in the text so far. 0.0 to 1.0.'))
 		.addIntegerOption(option => option.setName('best_of').setDescription('Generate multiple texts and return the best one. This can eat into token quota very quickly.')),
 	async execute(interaction) {
 		const model = interaction.options.getString('model') ?? 'davinci';
