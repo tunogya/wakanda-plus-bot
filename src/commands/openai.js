@@ -4,8 +4,8 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('call')
-		.setDescription(`Call an AI, default model is 'text-davinci-002'`)
+		.setName('openai')
+		.setDescription(`Call a OpenAI, default use 'text-davinci-002' model`)
 		.addStringOption(option => option.setName('model').setDescription('Name of the AI model, e.g. text-davinci-002, text-curie-001, text-babbage-001, text-ada-001'))
 		.addNumberOption(option => option.setName('temperature').setDescription('Control randomness of the generated text. 0.0 to 1.0.'))
 		.addNumberOption(option => option.setName('top_p').setDescription('Control diversity via nucleus sampling. 0.0 to 1.0.'))
@@ -46,7 +46,7 @@ module.exports = {
 		}
 		
 		// save the params to redis
-		await redisClient.set(`${interaction.channelId}-${interaction.user.id}-intent`, JSON.stringify({
+		await redisClient.set(`${interaction.guildId}-${interaction.channelId}-${interaction.user.id}-intention`, JSON.stringify({
 			model: model,
 			temperature: temperature,
 			top_p: top_p,
