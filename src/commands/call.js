@@ -5,8 +5,8 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('call')
-		.setDescription(`Call an AI`)
-		.addStringOption(option => option.setName('model').setDescription('Name of the AI model, e.g. davinci, curie, babbage, ada'))
+		.setDescription(`Call an AI, default model is 'text-davinci-002'`)
+		.addStringOption(option => option.setName('model').setDescription('Name of the AI model, e.g. text-davinci-002, text-curie-001, text-babbage-001, text-ada-001'))
 		.addIntegerOption(option => option.setName('temperature').setDescription('Control randomness of the generated text. 0.0 to 1.0.'))
 		.addIntegerOption(option => option.setName('top_p').setDescription('Control diversity via nucleus sampling. 0.0 to 1.0.'))
 		.addIntegerOption(option => option.setName('max_tokens').setDescription('The maximum number of tokens to generate.'))
