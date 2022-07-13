@@ -64,7 +64,7 @@ module.exports = {
 			);
 		
 		await interaction.reply({
-			content: 'Ok, please input your prompt in 5 min or type `/cancel` to cancel.',
+			content: 'You are about to talk to an AI bot. Tall me your prompt in 5 min or type `/cancel` to cancel.',
 			embeds: [embed],
 			ephemeral: true,
 		});
