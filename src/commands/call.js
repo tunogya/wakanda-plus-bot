@@ -7,19 +7,19 @@ module.exports = {
 		.setName('call')
 		.setDescription(`Call an AI, default model is 'text-davinci-002'`)
 		.addStringOption(option => option.setName('model').setDescription('Name of the AI model, e.g. text-davinci-002, text-curie-001, text-babbage-001, text-ada-001'))
-		.addIntegerOption(option => option.setName('temperature').setDescription('Control randomness of the generated text. 0.0 to 1.0.'))
-		.addIntegerOption(option => option.setName('top_p').setDescription('Control diversity via nucleus sampling. 0.0 to 1.0.'))
+		.addNumberOption(option => option.setName('temperature').setDescription('Control randomness of the generated text. 0.0 to 1.0.'))
+		.addNumberOption(option => option.setName('top_p').setDescription('Control diversity via nucleus sampling. 0.0 to 1.0.'))
 		.addIntegerOption(option => option.setName('max_tokens').setDescription('The maximum number of tokens to generate.'))
-		.addIntegerOption(option => option.setName('frequency_penalty').setDescription('How much to penalize new tokens based on their existing frequency in the text so far.'))
-		.addIntegerOption(option => option.setName('presence_penalty').setDescription('How much to penalize new tokens based on whether they appear in the text so far.'))
+		.addNumberOption(option => option.setName('frequency_penalty').setDescription('How much to penalize new tokens based on their existing frequency in the text so far.'))
+		.addNumberOption(option => option.setName('presence_penalty').setDescription('How much to penalize new tokens based on whether they appear in the text so far.'))
 		.addIntegerOption(option => option.setName('best_of').setDescription('Generate multiple texts and return the best one. This can eat into token quota very quickly.')),
 	async execute(interaction) {
 		const model = interaction.options.getString('model') ?? 'davinci';
-		const temperature = interaction.options.getInteger('temperature') ?? Math.random().toFixed(2);
-		const top_p = interaction.options.getInteger('top_p') ?? Math.random().toFixed(2);
+		const temperature = interaction.options.getNumber('temperature') ?? Math.random().toFixed(2);
+		const top_p = interaction.options.getNumber('top_p') ?? Math.random().toFixed(2);
 		const max_tokens = interaction.options.getInteger('max_tokens') ?? 100;
-		const frequency_penalty = interaction.options.getInteger('frequency_penalty') ?? Math.random().toFixed(2);
-		const presence_penalty = interaction.options.getInteger('presence_penalty') ?? Math.random().toFixed(2);
+		const frequency_penalty = interaction.options.getNumber('frequency_penalty') ?? Math.random().toFixed(2);
+		const presence_penalty = interaction.options.getNumber('presence_penalty') ?? Math.random().toFixed(2);
 		const best_of = interaction.options.getInteger('best_of') ?? 1;
 		
 		if (model !== 'ada' && model !== 'babbage' && model !== 'curie' && model !== 'davinci') {
