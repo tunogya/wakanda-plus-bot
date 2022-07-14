@@ -10,20 +10,20 @@ module.exports = {
 		const intention = redisClient.get(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
 		
 		if (intention) {
-			const res = await openai.createCompletion({
-				model: intention.model,
-				prompt: message.content,
-				temperature: intention.temperature,
-				top_p: intention.top_p,
-				max_tokens: intention.max_tokens,
-				frequency_penalty: intention.frequency_penalty,
-				presence_penalty: intention.presence_penalty,
-				best_of: intention.best_of
-			});
-			
-			const org = res.config.headers['OpenAI-Organization']
-			
-			const sponsorships = await redisClient.incr(`${org}-sponsorships`)
+			// const res = await openai.createCompletion({
+			// 	model: intention.model,
+			// 	prompt: message.content,
+			// 	temperature: intention.temperature,
+			// 	top_p: intention.top_p,
+			// 	max_tokens: intention.max_tokens,
+			// 	frequency_penalty: intention.frequency_penalty,
+			// 	presence_penalty: intention.presence_penalty,
+			// 	best_of: intention.best_of
+			// });
+			// await redisClient.del(`${message.guildId}-${message.channelId}-${message.author.id}-intention)`);
+			// const org = res.config.headers['OpenAI-Organization']
+			//
+			// const sponsorships = await redisClient.incr(`${org}-sponsorships`)
 			
 			const embed = new MessageEmbed()
 					.setTitle('Sponsors Overview')
@@ -34,7 +34,8 @@ ${res.headers['openai-organization'].toUpperCase()} already sponsored ${sponsors
 Everyone can sponsor this AI bot if you have access to OpenAI's API. We are very much looking forward to the DALL-E 2 model joining the community.`);
 
 			await message.reply({
-				content: res.data.choices[0].text,
+				// content: res.data.choices[0].text,
+				content: `${intention.model}, ${message.content}, ${intention.temperature}, ${intention.top_p}, ${intention.max_tokens}, ${intention.frequency_penalty}, ${intention.presence_penalty}, ${intention.best_of}`,
 				embeds: [embed],
 			})
 		}
