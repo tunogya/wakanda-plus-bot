@@ -12,7 +12,7 @@ module.exports = {
 			const intentionObj = JSON.parse(intention);
 			const res = await openai.createCompletion({
 				model: intentionObj.model,
-				prompt: intentionObj.content,
+				prompt: message.content,
 				temperature: intentionObj.temperature,
 				top_p: intentionObj.top_p,
 				max_tokens: intentionObj.max_tokens,
