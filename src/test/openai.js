@@ -11,7 +11,7 @@ const fetch = async () => {
 		presence_penalty: 0.6,
 	});
 	console.log(res)
-	// console.log(res.config.headers['OpenAI-Organization'])
+	// console.log(res.headers['openai-organization'])
 }
 
 fetch()
