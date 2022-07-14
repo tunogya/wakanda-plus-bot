@@ -27,9 +27,7 @@ module.exports = {
 			
 			const embed = new MessageEmbed()
 					.setTitle('Sponsors')
-					.setDescription(`${res.headers['openai-organization'].toUpperCase()}
-
-Already sponsored ${sponsorships} ${sponsorships > 1 ? 'times' : 'time'} in this guild.
+					.setDescription(`${res.headers['openai-organization'].toUpperCase()} already sponsored ${sponsorships} ${sponsorships > 1 ? 'times' : 'time'} in this guild.
 
 Everyone can sponsor this AI bot if you have access to OpenAI's API. We are very much looking forward to the DALL-E 2 model joining the community.`);
 			await message.reply({
