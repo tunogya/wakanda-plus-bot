@@ -19,7 +19,7 @@ module.exports = {
 				best_of: intention.best_of
 			});
 			await message.reply({
-				content: q.choices[0].text,
+				content: q.data.choices[0].text,
 			})
 		}
 	},
