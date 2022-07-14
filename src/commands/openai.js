@@ -17,7 +17,7 @@ module.exports = {
 		const model = interaction.options.getString('model') ?? 'text-davinci-002';
 		const temperature = interaction.options.getNumber('temperature') ?? 0.9;
 		const top_p = interaction.options.getNumber('top_p') ?? 1;
-		const max_tokens = interaction.options.getInteger('max_tokens') ?? 100;
+		const max_tokens = interaction.options.getInteger('max_tokens') ?? 150;
 		const frequency_penalty = interaction.options.getNumber('frequency_penalty') ?? 0;
 		const presence_penalty = interaction.options.getNumber('presence_penalty') ?? 0;
 		const best_of = interaction.options.getInteger('best_of') ?? 1;
@@ -32,8 +32,8 @@ module.exports = {
 		if (top_p < 0 || top_p > 1) {
 			return interaction.reply({ content: 'You need to input a number between 0 and 1.', ephemeral: true });
 		}
-		if (max_tokens < 1 || max_tokens > 100) {
-			return interaction.reply({ content: 'You need to input a number between 1 and 100.', ephemeral: true });
+		if (max_tokens < 1 || (model !== 'text-davinci-002' && max_tokens > 2048) || (model === 'text-davinci-002' && max_tokens > 4000)) {
+			return interaction.reply({ content: 'text-davinci-002 has 4000 max tokens, and others has 2048 max tokens.', ephemeral: true });
 		}
 		if (frequency_penalty < 0 || frequency_penalty > 1) {
 			return interaction.reply({ content: 'You need to input a number between 0 and 1.', ephemeral: true });
