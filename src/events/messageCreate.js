@@ -20,16 +20,16 @@ module.exports = {
 				presence_penalty: intentionObj.presence_penalty,
 				best_of: intentionObj.best_of
 			});
-			await redisClient.del(`${message.guildId}-${message.channelId}-${message.author.id}-intention)`);
+			await redisClient.del(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
 			const org = res.config.headers['OpenAI-Organization']
 
 			const sponsorships = await redisClient.incr(`${org}-sponsorships`)
 			
 			const embed = new MessageEmbed()
-					.setTitle('Sponsors Overview')
-					.setDescription(`Sponsor: ${res.headers['openai-organization'].toUpperCase()}
+					.setTitle('Sponsors')
+					.setDescription(`${res.headers['openai-organization'].toUpperCase()}
 
-${res.headers['openai-organization'].toUpperCase()} already sponsored ${sponsorships} ${sponsorships > 1 ? 'times' : 'time'}.
+Already sponsored ${sponsorships} ${sponsorships > 1 ? 'times' : 'time'} in this guild.
 
 Everyone can sponsor this AI bot if you have access to OpenAI's API. We are very much looking forward to the DALL-E 2 model joining the community.`);
 			await message.reply({
