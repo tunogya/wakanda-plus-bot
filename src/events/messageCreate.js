@@ -8,7 +8,7 @@ module.exports = {
 		if (message.author.bot) return
 		// check if the message is in a channel that is in the list of channels that we want to listen to
 		const intention = redisClient.get(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
-		
+		console.log(intention);
 		if (intention) {
 			// const res = await openai.createCompletion({
 			// 	model: intention.model,
