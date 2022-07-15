@@ -54,7 +54,6 @@ module.exports = {
 			frequency_penalty: frequency_penalty,
 			presence_penalty: presence_penalty,
 			best_of: best_of,
-			user: interaction.user.id,
 		}), {
 			EX: 300,
 		});

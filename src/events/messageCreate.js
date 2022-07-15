@@ -18,7 +18,8 @@ module.exports = {
 				max_tokens: intentionObj.max_tokens,
 				frequency_penalty: intentionObj.frequency_penalty,
 				presence_penalty: intentionObj.presence_penalty,
-				best_of: intentionObj.best_of
+				best_of: intentionObj.best_of,
+				user: message.author.id,
 			});
 			await redisClient.del(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
 			const org = res.config.headers['OpenAI-Organization']
