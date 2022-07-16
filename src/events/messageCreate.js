@@ -20,6 +20,7 @@ module.exports = {
 				presence_penalty: intentionObj.presence_penalty,
 				best_of: intentionObj.best_of,
 				user: message.author.id,
+				n: intentionObj.n,
 			});
 			await redisClient.del(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
 			const org = res.config.headers['OpenAI-Organization']
@@ -32,7 +33,7 @@ module.exports = {
 
 Everyone can sponsor this AI bot if you have access to *OpenAI's* API. We are very much looking forward to the *DALL-E 2* model joining the community.`);
 			await message.reply({
-				content: res.data.choices[0].text,
+				content: res.data.choices.map(item => item.text).join('\n'),
 				embeds: [embed],
 			})
 		}

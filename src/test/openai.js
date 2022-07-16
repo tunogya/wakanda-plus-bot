@@ -9,8 +9,9 @@ const fetch = async () => {
 		max_tokens: 100,
 		frequency_penalty: 0,
 		presence_penalty: 0.6,
+		n: 2,
 	});
-	console.log(res)
+	console.log(res.data.choices.map(item => item.text).join('\n'))
 	// console.log(res.headers['openai-organization'])
 }
 
