@@ -60,6 +60,9 @@ module.exports = {
 		if (best_of < 1 || best_of > 10) {
 			return interaction.reply({ content: 'best_of need a number between 1 and 100.', ephemeral: true });
 		}
+		if (best_of < n) {
+			return interaction.reply({ content: 'best_of need to be greater than n.', ephemeral: true });
+		}
 		
 		// save the params to redis
 		await redisClient.set(`${interaction.guildId}-${interaction.channelId}-${interaction.user.id}-intention`, JSON.stringify({

@@ -9,7 +9,7 @@ const fetch = async () => {
 		max_tokens: 100,
 		frequency_penalty: 0,
 		presence_penalty: 0.6,
-		n: 2,
+		n: 1,
 		best_of: 1,
 	});
 	console.log(res.data.choices.map(item => item.text).join('\n'))
