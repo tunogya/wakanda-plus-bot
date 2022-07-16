@@ -21,6 +21,7 @@ module.exports = {
 				best_of: intentionObj.best_of,
 				user: message.author.id,
 				n: intentionObj.n,
+				suffix: intentionObj.suffix,
 			});
 			await redisClient.del(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
 			const org = res.config.headers['OpenAI-Organization']
