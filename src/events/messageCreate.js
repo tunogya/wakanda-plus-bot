@@ -1,6 +1,5 @@
 const redisClient = require('../libs/redis.js');
 const openai = require('../libs/openai.js');
-const { MessageEmbed } = require("discord.js");
 
 module.exports = {
 	name: 'messageCreate',
@@ -23,26 +22,10 @@ module.exports = {
 				n: intentionObj.n,
 				suffix: intentionObj.suffix,
 				echo: intentionObj.echo,
-			}, {
-				responseType: "stream"
 			});
 			await redisClient.del(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
 			
-			const stream = response.data
-			let tokens = ''
-			stream.on('data', data => {
-				const data_str = data.toString()
-				try {
-					const token = JSON.parse(data_str.slice(6)).choices[0].text
-					tokens += token
-					message.edit(tokens)
-				} catch (_) {
-				}
-			});
-			
-			stream.on('end', () => {
-				message.reply(tokens);
-			});
+			await message.reply({ content: response.data.choices.map(item => item.text).join('\n')});
 		}
 	},
 };
