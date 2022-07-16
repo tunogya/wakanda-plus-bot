@@ -5,6 +5,7 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message) {
 		if (message.author.bot) return
+		
 		// check if the message is in a channel that is in the list of channels that we want to listen to
 		const intention = await redisClient.get(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
 		if (intention) {
@@ -23,6 +24,7 @@ module.exports = {
 				suffix: intentionObj.suffix,
 				echo: intentionObj.echo,
 			});
+			
 			await redisClient.del(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
 			
 			await message.reply({ content: response.data.choices.map(item => item.text).join('\n')});
