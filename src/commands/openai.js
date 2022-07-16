@@ -12,9 +12,7 @@ module.exports = {
 			.addNumberOption(option => option.setName('temperature').setDescription('Control randomness of the generated text. 0.0 to 1.0.'))
 			.addNumberOption(option => option.setName('top_p').setDescription('Control diversity via nucleus sampling. 0.0 to 1.0.'))
 			.addIntegerOption(option => option.setName('n').setDescription('How many completions to generate for each prompt.'))
-			.addBooleanOption(option => option.setName('stream').setDescription('Whether to stream back partial progress.'))
 			.addBooleanOption(option => option.setName('echo').setDescription('Echo back the prompt in addition to the completion'))
-			.addStringOption(option => option.setName('stop').setDescription('Where the API will stop generating further tokens'))
 			.addNumberOption(option => option.setName('frequency_penalty').setDescription('How much to penalize new tokens based on their existing frequency in the text so far. 0.0 to 1.0.'))
 			.addNumberOption(option => option.setName('presence_penalty').setDescription('How much to penalize new tokens based on whether they appear in the text so far. 0.0 to 1.0.'))
 			.addIntegerOption(option => option.setName('best_of').setDescription('Generate multiple texts and return the best one. This can eat into token quota very quickly.')),
@@ -23,9 +21,7 @@ module.exports = {
 		const temperature = interaction.options.getNumber('temperature') ?? 1;
 		const top_p = interaction.options.getNumber('top_p') ?? 1;
 		const n = interaction.options.getInteger('n') ?? 1;
-		const stream = interaction.options.getBoolean('stream') ?? false;
 		const echo = interaction.options.getBoolean('echo') ?? false;
-		const stop = interaction.options.getString('stop') ?? null;
 		const suffix = interaction.options.getString('suffix') ?? null;
 		const max_tokens = interaction.options.getInteger('max_tokens') ?? 256;
 		const frequency_penalty = interaction.options.getNumber('frequency_penalty') ?? 0;
@@ -72,9 +68,7 @@ module.exports = {
 			temperature,
 			top_p,
 			n,
-			stream,
 			echo,
-			stop,
 			frequency_penalty,
 			presence_penalty,
 			best_of,
@@ -84,7 +78,7 @@ module.exports = {
 		
 		const embed = new MessageEmbed()
 				.setTitle('Config Overview')
-				.setDescription(`model: ${model}, suffix: ${suffix}, max_tokens: ${max_tokens}, temperature: ${temperature}, top_p: ${top_p}, n: ${n}, stream: ${stream}, echo: ${echo}, stop: ${stop}, frequency_penalty: ${frequency_penalty}, presence_penalty: ${presence_penalty}, best_of: ${best_of}`);
+				.setDescription(`model: ${model}, suffix: ${suffix}, max_tokens: ${max_tokens}, temperature: ${temperature}, top_p: ${top_p}, n: ${n}, echo: ${echo}, frequency_penalty: ${frequency_penalty}, presence_penalty: ${presence_penalty}, best_of: ${best_of}`);
 		
 		await interaction.reply({
 			content: 'You are about to talk to an AI bot. Tall me your prompt in 5 min or type `/cancel` to cancel.',

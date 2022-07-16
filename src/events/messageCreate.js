@@ -10,7 +10,7 @@ module.exports = {
 		const intention = await redisClient.get(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
 		if (intention) {
 			const intentionObj = JSON.parse(intention);
-			const res = await openai.createCompletion({
+			const response = await openai.createCompletion({
 				model: intentionObj.model,
 				prompt: message.content,
 				temperature: intentionObj.temperature,
@@ -23,22 +23,26 @@ module.exports = {
 				n: intentionObj.n,
 				suffix: intentionObj.suffix,
 				echo: intentionObj.echo,
-				stop: intentionObj.stop,
+			}, {
+				responseType: "stream"
 			});
 			await redisClient.del(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
-			const org = res.config.headers['OpenAI-Organization']
-
-			const sponsorships = await redisClient.incr(`${org}-sponsorships`)
 			
-			const embed = new MessageEmbed()
-					.setTitle('Sponsors Overview')
-					.setDescription(`***${res.headers['openai-organization'].toUpperCase()}*** already sponsored ***${sponsorships}*** ${sponsorships > 1 ? 'times' : 'time'} in this guild.
-
-Everyone can sponsor this AI bot if you have access to *OpenAI's* API. We are very much looking forward to the *DALL-E 2* model joining the community.`);
-			await message.reply({
-				content: res.data.choices.map(item => item.text).join('\n'),
-				embeds: [embed],
-			})
+			const stream = response.data
+			let tokens = ''
+			stream.on('data', data => {
+				const data_str = data.toString()
+				try {
+					const token = JSON.parse(data_str.slice(6)).choices[0].text
+					tokens += token
+					message.edit(tokens)
+				} catch (_) {
+				}
+			});
+			
+			stream.on('end', () => {
+				console.log("stream done");
+			});
 		}
 	},
 };
