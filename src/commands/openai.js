@@ -30,7 +30,7 @@ module.exports = {
 		const max_tokens = interaction.options.getInteger('max_tokens') ?? 256;
 		const frequency_penalty = interaction.options.getNumber('frequency_penalty') ?? 0;
 		const presence_penalty = interaction.options.getNumber('presence_penalty') ?? 0;
-		const best_of = interaction.options.getInteger('best_of') ?? 1;
+		const best_of = interaction.options.getInteger('best_of') ?? interaction.options.getInteger('n') ?? 1;
 		
 		if (model !== 'text-ada-001' && model !== 'text-babbage-001' && model !== 'text-curie-001' && model !== 'text-davinci-002') {
 			return interaction.reply('Invalid model name. Only text-davinci-002, text-curie-001, text-babbage-001, text-ada-001 are supported.');
