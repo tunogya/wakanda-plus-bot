@@ -58,7 +58,7 @@ module.exports = {
 			return interaction.reply({ content: 'presence_penalty need a number between -2 and 2.', ephemeral: true });
 		}
 		if (best_of < 1 || best_of > 10) {
-			return interaction.reply({ content: 'best_of need a number between 1 and 100.', ephemeral: true });
+			return interaction.reply({ content: 'best_of need a number between 1 and 10.', ephemeral: true });
 		}
 		if (best_of < n) {
 			return interaction.reply({ content: 'best_of need to be greater than n.', ephemeral: true });
