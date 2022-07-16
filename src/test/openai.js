@@ -1,7 +1,7 @@
 const openai = require('../libs/openai')
 
 const fetch = async () => {
-	const res = await openai.createCompletion({
+	openai.createCompletion({
 		model: 'text-davinci-002',
 		prompt: 'What is the meaning of life?',
 		temperature: 0.9,
@@ -14,9 +14,9 @@ const fetch = async () => {
 		suffix: null,
 		echo: true,
 		stream: true,
-	});
-	console.log(res.data);
-	// console.log(res.headers['openai-organization'])
+	}).then(res => {
+		console.log(res)
+	})
 }
 
 const listModel = async () => {
@@ -24,4 +24,4 @@ const listModel = async () => {
 	console.log(res.data.data.map(item => item.id));
 }
 
-listModel()
+fetch()

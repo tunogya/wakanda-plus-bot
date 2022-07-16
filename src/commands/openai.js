@@ -66,18 +66,18 @@ module.exports = {
 		
 		// save the params to redis
 		await redisClient.set(`${interaction.guildId}-${interaction.channelId}-${interaction.user.id}-intention`, JSON.stringify({
-			model: model,
-			suffix: suffix,
-			max_tokens: max_tokens,
-			temperature: temperature,
-			top_p: top_p,
-			n: n,
-			stream: stream,
-			echo: echo,
-			stop: stop,
-			frequency_penalty: frequency_penalty,
-			presence_penalty: presence_penalty,
-			best_of: best_of
+			model,
+			suffix,
+			max_tokens,
+			temperature,
+			top_p,
+			n,
+			stream,
+			echo,
+			stop,
+			frequency_penalty,
+			presence_penalty,
+			best_of,
 		}), {
 			EX: 300,
 		});
