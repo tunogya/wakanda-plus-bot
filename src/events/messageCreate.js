@@ -30,7 +30,6 @@ module.exports = {
 			
 			const stream = response.data
 			let tokens = ''
-			message.reply('Okay, I\'m thinking...');
 			stream.on('data', data => {
 				const data_str = data.toString()
 				try {
@@ -42,7 +41,7 @@ module.exports = {
 			});
 			
 			stream.on('end', () => {
-				console.log("stream done");
+				message.reply(tokens);
 			});
 		}
 	},
