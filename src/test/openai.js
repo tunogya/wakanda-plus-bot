@@ -9,13 +9,19 @@ const fetch = async () => {
 		max_tokens: 100,
 		frequency_penalty: 0,
 		presence_penalty: 0.6,
-		n: 2,
-		best_of: 2,
+		n: 1,
+		best_of: 1,
 		suffix: null,
 		echo: true,
+		stream: true,
 	});
-	console.log(res.data.choices.map(item => item.text).join('\n'))
+	console.log(res.data);
 	// console.log(res.headers['openai-organization'])
 }
 
-fetch()
+const listModel = async () => {
+	const res = await openai.listModels();
+	console.log(res.data.data.map(item => item.id));
+}
+
+listModel()

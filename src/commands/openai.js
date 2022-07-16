@@ -7,14 +7,14 @@ module.exports = {
 			.setName('openai')
 			.setDescription(`Call a OpenAI, default use 'text-davinci-002' model`)
 			.addStringOption(option => option.setName('model').setDescription('Name of the AI model, e.g. text-davinci-002, text-curie-001, text-babbage-001, text-ada-001'))
+			.addStringOption(option => option.setName('suffix').setDescription('The suffix that comes after a completion of inserted text.'))
+			.addIntegerOption(option => option.setName('max_tokens').setDescription('The maximum number of tokens to generate.'))
 			.addNumberOption(option => option.setName('temperature').setDescription('Control randomness of the generated text. 0.0 to 1.0.'))
 			.addNumberOption(option => option.setName('top_p').setDescription('Control diversity via nucleus sampling. 0.0 to 1.0.'))
 			.addIntegerOption(option => option.setName('n').setDescription('How many completions to generate for each prompt.'))
 			.addBooleanOption(option => option.setName('stream').setDescription('Whether to stream back partial progress.'))
-			.addStringOption(option => option.setName('suffix').setDescription('The suffix that comes after a completion of inserted text.'))
 			.addBooleanOption(option => option.setName('echo').setDescription('Echo back the prompt in addition to the completion'))
 			.addStringOption(option => option.setName('stop').setDescription('Where the API will stop generating further tokens'))
-			.addIntegerOption(option => option.setName('max_tokens').setDescription('The maximum number of tokens to generate.'))
 			.addNumberOption(option => option.setName('frequency_penalty').setDescription('How much to penalize new tokens based on their existing frequency in the text so far. 0.0 to 1.0.'))
 			.addNumberOption(option => option.setName('presence_penalty').setDescription('How much to penalize new tokens based on whether they appear in the text so far. 0.0 to 1.0.'))
 			.addIntegerOption(option => option.setName('best_of').setDescription('Generate multiple texts and return the best one. This can eat into token quota very quickly.')),
@@ -67,24 +67,24 @@ module.exports = {
 		// save the params to redis
 		await redisClient.set(`${interaction.guildId}-${interaction.channelId}-${interaction.user.id}-intention`, JSON.stringify({
 			model: model,
+			suffix: suffix,
+			max_tokens: max_tokens,
 			temperature: temperature,
 			top_p: top_p,
-			max_tokens: max_tokens,
-			frequency_penalty: frequency_penalty,
-			presence_penalty: presence_penalty,
-			best_of: best_of,
 			n: n,
 			stream: stream,
 			echo: echo,
 			stop: stop,
-			suffix: suffix
+			frequency_penalty: frequency_penalty,
+			presence_penalty: presence_penalty,
+			best_of: best_of
 		}), {
 			EX: 300,
 		});
 		
 		const embed = new MessageEmbed()
 				.setTitle('Config Overview')
-				.setDescription(`model: ${model}, temperature: ${temperature}, top_p: ${top_p}, max_tokens: ${max_tokens}, frequency_penalty: ${frequency_penalty}, presence_penalty: ${presence_penalty}, best_of: ${best_of}, n: ${n}, stream: ${stream}, echo: ${echo}, stop: ${stop}, suffix: ${suffix}`);
+				.setDescription(`model: ${model}, suffix: ${suffix}, max_tokens: ${max_tokens}, temperature: ${temperature}, top_p: ${top_p}, n: ${n}, stream: ${stream}, echo: ${echo}, stop: ${stop}, frequency_penalty: ${frequency_penalty}, presence_penalty: ${presence_penalty}, best_of: ${best_of}`);
 		
 		await interaction.reply({
 			content: 'You are about to talk to an AI bot. Tall me your prompt in 5 min or type `/cancel` to cancel.',
