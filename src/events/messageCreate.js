@@ -5,9 +5,6 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message) {
 		if (message.author.bot) return
-		// show the bot is typing
-		await message.channel.typingStart();
-		
 		// check if the message is in a channel that is in the list of channels that we want to listen to
 		const intention = await redisClient.get(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
 		if (intention) {
