@@ -1,9 +1,13 @@
 function parseExpToLevel(exp) {
 	let level = 0;
-	while (level * level + 4 * level <= exp) {
+	while (Math.E ** level + Math.E * level + Math.E <= exp) {
 		level++;
 	}
 	return level;
+}
+
+function parseLevelToExp(level) {
+	return level ** Math.E + level * Math.E + level;
 }
 
 function parseLevelToSymbol(level) {
@@ -41,3 +45,8 @@ module.exports = {
 	parseExpToLevel,
 	parseLevelToSymbol,
 }
+
+for (let i = 0; i <= 256; i++) {
+	console.log(i, parseLevelToExp(i))
+}
+
