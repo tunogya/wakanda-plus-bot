@@ -23,14 +23,14 @@ module.exports = {
 			try {
 				const wallets = Array.from(info.wallets);
 				const passContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.RINKEBY], geohash_abi, RinkebyProvider)
-				let content = ''
+				let res = [];
 				for (const addr of wallets.filter(address => isAddress(address))) {
 					// query balance of address
 					const balance = (await passContract.balanceOf(addr)).toNumber();
-					content += `${addr}: ${balance} PASS`
+					res.push(`${addr} ${balance}`);
 				}
 				await interaction.reply({
-					content,
+					content: res.join('\n'),
 				});
 			} catch (e) {
 				console.log(e)
