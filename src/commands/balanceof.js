@@ -9,9 +9,10 @@ const { RinkebyProvider } = require("../libs/web3");
 
 module.exports = {
 	data: new SlashCommandBuilder()
-			.setName('balanceOf')
+			.setName('balanceof')
 			.setDescription('Get balance of a user')
-			.addUserOption(option => option.setName('user').setDescription('Target user')),
+			.addUserOption(option => option.setName('user').setDescription('Target user'))
+	,
 	async execute(interaction) {
 		const user = interaction.options.getUser('user') ?? interaction.user;
 		const id = await getIdByUserId(user.id);
