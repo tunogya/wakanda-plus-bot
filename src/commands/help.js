@@ -15,8 +15,8 @@ You can control me by sending these commands:
 **Edit Wallets**
 */deletewallet* - delete a wallet
 
-**Role**
-*/claimrole* - claim role manually
+**Account**
+*/balanceOf* - get balance of a wallet
 
 **AI**
 */openai* - call a OpenAI, default use 'text-davinci-002' model
