@@ -33,7 +33,7 @@ module.exports = {
 						mumbaiPassContract.balanceOf(addr),
 						goerliPassContract.balanceOf(addr),
 					]);
-					res.push([
+					res = res.concat([
 							`${shortenAddress(addr)} has ${rinkebyBalance.toNumber()} RinkebyPASS`,
 							`${shortenAddress(addr)} has ${mumbaiBalance.toNumber()} MumbaiPASS`,
 							`${shortenAddress(addr)} has ${goerliBalance.toNumber()} GoerliPASS`,
