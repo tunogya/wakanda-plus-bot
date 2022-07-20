@@ -25,11 +25,7 @@ module.exports = {
 				const rinkebyPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.RINKEBY], geohash_abi, RinkebyProvider)
 				const mumbaiPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON_MUMBAI], geohash_abi, MumbaiProvider)
 				const goerliPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], geohash_abi, GoerliProvider)
-				let balanceMap = {
-					[SupportedChainId.RINKEBY]: 0,
-					[SupportedChainId.POLYGON_MUMBAI]: 0,
-					[SupportedChainId.GOERLI]: 0,
-				}
+				let balanceOfRinkeby = 0, balanceOfMumbai = 0, balanceOfGoerli = 0;
 				for (const addr of wallets.filter(address => isAddress(address))) {
 					// query balance of address
 					const [rinkebyBalance, mumbaiBalance, goerliBalance] = await Promise.all([
@@ -37,12 +33,12 @@ module.exports = {
 						mumbaiPassContract.balanceOf(addr),
 						goerliPassContract.balanceOf(addr),
 					]);
-					balanceMap[SupportedChainId.RINKEBY] += rinkebyBalance;
-					balanceMap[SupportedChainId.POLYGON_MUMBAI] += mumbaiBalance;
-					balanceMap[SupportedChainId.GOERLI] += goerliBalance;
+					balanceOfRinkeby += rinkebyBalance;
+					balanceOfMumbai += mumbaiBalance;
+					balanceOfGoerli += goerliBalance;
 				}
 				await interaction.reply({
-					content: `You total have ${balanceMap[SupportedChainId.RINKEBY]} rinkebyPASS, ${balanceMap[SupportedChainId.POLYGON_MUMBAI]} polygonPASS and ${balanceMap[SupportedChainId.GOERLI]} goerliPASS.`,
+					content: `You total have ${balanceOfRinkeby} rinkebyPASS, ${balanceOfMumbai} polygonPASS and ${balanceOfGoerli} goerliPASS.`,
 				});
 			} catch (e) {
 				console.log(e)
