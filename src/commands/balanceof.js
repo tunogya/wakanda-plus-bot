@@ -27,7 +27,7 @@ module.exports = {
 				for (const addr of wallets.filter(address => isAddress(address))) {
 					// query balance of address
 					const balance = (await passContract.balanceOf(addr)).toNumber();
-					res.push(`${shortenAddress(addr)}: ${balance} RinkebyPASS`);
+					res.push(`${shortenAddress(addr)} has ${balance} RinkebyPASS`);
 				}
 				await interaction.reply({
 					content: res.join('\n'),
