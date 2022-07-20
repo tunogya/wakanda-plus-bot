@@ -36,6 +36,21 @@ module.exports = {
 					balanceOfMumbai += mumbaiBalance.toNumber();
 					balanceOfGoerli += goerliBalance.toNumber();
 				}
+				if (balanceOfRinkeby) {
+					user.roles.add('989763514077945906')
+				} else {
+					user.roles.remove('989763514077945906')
+				}
+				if (balanceOfMumbai) {
+					user.roles.add('989764462342983720')
+				} else {
+					user.roles.remove('989764462342983720')
+				}
+				if (balanceOfGoerli) {
+					user.roles.add('999338334692327494')
+				} else {
+					user.roles.remove('999338334692327494')
+				}
 				await interaction.reply({
 					content: `You total have **${balanceOfRinkeby}** rinkebyPASS, **${balanceOfMumbai}** polygonPASS and **${balanceOfGoerli}** goerliPASS.`,
 				});
