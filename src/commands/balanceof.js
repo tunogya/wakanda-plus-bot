@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { getIdByUserId, getUser } = require("../dynamodb/wakandaplus");
-const { isAddress, shortenAddress } = require("../utils/address");
+const { isAddress } = require("../utils/address");
 const ethers = require("ethers");
 const { WAKANDAPASS_ADDRESS } = require("../constant/address");
 const SupportedChainId = require("../constant/chains");
