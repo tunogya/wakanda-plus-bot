@@ -32,12 +32,12 @@ module.exports = {
 						mumbaiPassContract.balanceOf(addr),
 						goerliPassContract.balanceOf(addr),
 					]);
-					balanceOfRinkeby += rinkebyBalance;
-					balanceOfMumbai += mumbaiBalance;
-					balanceOfGoerli += goerliBalance;
+					balanceOfRinkeby += rinkebyBalance.toNumber();
+					balanceOfMumbai += mumbaiBalance.toNumber();
+					balanceOfGoerli += goerliBalance.toNumber();
 				}
 				await interaction.reply({
-					content: `You total have ${balanceOfRinkeby.toNumber()} rinkebyPASS, ${balanceOfMumbai.toNumber()} polygonPASS and ${balanceOfGoerli.toNumber()} goerliPASS.`,
+					content: `You total have ${balanceOfRinkeby} rinkebyPASS, ${balanceOfMumbai} polygonPASS and ${balanceOfGoerli} goerliPASS.`,
 				});
 			} catch (e) {
 				console.log(e)
