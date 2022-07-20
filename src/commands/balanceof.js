@@ -37,7 +37,7 @@ module.exports = {
 					balanceOfGoerli += goerliBalance;
 				}
 				await interaction.reply({
-					content: `You total have ${balanceOfRinkeby} rinkebyPASS, ${balanceOfMumbai} polygonPASS and ${balanceOfGoerli} goerliPASS.`,
+					content: `You total have ${balanceOfRinkeby.toNumber()} rinkebyPASS, ${balanceOfMumbai.toNumber()} polygonPASS and ${balanceOfGoerli.toNumber()} goerliPASS.`,
 				});
 			} catch (e) {
 				console.log(e)
