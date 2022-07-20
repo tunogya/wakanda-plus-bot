@@ -5,7 +5,7 @@ const ethers = require("ethers");
 const { WAKANDAPASS_ADDRESS } = require("../constant/address");
 const SupportedChainId = require("../constant/chains");
 const geohash_abi = require("../abis/geohash.json");
-const { RinkebyProvider } = require("../libs/web3");
+const { RinkebyProvider, MumbaiProvider, GoerliProvider } = require("../libs/web3");
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -22,12 +22,22 @@ module.exports = {
 			const info = q.Item;
 			try {
 				const wallets = Array.from(info.wallets);
-				const passContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.RINKEBY], geohash_abi, RinkebyProvider)
+				const rinkebyPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.RINKEBY], geohash_abi, RinkebyProvider)
+				const mumbaiPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON_MUMBAI], geohash_abi, MumbaiProvider)
+				const goerliPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], geohash_abi, GoerliProvider)
 				let res = [];
 				for (const addr of wallets.filter(address => isAddress(address))) {
 					// query balance of address
-					const balance = (await passContract.balanceOf(addr)).toNumber();
-					res.push(`${shortenAddress(addr)} has ${balance} RinkebyPASS`);
+					const [rinkebyBalance, mumbaiBalance, goerliBalance] = await Promise.all([
+						rinkebyPassContract.balanceOf(addr),
+						mumbaiPassContract.balanceOf(addr),
+						goerliPassContract.balanceOf(addr),
+					]);
+					res.push([
+							`${shortenAddress(addr)} has ${rinkebyBalance.toNumber()} RinkebyPASS`,
+							`${shortenAddress(addr)} has ${mumbaiBalance.toNumber()} MumbaiPASS`,
+							`${shortenAddress(addr)} has ${goerliBalance.toNumber()} GoerliPASS`,
+					]);
 				}
 				await interaction.reply({
 					content: res.join('\n'),
