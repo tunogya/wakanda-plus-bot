@@ -14,7 +14,7 @@ module.exports = {
 			.addUserOption(option => option.setName('user').setDescription('Target user'))
 	,
 	async execute(interaction) {
-		const user = interaction.options.getUser('user') ?? interaction.user;
+		const user = interaction.options.getMember('user') ?? interaction.user;
 		const id = await getIdByUserId(user.id);
 		if (id) {
 			const q = await getUser(id);
@@ -57,7 +57,7 @@ module.exports = {
 			} catch (e) {
 				console.log(e)
 				await interaction.reply({
-					content: 'None address.',
+					content: 'Error while querying balance.',
 				});
 			}
 			
