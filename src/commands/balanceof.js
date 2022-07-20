@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { getIdByUserId, getUser } = require("../dynamodb/wakandaplus");
-const { isAddress } = require("../utils/address");
+const { isAddress, shortenAddress } = require("../utils/address");
 const ethers = require("ethers");
 const { WAKANDAPASS_ADDRESS } = require("../constant/address");
 const SupportedChainId = require("../constant/chains");
@@ -27,7 +27,7 @@ module.exports = {
 				for (const addr of wallets.filter(address => isAddress(address))) {
 					// query balance of address
 					const balance = (await passContract.balanceOf(addr)).toNumber();
-					res.push(`${addr}: ${balance} PASS`);
+					res.push(`${shortenAddress(addr)}: ${balance} RinkebyPASS`);
 				}
 				await interaction.reply({
 					content: res.join('\n'),
