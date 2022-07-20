@@ -11,11 +11,10 @@ module.exports = {
 	data: new SlashCommandBuilder()
 			.setName('balanceof')
 			.setDescription('Get balance of a user')
-			.addUserOption(option => option.setName('user').setDescription('Target user'))
-	,
+			.addUserOption(option => option.setName('member').setDescription('Target member')),
 	async execute(interaction) {
-		const user = interaction.options.getMember('user') ?? interaction.user;
-		const id = await getIdByUserId(user.id);
+		const member = interaction.options.getMember('user') ?? interaction.member;
+		const id = await getIdByUserId(member.id);
 		if (id) {
 			const q = await getUser(id);
 			const info = q.Item;
@@ -37,22 +36,22 @@ module.exports = {
 					balanceOfGoerli += goerliBalance.toNumber();
 				}
 				if (balanceOfRinkeby) {
-					user.roles.add('989763514077945906')
+					member.roles.add('989763514077945906')
 				} else {
-					user.roles.remove('989763514077945906')
+					member.roles.remove('989763514077945906')
 				}
 				if (balanceOfMumbai) {
-					user.roles.add('989764462342983720')
+					member.roles.add('989764462342983720')
 				} else {
-					user.roles.remove('989764462342983720')
+					member.roles.remove('989764462342983720')
 				}
 				if (balanceOfGoerli) {
-					user.roles.add('999338334692327494')
+					member.roles.add('999338334692327494')
 				} else {
-					user.roles.remove('999338334692327494')
+					member.roles.remove('999338334692327494')
 				}
 				await interaction.reply({
-					content: `You total have **${balanceOfRinkeby}** rinkebyPASS, **${balanceOfMumbai}** polygonPASS and **${balanceOfGoerli}** goerliPASS.`,
+					content: `You total have *${balanceOfRinkeby} rinkebyPASS*, *${balanceOfMumbai} polygonPASS* and *${balanceOfGoerli} goerliPASS*.`,
 				});
 			} catch (e) {
 				console.log(e)
