@@ -16,7 +16,6 @@ module.exports = {
 	async execute(interaction) {
 		const user = interaction.options.getUser('user') ?? interaction.user;
 		const id = await getIdByUserId(user.id);
-		w
 		if (id) {
 			const q = await getUser(id);
 			const info = q.Item;
