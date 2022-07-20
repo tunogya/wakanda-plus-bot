@@ -34,9 +34,9 @@ module.exports = {
 						goerliPassContract.balanceOf(addr),
 					]);
 					res = res.concat([
-							`${shortenAddress(addr, 6)} has ${rinkebyBalance.toNumber()} RinkebyPASS`,
-							`${shortenAddress(addr, 6)} has ${mumbaiBalance.toNumber()} MumbaiPASS`,
-							`${shortenAddress(addr, 6)} has ${goerliBalance.toNumber()} GoerliPASS`,
+							`${shortenAddress(addr)} has ${rinkebyBalance.toNumber()} RinkebyPASS`,
+							`${shortenAddress(addr)} has ${mumbaiBalance.toNumber()} MumbaiPASS`,
+							`${shortenAddress(addr)} has ${goerliBalance.toNumber()} GoerliPASS`,
 					]);
 				}
 				await interaction.reply({
