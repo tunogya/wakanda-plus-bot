@@ -1,16 +1,17 @@
 const { ethers } = require("ethers");
+const INFURA_NETWORK_URLS = require("../constant/infura");
+const SupportedChainId = require("../constant/chains");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const INFURA_KEY = process.env.INFURA_KEY
 const mnemonic = process.env.MNEMONIC
 
 const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic)
 
-const MainnetProvider = new ethers.providers.JsonRpcProvider(`https://mainnet.infura.io/v3/${INFURA_KEY}`);
-const RinkebyProvider = new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${INFURA_KEY}`);
-const PolygonProvider = new ethers.providers.JsonRpcProvider(`https://polygon-mainnet.infura.io/v3/${INFURA_KEY}`);
-const MumbaiProvider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/${INFURA_KEY}`);
+const MainnetProvider = new ethers.providers.JsonRpcProvider(INFURA_NETWORK_URLS[SupportedChainId.MAINNET]);
+const RinkebyProvider = new ethers.providers.JsonRpcProvider(INFURA_NETWORK_URLS[SupportedChainId.RINKEBY]);
+const PolygonProvider = new ethers.providers.JsonRpcProvider(INFURA_NETWORK_URLS[SupportedChainId.POLYGON]);
+const MumbaiProvider = new ethers.providers.JsonRpcProvider(INFURA_NETWORK_URLS[SupportedChainId.POLYGON_MUMBAI]);
 
 const MainnetProviderWithSinger = walletMnemonic.connect(MainnetProvider)
 const RinkebyProviderWithSinger = walletMnemonic.connect(RinkebyProvider)
