@@ -57,6 +57,7 @@ module.exports = {
 				console.log(e)
 				await interaction.reply({
 					content: 'Error while querying balance.',
+					ephemeral: true,
 				});
 			}
 			
