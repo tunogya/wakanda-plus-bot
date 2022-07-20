@@ -13,7 +13,7 @@ module.exports = {
 			.setDescription('Get balance of a user')
 			.addUserOption(option => option.setName('member').setDescription('Target member')),
 	async execute(interaction) {
-		const member = interaction.options.getMember('user') ?? interaction.member;
+		const member = interaction.options.getMember('member') ?? interaction.member;
 		const id = await getIdByUserId(member.id);
 		if (id) {
 			const q = await getUser(id);
