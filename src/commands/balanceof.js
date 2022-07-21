@@ -63,7 +63,7 @@ module.exports = {
 			
 		} else {
 			await interaction.reply({
-				content: 'None user info.',
+				content: `${member.displayName} is not a member of Wakanda.`,
 				ephemeral: true,
 			});
 		}
