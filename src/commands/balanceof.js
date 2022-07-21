@@ -10,7 +10,7 @@ const { RinkebyProvider, MumbaiProvider, GoerliProvider } = require("../libs/web
 module.exports = {
 	data: new SlashCommandBuilder()
 			.setName('balanceof')
-			.setDescription('Get balance of a user')
+			.setDescription('Get PASS balance of a member')
 			.addUserOption(option => option.setName('member').setDescription('Target member')),
 	async execute(interaction) {
 		const member = interaction.options.getMember('member') ?? interaction.member;
