@@ -12,7 +12,7 @@ module.exports = {
 		if (interaction.customId === 'toConnectWallet') {
 			const user = interaction.user.id;
 			const state = randomString(12);
-			const message = `My account is ${interaction.user.tag}. I want to connect my wallet in Wakanda Metaverse. ${new Date().toLocaleString()}`;
+			const message = `${interaction.member.displayName} want to connect wallet at Wakanda Metaverse. ${new Date().toLocaleString()}`;
 			await client.set(
 				state,
 				JSON.stringify({
