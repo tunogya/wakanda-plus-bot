@@ -33,7 +33,7 @@ module.exports = {
 			
 			await interaction.reply({
 				content: `**Sign the message below in 5 min:**\`\`\`${message}\`\`\`
-Make sure you sign the EXACT message and NEVER share your seed phrase or private key.`,
+Make sure you sign the message and **NEVER** share your seed phrase or private key.`,
 				embeds: [],
 				components: [row],
 				ephemeral: true,
