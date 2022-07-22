@@ -8,7 +8,7 @@ const fcl = require('@onflow/fcl');
 fcl.config({
 	'accessNode.api': 'https://rest-testnet.onflow.org',
 	'app.detail.title': 'Wakanda+',
-	'app.detail.icon': 'https://wakandaplus.wakanda.cn/logo512.png',
+	'app.detail.icon': 'https://wakandaplus.wakanda-labs.com/logo512.png',
 	'flow.network': 'testnet',
 	'discovery.wallet': 'https://fcl-discovery.onflow.org/testnet/authn',
 	'discovery.authn.endpoint': 'https://fcl-discovery.onflow.org/api/testnet/authn',

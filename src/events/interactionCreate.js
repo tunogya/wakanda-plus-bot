@@ -27,7 +27,7 @@ module.exports = {
 			const row = new MessageActionRow().addComponents(
 				new MessageButton()
 					.setLabel('Connect Wallet')
-					.setURL(`https://wakandaplus.wakanda.cn/#/${state}`)
+					.setURL(`https://wakandaplus.wakanda-labs.com/#/${state}`)
 					.setStyle('LINK'),
 			);
 			
