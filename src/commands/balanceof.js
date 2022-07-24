@@ -26,9 +26,9 @@ module.exports = {
 				for (const addr of wallets.filter(address => isAddress(address))) {
 					// query balance of address
 					const [polygonBalance] = await Promise.all([
-						polygonPassContract.tokenURI(addr),
+						polygonPassContract.balanceOf(addr),
 					]);
-					if (polygonBalance) {
+					if (polygonBalance.toNumber() > 0) {
 						balanceOfPolygon += polygonBalance.toNumber();
 						let tokenIdOfPolygonPromise = [];
 						for (let i = 0; i < polygonBalance.toNumber(); i++) {
