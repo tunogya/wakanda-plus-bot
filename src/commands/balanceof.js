@@ -53,7 +53,7 @@ module.exports = {
 				await interaction.reply({
 					content: `${member.displayName.toUpperCase()} total have *${balanceOfRinkeby} RinkebyPASS*, *${balanceOfMumbai} MumbaiPASS* and *${balanceOfGoerli} GoerliPASS*.
 					
-> Note: Use */balanceof Wakanda+* command can query the PASS which are NO MAN'S LAND. And then you can got them by */claim* command luckily.`,
+> Note: Use */balanceof Wakanda+* command can query the PASS which are NO MAN'S LAND. And then you can got them by */portal* command luckily.`,
 				});
 			} catch (e) {
 				console.log(e)
