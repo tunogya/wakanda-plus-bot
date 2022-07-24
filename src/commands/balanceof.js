@@ -24,7 +24,6 @@ module.exports = {
 				let balanceOfGoerli = 0;
 				let tokenURIOfGoerli = [];
 				for (const addr of wallets.filter(address => isAddress(address))) {
-					let tokenIdOfGoerli = [];
 					// query balance of address
 					const [goerliBalance] = await Promise.all([
 						goerliPassContract.balanceOf(addr),
@@ -36,7 +35,7 @@ module.exports = {
 						for (let i = 0; i < goerliBalance.toNumber(); i++) {
 							tokenIdOfGoerliPromise.push(goerliPassContract.tokenOfOwnerByIndex(addr, i));
 						}
-						tokenIdOfGoerli = await Promise.all(tokenIdOfGoerliPromise);
+						const tokenIdOfGoerli = await Promise.all(tokenIdOfGoerliPromise);
 						for (let i = 0; i < goerliBalance.toNumber(); i++) {
 							tokenURIOfGoerliPromise.push(goerliPassContract.tokenURI(tokenIdOfGoerli[i]));
 						}
