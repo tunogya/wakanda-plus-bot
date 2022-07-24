@@ -31,16 +31,13 @@ module.exports = {
 					if (goerliBalance) {
 						balanceOfGoerli += goerliBalance.toNumber();
 						let tokenIdOfGoerliPromise = [];
-						let tokenURIOfGoerliPromise = [];
 						for (let i = 0; i < goerliBalance.toNumber(); i++) {
 							tokenIdOfGoerliPromise.push(goerliPassContract.tokenOfOwnerByIndex(addr, i));
 						}
 						const tokenIdOfGoerli = await Promise.all(tokenIdOfGoerliPromise);
-						for (let i = 0; i < goerliBalance.toNumber(); i++) {
-							tokenURIOfGoerliPromise.push(goerliPassContract.tokenURI(tokenIdOfGoerli[i]));
-						}
-						const tokenURI = await Promise.all(tokenURIOfGoerliPromise);
-						tokenURIOfGoerli = [...tokenURIOfGoerli, ...tokenURI]
+						const tokenURIOfGoerliPromise = tokenIdOfGoerli.map((tokenId) => goerliPassContract.tokenURI(tokenId))
+						const tokenURIs = await Promise.all(tokenURIOfGoerliPromise);
+						tokenURIOfGoerli = [...tokenURIOfGoerli, ...tokenURIs]
 					}
 				}
 				if (balanceOfGoerli) {
