@@ -22,11 +22,26 @@ module.exports = {
 				const wallets = Array.from(info.wallets);
 				const goerliPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], geohash_abi, GoerliProvider)
 				let balanceOfGoerli = 0;
+				let tokenIdOfGoerli = [];
+				let tokenURIOfGoerli = [];
 				for (const addr of wallets.filter(address => isAddress(address))) {
 					// query balance of address
 					const [goerliBalance] = await Promise.all([
 						goerliPassContract.balanceOf(addr),
 					]);
+					if (goerliBalance) {
+						balanceOfGoerli += goerliBalance;
+						let tokenIdOfGoerliPromise = [];
+						let tokenURIOfGoerliPromise = [];
+						for (let i=0; i<goerliBalance; i++) {
+							tokenIdOfGoerliPromise.push(goerliPassContract.tokenOfOwnerByIndex(addr, i));
+						}
+						tokenIdOfGoerli = await Promise.all(tokenIdOfGoerliPromise);
+						for (let i=0; i<goerliBalance; i++) {
+							tokenURIOfGoerliPromise.push(goerliPassContract.tokenURI(tokenIdOfGoerli[i]));
+						}
+						tokenURIOfGoerli = await Promise.all(tokenURIOfGoerliPromise);
+					}
 					balanceOfGoerli += goerliBalance.toNumber();
 				}
 				if (balanceOfGoerli) {
@@ -35,7 +50,7 @@ module.exports = {
 					member.roles.remove('999338334692327494')
 				}
 				await interaction.reply({
-					content: `${member.displayName.toUpperCase()} total have *${balanceOfGoerli} GoerliPASS*.
+					content: `${member.displayName.toUpperCase()} total have *${balanceOfGoerli} GoerliPASS*. They are: ${tokenURIOfGoerli.join(', ')}
 					
 > Note: Use */balanceof Wakanda+* command can query the PASS which are NO MAN'S LAND. And then you can got them by */portal* command luckily.`,
 				});
