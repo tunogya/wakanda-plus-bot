@@ -28,6 +28,8 @@ Click here to claim: *${getExplorerLink(SupportedChainId.POLYGON_MUMBAI, WAKANDA
 
 Goerli has ${goerliBalance.toNumber()} PASS that can be claimed.
 Click here to claim: *${getExplorerLink(SupportedChainId.GOERLI, WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], ExplorerDataType.TOKEN)}*
+
+> Note: If you don't know the tokenId which is needed by claim action, please *Read Contract* and use *tokenOfOwnerByIndex()* to get tokenId. The owner is the Contract address.
 `,
 			ephemeral: true
 		})
