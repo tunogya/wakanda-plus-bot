@@ -30,19 +30,18 @@ module.exports = {
 						goerliPassContract.balanceOf(addr),
 					]);
 					if (goerliBalance) {
-						balanceOfGoerli += goerliBalance;
+						balanceOfGoerli += goerliBalance.toNumber();
 						let tokenIdOfGoerliPromise = [];
 						let tokenURIOfGoerliPromise = [];
-						for (let i=0; i<goerliBalance; i++) {
+						for (let i = 0; i < goerliBalance.toNumber(); i++) {
 							tokenIdOfGoerliPromise.push(goerliPassContract.tokenOfOwnerByIndex(addr, i));
 						}
 						tokenIdOfGoerli = await Promise.all(tokenIdOfGoerliPromise);
-						for (let i=0; i<goerliBalance; i++) {
+						for (let i = 0; i < goerliBalance.toNumber(); i++) {
 							tokenURIOfGoerliPromise.push(goerliPassContract.tokenURI(tokenIdOfGoerli[i]));
 						}
 						tokenURIOfGoerli = await Promise.all(tokenURIOfGoerliPromise);
 					}
-					balanceOfGoerli += goerliBalance.toNumber();
 				}
 				if (balanceOfGoerli) {
 					member.roles.add('999338334692327494')
@@ -50,7 +49,7 @@ module.exports = {
 					member.roles.remove('999338334692327494')
 				}
 				await interaction.reply({
-					content: `${member.displayName.toUpperCase()} total have *${balanceOfGoerli} GoerliPASS*. They are: ${tokenURIOfGoerli.join(', ')}
+					content: `${member.displayName.toUpperCase()} total have *${balanceOfGoerli} GoerliPASS*. They are: ${tokenURIOfGoerli.map((item) => `#${item}`).join(', ')}
 					
 > Note: Use */balanceof Wakanda+* command can query the PASS which are NO MAN'S LAND. And then you can got them by */portal* command luckily.`,
 				});
