@@ -5,7 +5,7 @@ const ethers = require("ethers");
 const { WAKANDAPASS_ADDRESS } = require("../constant/address");
 const SupportedChainId = require("../constant/chains");
 const geohash_abi = require("../abis/geohash.json");
-const { RinkebyProvider, MumbaiProvider, GoerliProvider } = require("../libs/web3");
+const { GoerliProvider } = require("../libs/web3");
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -20,30 +20,14 @@ module.exports = {
 			const info = q.Item;
 			try {
 				const wallets = Array.from(info.wallets);
-				const rinkebyPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.RINKEBY], geohash_abi, RinkebyProvider)
-				const mumbaiPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON_MUMBAI], geohash_abi, MumbaiProvider)
 				const goerliPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], geohash_abi, GoerliProvider)
-				let balanceOfRinkeby = 0, balanceOfMumbai = 0, balanceOfGoerli = 0;
+				let balanceOfGoerli = 0;
 				for (const addr of wallets.filter(address => isAddress(address))) {
 					// query balance of address
-					const [rinkebyBalance, mumbaiBalance, goerliBalance] = await Promise.all([
-						rinkebyPassContract.balanceOf(addr),
-						mumbaiPassContract.balanceOf(addr),
+					const [goerliBalance] = await Promise.all([
 						goerliPassContract.balanceOf(addr),
 					]);
-					balanceOfRinkeby += rinkebyBalance.toNumber();
-					balanceOfMumbai += mumbaiBalance.toNumber();
 					balanceOfGoerli += goerliBalance.toNumber();
-				}
-				if (balanceOfRinkeby) {
-					member.roles.add('989763514077945906')
-				} else {
-					member.roles.remove('989763514077945906')
-				}
-				if (balanceOfMumbai) {
-					member.roles.add('989764462342983720')
-				} else {
-					member.roles.remove('989764462342983720')
 				}
 				if (balanceOfGoerli) {
 					member.roles.add('999338334692327494')
@@ -51,7 +35,7 @@ module.exports = {
 					member.roles.remove('999338334692327494')
 				}
 				await interaction.reply({
-					content: `${member.displayName.toUpperCase()} total have *${balanceOfRinkeby} RinkebyPASS*, *${balanceOfMumbai} MumbaiPASS* and *${balanceOfGoerli} GoerliPASS*.
+					content: `${member.displayName.toUpperCase()} total have *${balanceOfGoerli} GoerliPASS*.
 					
 > Note: Use */balanceof Wakanda+* command can query the PASS which are NO MAN'S LAND. And then you can got them by */portal* command luckily.`,
 				});
