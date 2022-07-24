@@ -1,9 +1,9 @@
 const SupportedChainId = require('./chains')
 
 const WAKANDAPASS_ADDRESS = {
-	[SupportedChainId.MAINNET]: '',
-	[SupportedChainId.POLYGON]: '',
-	[SupportedChainId.GOERLI]: '0x35637CeE1b8f4f4C7a1c74f2d25B66C008aB2d63',
+	[SupportedChainId.MAINNET]: '0x9eff416DA89df623e66e4D59f09f6dcdd44ac2c4',
+	[SupportedChainId.POLYGON]: '0x9eff416DA89df623e66e4D59f09f6dcdd44ac2c4',
+	[SupportedChainId.GOERLI]: '0x9eff416DA89df623e66e4D59f09f6dcdd44ac2c4',
 }
 
 module.exports = {
