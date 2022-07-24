@@ -22,9 +22,9 @@ module.exports = {
 				const wallets = Array.from(info.wallets);
 				const goerliPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], geohash_abi, GoerliProvider)
 				let balanceOfGoerli = 0;
-				let tokenIdOfGoerli = [];
 				let tokenURIOfGoerli = [];
 				for (const addr of wallets.filter(address => isAddress(address))) {
+					let tokenIdOfGoerli = [];
 					// query balance of address
 					const [goerliBalance] = await Promise.all([
 						goerliPassContract.balanceOf(addr),
@@ -40,7 +40,8 @@ module.exports = {
 						for (let i = 0; i < goerliBalance.toNumber(); i++) {
 							tokenURIOfGoerliPromise.push(goerliPassContract.tokenURI(tokenIdOfGoerli[i]));
 						}
-						tokenURIOfGoerli = await Promise.all(tokenURIOfGoerliPromise);
+						const tokenURI = await Promise.all(tokenURIOfGoerliPromise);
+						tokenURIOfGoerli = [...tokenURIOfGoerli, ...tokenURI]
 					}
 				}
 				if (balanceOfGoerli) {
