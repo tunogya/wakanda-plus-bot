@@ -15,7 +15,7 @@ module.exports = {
 	async execute(interaction) {
 		const member = interaction.options.getMember('member') ?? interaction.member;
 		const id = await getIdByUserId(member.id);
-		if (id) {
+		if (id !== undefined) {
 			const q = await getUser(id);
 			const info = q.Item;
 			try {
@@ -60,7 +60,6 @@ module.exports = {
 					ephemeral: true,
 				});
 			}
-			
 		} else {
 			await interaction.reply({
 				content: `${member.displayName} is not a member of Wakanda.`,
