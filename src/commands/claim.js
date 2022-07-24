@@ -31,7 +31,6 @@ Click here to claim: *${getExplorerLink(SupportedChainId.GOERLI, WAKANDAPASS_ADD
 
 > Note: If you don't know the tokenId which is needed by claim action, please *Read Contract* and use *tokenOfOwnerByIndex()* to get tokenId. The owner is the Contract address.
 `,
-			ephemeral: true
 		})
 	},
 };
