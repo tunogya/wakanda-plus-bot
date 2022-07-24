@@ -51,7 +51,7 @@ module.exports = {
 					member.roles.remove('999338334692327494')
 				}
 				await interaction.reply({
-					content: `${member.displayName} total have *${balanceOfRinkeby} RinkebyPASS*, *${balanceOfMumbai} PolygonPASS* and *${balanceOfGoerli} GoerliPASS*.`,
+					content: `${member.displayName} total have *${balanceOfRinkeby} RinkebyPASS*, *${balanceOfMumbai} MumbaiPASS* and *${balanceOfGoerli} GoerliPASS*.`,
 				});
 			} catch (e) {
 				console.log(e)
