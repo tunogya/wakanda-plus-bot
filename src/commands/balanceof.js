@@ -46,7 +46,7 @@ module.exports = {
 					member.roles.remove('999338334692327494')
 				}
 				await interaction.reply({
-					content: `${member.displayName.toUpperCase()} have *${balanceOfGoerli} GoerliPASS*. ${balanceOfGoerli && (`They are: ${tokenURIOfGoerli.map((tokenURI) => `#${tokenURI}`).join(', ')}.`)}
+					content: `${member.displayName.toUpperCase()} have *${balanceOfGoerli} GoerliPASS*. ${(balanceOfGoerli > 0) && (`They are: ${tokenURIOfGoerli.map((tokenURI) => `#${tokenURI}`).join(', ')}.`)}
 					
 > Note: Use */balanceof Wakanda+* command can query the PASS which are NO MAN'S LAND. And then you can got them by */portal* command luckily.`,
 				});
