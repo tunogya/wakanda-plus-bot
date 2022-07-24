@@ -1,22 +1,20 @@
 const SupportedChainId = require("../constant/chains");
 
-const ETHERSCAN_PREFIXES: { [chainId: number]: string } = {
+const ETHERSCAN_PREFIXES = {
   [SupportedChainId.MAINNET]: 'https://etherscan.io',
-  [SupportedChainId.ROPSTEN]: 'https://ropsten.etherscan.io',
   [SupportedChainId.RINKEBY]: 'https://rinkeby.etherscan.io',
   [SupportedChainId.GOERLI]: 'https://goerli.etherscan.io',
-  [SupportedChainId.KOVAN]: 'https://kovan.etherscan.io',
   [SupportedChainId.OPTIMISM]: 'https://optimistic.etherscan.io',
   [SupportedChainId.OPTIMISTIC_KOVAN]: 'https://kovan-optimistic.etherscan.io',
   [SupportedChainId.POLYGON_MUMBAI]: 'https://mumbai.polygonscan.com',
   [SupportedChainId.POLYGON]: 'https://polygonscan.com',
 }
 
-enum ExplorerDataType {
-  TRANSACTION = 'transaction',
-  TOKEN = 'token',
-  ADDRESS = 'address',
-  BLOCK = 'block',
+const ExplorerDataType = {
+  TRANSACTION: 'transaction',
+  TOKEN: 'token',
+  ADDRESS: 'address',
+  BLOCK: 'block',
 }
 
 /**
@@ -25,7 +23,7 @@ enum ExplorerDataType {
  * @param data the data to return a link for
  * @param type the type of the data
  */
-function getExplorerLink(chainId: number, data: string, type: ExplorerDataType): string {
+function getExplorerLink(chainId, data, type) {
   if (chainId === SupportedChainId.ARBITRUM_ONE) {
     switch (type) {
       case ExplorerDataType.TRANSACTION:
