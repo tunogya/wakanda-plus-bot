@@ -20,13 +20,13 @@ module.exports = {
 		const goerliBalance = await goerliPassContract.balanceOf(WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI])
 		
 		await interaction.reply({
-			content: `Rinkeby: ${rinkebyBalance.toNumber()} PASS could be claimed.
+			content: `Rinkeby has ${rinkebyBalance.toNumber()} PASS that can be claimed.
 Click here to claim: *${getExplorerLink(SupportedChainId.RINKEBY, WAKANDAPASS_ADDRESS[SupportedChainId.RINKEBY], ExplorerDataType.TOKEN)}*
 
-Mumbai: ${mumbaiBalance.toNumber()} PASS could be claimed.
+Mumbai has ${mumbaiBalance.toNumber()} PASS that can be claimed.
 Click here to claim: *${getExplorerLink(SupportedChainId.POLYGON_MUMBAI, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON_MUMBAI], ExplorerDataType.TOKEN)}*
 
-Goerli: ${goerliBalance.toNumber()} PASS could be claimed.
+Goerli has ${goerliBalance.toNumber()} PASS that can be claimed.
 Click here to claim: *${getExplorerLink(SupportedChainId.GOERLI, WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], ExplorerDataType.TOKEN)}*
 `,
 			ephemeral: true
