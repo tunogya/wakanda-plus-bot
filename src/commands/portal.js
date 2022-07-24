@@ -9,7 +9,10 @@ module.exports = {
 			.setDescription('Portal of WakandaPass.'),
 	async execute(interaction) {
 		await interaction.reply({
-			content: `Goerli portal: *${getExplorerLink(SupportedChainId.GOERLI, WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], ExplorerDataType.TOKEN)}*
+			content: `Polygon portal: *${getExplorerLink(SupportedChainId.POLYGON, ExplorerDataType.TOKEN)}*
+
+*Testnet*
+Goerli portal: *${getExplorerLink(SupportedChainId.GOERLI, WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], ExplorerDataType.TOKEN)}*
 `,
 		})
 	},
