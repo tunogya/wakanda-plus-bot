@@ -21,13 +21,13 @@ module.exports = {
 		
 		await interaction.reply({
 			content: `Rinkeby has ${rinkebyBalance.toNumber()} PASS that can be claimed.
-Click here to claim: *${getExplorerLink(SupportedChainId.RINKEBY, WAKANDAPASS_ADDRESS[SupportedChainId.RINKEBY], ExplorerDataType.TOKEN)}*
+Click here to claim: *${getExplorerLink(SupportedChainId.RINKEBY, WAKANDAPASS_ADDRESS[SupportedChainId.RINKEBY], ExplorerDataType.TOKEN)}#writeContract#F2*
 
 Mumbai has ${mumbaiBalance.toNumber()} PASS that can be claimed.
-Click here to claim: *${getExplorerLink(SupportedChainId.POLYGON_MUMBAI, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON_MUMBAI], ExplorerDataType.TOKEN)}*
+Click here to claim: *${getExplorerLink(SupportedChainId.POLYGON_MUMBAI, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON_MUMBAI], ExplorerDataType.TOKEN)}#writeContract#F2*
 
 Goerli has ${goerliBalance.toNumber()} PASS that can be claimed.
-Click here to claim: *${getExplorerLink(SupportedChainId.GOERLI, WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], ExplorerDataType.TOKEN)}*
+Click here to claim: *${getExplorerLink(SupportedChainId.GOERLI, WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], ExplorerDataType.TOKEN)}#writeContract#F2*
 
 > Note: If you don't know the tokenId which is needed by claim action, please *Read Contract* and use *tokenOfOwnerByIndex()* to get tokenId. The owner is the Contract address.
 `,
