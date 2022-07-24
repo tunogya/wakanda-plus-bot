@@ -15,7 +15,7 @@ module.exports = {
 	async execute(interaction) {
 		const member = interaction.options.getMember('member') ?? interaction.member;
 		const id = await getIdByUserId(member.id);
-		if (id !== undefined) {
+		if (id !== null) {
 			const q = await getUser(id);
 			const info = q.Item;
 			try {
