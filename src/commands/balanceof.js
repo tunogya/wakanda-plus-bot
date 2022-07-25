@@ -66,6 +66,7 @@ module.exports = {
 				await interaction.reply({
 					content: `${member.displayName.toUpperCase()} have *${balanceOfPolygon} PolygonPASS*. ${(balanceOfPolygon > 0) ? (`They are: ${tokenURIOfPolygon.map((tokenURI) => `#${tokenURI}`).join(', ')}.`) : ''}
 ${(`${member.displayName.toUpperCase()} have *${balanceOfGoerli} GoerliPASS*. ${(balanceOfGoerli > 0) ? (`They are: ${tokenURIOfGoerli.map((tokenURI) => `#${tokenURI}`).join(', ')}.`) : ''}`)}
+
 > Note: Use */balanceof Wakanda+* command can query the PASS which are NO MAN'S LAND. And then you can got them by */portal* command luckily.`,
 				});
 			} catch (e) {
