@@ -53,6 +53,11 @@ module.exports = {
 						tokenURIOfGoerli = [...tokenURIOfGoerli, ...tokenURIs]
 					}
 				}
+				if (balanceOfGoerli) {
+					member.roles.add('999338334692327494')
+				} else {
+					member.roles.remove('999338334692327494')
+				}
 				if (balanceOfPolygon) {
 					member.roles.add('1000792723080609843')
 				} else {
