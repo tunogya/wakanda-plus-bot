@@ -1,4 +1,7 @@
 const SupportedChainId = require('./chains')
+const dotenv = require('dotenv');
+dotenv.config();
+
 const INFURA_KEY = process.env.INFURA_KEY
 if (typeof INFURA_KEY === 'undefined') {
 	throw new Error(`REACT_APP_INFURA_KEY must be a defined environment variable`)

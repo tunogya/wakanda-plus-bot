@@ -22,23 +22,11 @@ module.exports = {
 				const wallets = Array.from(info.wallets);
 				const polygonPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], wakandapass_abi, PolygonProvider)
 				let balanceOfPolygon = 0;
-				let tokenURIOfPolygon = [];
 				for (const addr of wallets.filter(address => isAddress(address))) {
-					// query balance of address
 					const [polygonBalance] = await Promise.all([
 						polygonPassContract.balanceOf(addr),
 					]);
-					if (polygonBalance.toNumber() > 0) {
-						balanceOfPolygon += polygonBalance.toNumber();
-						let tokenIdPromises = [];
-						for (let i = 0; i < polygonBalance.toNumber(); i++) {
-							tokenIdPromises.push(polygonPassContract.tokenOfOwnerByIndex(addr, i));
-						}
-						const tokenIds = await Promise.all(tokenIdPromises);
-						const tokenURIPromises = tokenIds.map((tokenId) => polygonPassContract.tokenURI(tokenId))
-						const tokenURIs = await Promise.all(tokenURIPromises);
-						tokenURIOfPolygon = [...tokenURIOfPolygon, ...tokenURIs]
-					}
+					balanceOfPolygon += polygonBalance.toNumber();
 				}
 				if (balanceOfPolygon) {
 					member.roles.add('1000792723080609843')
@@ -53,13 +41,13 @@ module.exports = {
 			} catch (e) {
 				console.log(e)
 				await interaction.reply({
-					content: 'Error while querying balance.',
+					content: 'Do not wary, it is not your fail. Something was wrong while querying the data in etherscan.',
 					ephemeral: true,
 				});
 			}
 		} else {
 			await interaction.reply({
-				content: `${member.displayName} is not a member of Wakanda.`,
+				content: `${member.displayName} did not link any wallet to Wakanda.`,
 				ephemeral: true,
 			});
 		}
