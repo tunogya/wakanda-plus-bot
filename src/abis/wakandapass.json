@@ -131,7 +131,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "tokenId_",
+        "name": "tokenId",
         "type": "uint256"
       }
     ],
@@ -144,11 +144,11 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "tokenURI_",
+        "name": "geohash",
         "type": "string"
       }
     ],
-    "name": "claimByURI",
+    "name": "claimByGeohash",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -157,7 +157,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "tokenId_",
+        "name": "tokenId",
         "type": "uint256"
       }
     ],
@@ -170,11 +170,11 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "tokenURI_",
+        "name": "geohash",
         "type": "string"
       }
     ],
-    "name": "divideByURI",
+    "name": "divideByGeohash",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -292,7 +292,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "tokenId_",
+        "name": "tokenId",
         "type": "uint256"
       }
     ],
@@ -305,11 +305,11 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "tokenURI_",
+        "name": "geohash",
         "type": "string"
       }
     ],
-    "name": "renounceByURI",
+    "name": "renounceByGeohash",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -418,6 +418,30 @@
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "geohash",
+        "type": "string"
+      }
+    ],
+    "name": "tokenByGeohash",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "exist",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "index",
         "type": "uint256"
@@ -429,30 +453,6 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "tokenURI_",
-        "type": "string"
-      }
-    ],
-    "name": "tokenByURI",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "tokenId_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "exist_",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -486,7 +486,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "tokenId_",
+        "name": "tokenId",
         "type": "uint256"
       }
     ],

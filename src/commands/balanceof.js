@@ -4,7 +4,7 @@ const { isAddress } = require("../utils/address");
 const ethers = require("ethers");
 const { WAKANDAPASS_ADDRESS } = require("../constant/address");
 const SupportedChainId = require("../constant/chains");
-const geohash_abi = require("../abis/geohash.json");
+const wakandapass_abi = require("../abis/wakandapass.json");
 const { PolygonProvider } = require("../libs/web3");
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
 			const info = q.Item;
 			try {
 				const wallets = Array.from(info.wallets);
-				const polygonPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], geohash_abi, PolygonProvider)
+				const polygonPassContract = new ethers.Contract(WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], wakandapass_abi, PolygonProvider)
 				let balanceOfPolygon = 0;
 				let tokenURIOfPolygon = [];
 				for (const addr of wallets.filter(address => isAddress(address))) {
