@@ -32,7 +32,15 @@ module.exports = {
 		// Polygon PASS
 		if (!member.roles.cache.some(role => role.id === '1000792723080609843')) {
 			await interaction.reply({
-				content: 'Sorry, openAI only for our member with WakandaPass. You can try /balanceOf Wakanda+ or visit our OpenSea: https://opensea.io/collection/wakandapass',
+				content: `Sorry, these features are only available to members.
+
+Please use the /connectwallet command to associate your wallet address, and use /balanceof to check your Pass balance.
+If everything is fine, we will automatically grant you permission.
+
+How to get WakandaPass?
+1. Query NO MAN's LAND by command: /balanceof Wakanda+.
+2. Visit our official portal by command: /portal.
+3. Visit [OpenSea](https://opensea.io/collection/wakandapass).`,
 				ephemeral: true,
 			});
 		}
