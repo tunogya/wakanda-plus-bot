@@ -10,9 +10,6 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.reply({
 			content: `Polygon portal: *${getExplorerLink(SupportedChainId.POLYGON, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], ExplorerDataType.TOKEN)}*
-
-*Testnet*
-Goerli portal: *${getExplorerLink(SupportedChainId.GOERLI, WAKANDAPASS_ADDRESS[SupportedChainId.GOERLI], ExplorerDataType.TOKEN)}*
 `,
 		})
 	},
