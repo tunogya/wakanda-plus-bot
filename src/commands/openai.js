@@ -28,6 +28,15 @@ module.exports = {
 		const presence_penalty = interaction.options.getNumber('presence_penalty') ?? 0;
 		const best_of = interaction.options.getInteger('best_of') ?? interaction.options.getInteger('n') ?? 1;
 		
+		const member = interaction.member;
+		// Polygon PASS
+		if (!member.roles.cache.some(role => role.id === '1000792723080609843')) {
+			await interaction.reply({
+				content: 'Sorry, openAI only for our member with WakandaPass. You can try /balanceOf Wakanda+ or visit our OpenSea: https://opensea.io/collection/wakandapass',
+				ephemeral: true,
+			});
+		}
+		
 		if (model !== 'text-ada-001' && model !== 'text-babbage-001' && model !== 'text-curie-001' && model !== 'text-davinci-002') {
 			return interaction.reply('Invalid model name. Only text-davinci-002, text-curie-001, text-babbage-001, text-ada-001 are supported.');
 		}
