@@ -18,17 +18,10 @@ const main = async () => {
 		]);
 		if (polygonBalance.toNumber() > 0) {
 			balanceOfPolygon += polygonBalance.toNumber();
-			let tokenIdPromises = [];
-			let tokenURIs = [];
 			for (let i = 0; i < polygonBalance.toNumber(); i++) {
-				tokenIdPromises.push(polygonPassContract.tokenOfOwnerByIndex(addr, i));
+				const tokenId = await polygonPassContract.tokenOfOwnerByIndex(addr, i)
+				console.log(tokenId.toString())
 			}
-			const tokenIds = await Promise.all(tokenIdPromises);
-			tokenIds.forEach(tokenId => {
-				const tokenURI = polygonPassContract.tokenURI(tokenId);
-				tokenURIs.push(tokenURI);
-			})
-			tokenURIOfPolygon = [...tokenURIOfPolygon, ...tokenURIs]
 		}
 	}
 	console.log(balanceOfPolygon)
