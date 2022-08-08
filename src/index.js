@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Intents } = require('discord.js');
 const redisClient = require('./libs/redis.js');
+require("src/flow/config/flow.js");
 const dotenv = require('dotenv');
 dotenv.config();
 
