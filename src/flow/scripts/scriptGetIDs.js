@@ -1,5 +1,5 @@
-import { send, decode, script, args, arg, cdc } from "@onflow/fcl"
-import { Address } from "@onflow/types"
+const { send, decode, script, args, arg, cdc }  = require("@onflow/fcl")
+const { Address } = require("@onflow/types")
 
 const CODE = cdc`
 import NonFungibleToken from 0xf5c21ffd3438212b

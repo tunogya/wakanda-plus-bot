@@ -1,5 +1,5 @@
-import { send, decode, script, args, arg, cdc } from "@onflow/fcl"
-import * as t from "@onflow/types"
+const { send, decode, script, args, arg, cdc }  = require("@onflow/fcl")
+const { Address, UInt64 } = require("@onflow/types")
 
 const CODE = cdc`
 import NonFungibleToken from 0xf5c21ffd3438212b
@@ -19,7 +19,7 @@ pub fun main(address: Address, id: UInt64): String? {
 const scriptTokenURI = (address, id) => {
   if (address == null) return Promise.resolve(null)
 
-  return send([script(CODE), args([arg(address, t.Address), arg(id, t.UInt64)])]).then(decode)
+  return send([script(CODE), args([arg(address, Address), arg(id, UInt64)])]).then(decode)
 }
 
 module.exports = {

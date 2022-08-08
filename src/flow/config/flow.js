@@ -1,4 +1,4 @@
-import { config } from "@onflow/fcl";
+const { config } = require("@onflow/fcl");
 
 config({
 	"accessNode.api": "https://rest-testnet.onflow.org", // Mainnet: https://rest-mainnet.onflow.org
