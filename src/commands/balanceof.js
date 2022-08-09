@@ -31,7 +31,7 @@ module.exports = {
 				for (const addr of wallets.filter(address => !isAddress(address))) {
 					try {
 						const flowBalance = await scriptBalanceOf(addr);
-						balanceOfFlowTestnet += flowBalance.toNumber();
+						balanceOfFlowTestnet += flowBalance;
 					} catch (e) {
 						console.log(e)
 					}
