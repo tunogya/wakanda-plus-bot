@@ -30,7 +30,7 @@ module.exports = {
 		
 		const member = interaction.member;
 		// Polygon PASS
-		if (!member.roles.cache.some(role => role.id === '1000792723080609843')) {
+		if (!member.roles.cache.some(role => (role.id === '1000792723080609843' || role.id === '989761032572518470') )) {
 			await interaction.reply({
 				content: `Sorry, these features are only available to members.
 
