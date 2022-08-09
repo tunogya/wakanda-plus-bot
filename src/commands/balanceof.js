@@ -7,6 +7,7 @@ const SupportedChainId = require("../constant/chains");
 const wakandapass_abi = require("../abis/wakandapass.json");
 const { PolygonProvider } = require("../libs/web3");
 const { scriptBalanceOf } = require("../flow/scripts/scriptBalanceOf.js");
+const { BigNumber } = require("ethers");
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -31,7 +32,7 @@ module.exports = {
 				for (const addr of wallets.filter(address => !isAddress(address))) {
 					try {
 						const flowBalance = await scriptBalanceOf(addr);
-						balanceOfFlowTestnet += Number(flowBalance);
+						balanceOfFlowTestnet += BigNumber.from(flowBalance).toNumber();
 					} catch (e) {
 						console.log(e)
 					}
