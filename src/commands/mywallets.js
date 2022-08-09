@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { getUser } = require('../dynamodb/wakandaplus.js');
 const { MessageActionRow, MessageButton } = require('discord.js');
-const { shortenAddress } = require('../utils/address');
+const { shortenAddress, isAddress } = require('../utils/address');
 const { getIdByUserId } = require('../dynamodb/wakandaplus.js');
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
 				const row = new MessageActionRow().addComponents(
 					wallets.slice(0, 4).map((address) => new MessageButton()
 						.setCustomId(address)
-						.setLabel(shortenAddress(address))
+						.setLabel(isAddress(address) ? shortenAddress(address) : address)
 						.setStyle('SECONDARY'),
 					).concat(wallets.length > 4 ?
 						[new MessageButton()
