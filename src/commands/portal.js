@@ -9,9 +9,9 @@ module.exports = {
 			.setDescription('Portal of Wakanda+.'),
 	async execute(interaction) {
 		await interaction.reply({
-			content: `Polygon portal: *${getExplorerLink(SupportedChainId.POLYGON, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], ExplorerDataType.TOKEN)}*
+			content: `Polygon Portal: *[polygonscan](${getExplorerLink(SupportedChainId.POLYGON, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], ExplorerDataType.TOKEN)})*
 
-Flow portal: *[wakanda+](https://wakandaplus.wakanda-labs.com)*`,
+Flow Portal: *[wakanda+](https://wakandaplus.wakanda-labs.com)*`,
 		})
 	},
 };
