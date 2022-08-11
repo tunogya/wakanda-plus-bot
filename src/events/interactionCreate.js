@@ -39,8 +39,8 @@ Make sure you sign the message and **NEVER** share your seed phrase or private k
 				ephemeral: true,
 			});
 		}
-		else if (interaction.customId.slice(0, 9) === 'pickwallet') {
-			const wallet = interaction.customId.slice(10);
+		else if (interaction.customId.slice(0, 10) === 'pickwallet') {
+			const wallet = interaction.customId.slice(11);
 			const row = new MessageActionRow().addComponents([
 				new MessageButton()
 					.setCustomId(`deletewallet-${wallet}`)
