@@ -39,10 +39,11 @@ Make sure you sign the message and **NEVER** share your seed phrase or private k
 				ephemeral: true,
 			});
 		}
-		else if (isAddress(interaction.customId)) {
+		else if (interaction.customId.slice(0, 9) === 'pickwallet') {
+			const wallet = interaction.customId.slice(10);
 			const row = new MessageActionRow().addComponents([
 				new MessageButton()
-					.setCustomId(`deletewallet-${interaction.customId}`)
+					.setCustomId(`deletewallet-${wallet}`)
 					.setLabel('Delete wallet')
 					.setStyle('SECONDARY'),
 				new MessageButton()
@@ -52,7 +53,7 @@ Make sure you sign the message and **NEVER** share your seed phrase or private k
 			]);
 			
 			await interaction.update({
-				content: `You select ${shortenAddress(interaction.customId)}`,
+				content: `You select ${wallet}`,
 				components: [row],
 				ephemeral: true,
 			});
@@ -68,7 +69,7 @@ Make sure you sign the message and **NEVER** share your seed phrase or private k
 					const row = new MessageActionRow().addComponents(
 						wallets.slice(0, 4).map((address) => new MessageButton()
 							.setCustomId(address)
-							.setLabel(shortenAddress(address))
+							.setLabel(isAddress(address) ? shortenAddress(address) : address)
 							.setStyle('SECONDARY'),
 						).concat(wallets.length > 4 ?
 							[new MessageButton()

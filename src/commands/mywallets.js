@@ -17,7 +17,7 @@ module.exports = {
 				const wallets = Array.from(info.wallets);
 				const row = new MessageActionRow().addComponents(
 					wallets.slice(0, 4).map((address) => new MessageButton()
-						.setCustomId(address)
+						.setCustomId(`pickwallet-${address}`)
 						.setLabel(isAddress(address) ? shortenAddress(address) : address)
 						.setStyle('SECONDARY'),
 					).concat(wallets.length > 4 ?
