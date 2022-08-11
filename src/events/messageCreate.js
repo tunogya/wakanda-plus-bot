@@ -5,10 +5,10 @@ module.exports = {
 	name: 'messageCreate',
 	async execute(message) {
 		if (message.author.bot) return;
-		await message.channel.sendTyping();
 		// check if the message is in a channel that is in the list of channels that we want to listen to
 		const intention = await redisClient.get(`${message.guildId}-${message.channelId}-${message.author.id}-intention`);
 		if (intention) {
+			await message.channel.sendTyping();
 			const intentionObj = JSON.parse(intention);
 			const response = await openai.createCompletion({
 				model: intentionObj.model,
