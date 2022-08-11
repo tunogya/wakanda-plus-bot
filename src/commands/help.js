@@ -11,6 +11,7 @@ You can control me by sending these commands:
 
 */connectwallet* - connect a new wallet
 */mywallets* - manage your wallets
+*/portal* - portal of Wakanda+
 
 **Edit Wallets**
 */deletewallet* - delete a wallet
