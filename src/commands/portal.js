@@ -10,7 +10,6 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.reply({
 			content: `Polygon Portal: *[polygonscan](${getExplorerLink(SupportedChainId.POLYGON, WAKANDAPASS_ADDRESS[SupportedChainId.POLYGON], ExplorerDataType.TOKEN)})*
-
 Flow Portal: *[wakanda+](https://wakandaplus.wakanda-labs.com)*`,
 		})
 	},

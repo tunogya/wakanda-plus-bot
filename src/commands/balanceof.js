@@ -52,7 +52,6 @@ module.exports = {
 				
 				await interaction.reply({
 					content: `${member.displayName} have *${balanceOfPolygon} Polygon PASS* and *${balanceOfFlowTestnet} Flow Testnet Pass*.
-
 > Note: Use */balanceof Wakanda+* command can query the PASS which are NO MAN'S LAND. And then you can got them by */portal* command luckily.`,
 				});
 			} catch (e) {
